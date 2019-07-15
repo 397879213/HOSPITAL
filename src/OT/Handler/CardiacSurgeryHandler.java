@@ -1,0 +1,357 @@
+package OT.Handler;
+
+import OT.BO.CardiacSurgery;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import utilities.Constants;
+import utilities.Database;
+
+public class CardiacSurgeryHandler {
+
+    String[] selectTypes = {"-", "ID", "CON", "ODI", "TYPE_DETAIL_ID",
+        "DESCRIPTION", "DEF_TYPE_ID", "CRTD_BY", "REMARKS", "CRTD_DATE", "CRTD_TERMINAL"};
+
+    String pendingGeneralQuery = " SELECT                                \n"
+            + "  OSD.ID                       ID,                        \n"
+            + "  OSD.CON                      CON,                       \n"
+            + "  OSD.ODI                      ODI,                       \n"
+            + "  DT.DESCRIPTION               DESCRIPTION,               \n"
+            + "  OSD.TYPE_DETAIL_ID           TYPE_DETAIL_ID,            \n"
+            + "  OSD.DEF_TYPE_ID              DEF_TYPE_ID,               \n"
+            + "  OSD.REMARKS                  REMARKS,                   \n"
+            + "  OSD.CRTD_BY                  CRTD_BY,                   \n"
+            + "  OSD.CRTD_DATE                CRTD_DATE,                 \n"
+            + "  OSD.CRTD_TERMINAL            CRTD_TERMINAL              \n"
+            + "  FROM                                                    \n"
+            + Database.DCMS.otSetupDetail + "        OSD,                \n"
+            + Database.DCMS.definitionTypeDetail + " DT                  \n";
+
+    String pendingGeneralJoin = "  AND OSD.TYPE_DETAIL_ID = DT.ID        \n";
+
+    public List selectData(List list) {
+
+        List listOTProcedure = new ArrayList();
+        for (int i = 0; i < list.size(); i++) {
+            HashMap map = (HashMap) list.get(i);
+            CardiacSurgery otPro = new CardiacSurgery();
+            otPro.setId(map.get("ID").toString());
+            otPro.setTypeDetailId(map.get("TYPE_DETAIL_ID").toString());
+            otPro.setCompleteOrderNo(map.get("CON").toString());
+            otPro.setOrderDetailId(map.get("ODI").toString());
+            otPro.setDescription(map.get("DESCRIPTION").toString());
+            otPro.setDefTypeId(map.get("DEF_TYPE_ID").toString());
+            otPro.setType(map.get("REMARKS").toString());
+            otPro.setCrtdBy(map.get("CRTD_BY").toString());
+            otPro.setCrtdDate(map.get("CRTD_DATE").toString());
+            otPro.setCrtdTerminalId(map.get("CRTD_TERMINAL").toString());
+
+            if (otPro.getType().equalsIgnoreCase("LOV")) {
+                listOTProcedure.add(otPro);
+            }
+        }
+        return listOTProcedure;
+    }
+
+    public List selectDetails(String con, String odi, String typeDetailId, String deftypeid) {
+
+        String query = pendingGeneralQuery
+                + " WHERE 1=1";
+        if (!con.equalsIgnoreCase("")) {
+            query += "  AND OSD.CON = '" + con + "' \n";
+        }
+        if (!odi.equalsIgnoreCase("")) {
+            query += "  AND OSD.ODI = '" + odi + "' \n";
+        }
+        query += pendingGeneralJoin;
+
+        return selectData(Constants.dao.selectData(query, selectTypes));
+
+    }
+
+    public boolean insertOperDetail(CardiacSurgery operate) {
+
+        String[] columns = {Database.DCMS.otSetupDetail, "ID", "CON",
+            "ODI", "TYPE_DETAIL_ID", "DEF_TYPE_ID", "REMARKS", "CRTD_BY", 
+            "CRTD_DATE", "CRTD_TERMINAL"};
+
+        HashMap mapUsers = new HashMap();
+
+        mapUsers.put("ID", this.getId(Database.DCMS.otSetupDetail));
+        mapUsers.put("CON", "'" + operate.getCompleteOrderNo() + "'");
+        mapUsers.put("ODI", "'" + operate.getOrderDetailId() + "'");
+        mapUsers.put("TYPE_DETAIL_ID", "'" + operate.getTypeDetailId() + "'");
+        mapUsers.put("DEF_TYPE_ID", "'" + operate.getDefTypeId() + "'");
+        mapUsers.put("REMARKS", "'" + operate.getType() + "'");
+        mapUsers.put("CRTD_BY", "'" + Constants.userId + "'");
+        mapUsers.put("CRTD_DATE",  Constants.today );
+        mapUsers.put("CRTD_TERMINAL", "'" + Constants.terminalId + "'");
+        List listUsers = new ArrayList();
+        listUsers.add(mapUsers);
+        return Constants.dao.insertData(listUsers, columns);
+    }
+
+    public boolean updateStatus(String id, CardiacSurgery card) {
+        String query
+                = " UPDATE   " + Database.DCMS.otSetupDetail + "\n"
+                + " SET TYPE_DETAIL_ID = '" + card.getTypeDetailId() + "'        \n"
+                + " WHERE ID = '" + card.getId() + "'";
+        return Constants.dao.executeUpdate(query, false);
+    }
+
+    public boolean deleteOperationDetail(String id) {
+        String query
+                = " DELETE   " + Database.DCMS.otSetupDetail + "\n"
+                + " WHERE ID = '" + id + "'";
+        return Constants.dao.executeUpdate(query, false);
+    }
+
+    //CABG tables 
+    String[] selectCabgAndValve = {"-", "CON", "ODI", "ID", "CABG_PROC_ID",
+        "CRONARY_ARTERY_ID", "CONDUIT_ID", "DV_ID", "ENDART_ID", "PL", "FLOW",
+        "CRTD_BY", "CRTD_DATE", "CRTD_TERMINAL"};
+
+    String CabgQuery = " SELECT                                \n"
+            + "  OC.CON                      CON,                        \n"
+            + "  OC.ODI                      ODI,                        \n"
+            + "  OC.ID                       ID,                         \n"
+            + "  OC.CABG_PROC_ID             CABG_PROC_ID,               \n"
+            + "  OC.CRONARY_ARTERY_ID        CRONARY_ARTERY_ID,          \n"
+            + "  OC.CONDUIT_ID               CONDUIT_ID,                 \n"
+            + "  OC.DV_ID                    DV_ID,                      \n"
+            + "  OC.ENDART_ID                ENDART_ID,                  \n"
+            + "  OC.PL                       PL,                         \n"
+            + "  OC.FLOW                     FLOW,                       \n"
+            + "  OC.CRTD_BY                  CRTD_BY,                    \n"
+            + "  OC.CRTD_DATE                CRTD_DATE,                  \n"
+            + "  OC.CRTD_TERMINAL            CRTD_TERMINAL               \n"
+            + "  FROM                                                    \n"
+            + Database.DCMS.otCabg + "        OC,                        \n"
+            + Database.DCMS.definitionTypeDetail + " DT                  \n";
+
+    public List<CardiacSurgery> selectCabgProc(String con, String odi) {
+
+        String[] col = {"-", "CON", "ODI", "ID", "CABG_PROC_ID", "CABG_DESCRIPTION",
+            "CRONARY_ARTERY_ID", "CORONARY_DESCRIPTION", "CONDUIT_ID", "CONDUIT_DESCRIPTION",
+            "DV_ID", "DIS_VESS_DESCRIPTION", "ENDART_ID", "PL", "FLOW"};
+
+        String query = " SELECT                                \n"
+                + "  OC.CON                      CON,                        \n"
+                + "  OC.ODI                      ODI,                        \n"
+                + "  OC.ID                       ID,                         \n"
+                + "  OC.CABG_PROC_ID             CABG_PROC_ID,               \n"
+                + "  CBG.DESCRIPTION             CABG_DESCRIPTION,           \n"
+                + "  OC.CRONARY_ARTERY_ID        CRONARY_ARTERY_ID,          \n"
+                + "  CRO.DESCRIPTION             CORONARY_DESCRIPTION,       \n"
+                + "  OC.CONDUIT_ID               CONDUIT_ID,                 \n"
+                + "  CDT.DESCRIPTION             CONDUIT_DESCRIPTION,        \n"
+                + "  OC.DV_ID                    DV_ID,                      \n"
+                + "  DIV.DESCRIPTION             DIS_VESS_DESCRIPTION,       \n"
+                + "  OC.ENDART_ID                ENDART_ID,                  \n"
+                + "  OC.PL                       PL,                         \n"
+                + "  OC.FLOW                     FLOW                        \n"
+                + "  FROM                                                    \n"
+                + Database.DCMS.otCabg + "        OC,                        \n"
+                + Database.DCMS.definitionTypeDetail + " CBG,                \n"
+                + Database.DCMS.definitionTypeDetail + " CRO,                \n"
+                + Database.DCMS.definitionTypeDetail + " CDT,                \n"
+                + Database.DCMS.definitionTypeDetail + " DIV                 \n"
+                + " WHERE 1=1                                                \n"
+                + "  AND OC.CON = '" + con + "'                              \n"
+                + "  AND OC.ODI = '" + odi + "'                              \n"
+                + "  AND OC.CABG_PROC_ID = CBG.ID                            \n"
+                + "  AND OC.CRONARY_ARTERY_ID = CRO.ID                       \n"
+                + "  AND OC.CONDUIT_ID = CDT.ID                              \n"
+                + "  AND OC.DV_ID = DIV.ID  ";
+
+        List<HashMap> listMap = Constants.dao.selectData(query, col);
+        List<CardiacSurgery> listOTProcedure = new ArrayList();
+
+        for (int i = 0; i < listMap.size(); i++) {
+            HashMap map = (HashMap) listMap.get(i);
+            CardiacSurgery otPro = new CardiacSurgery();
+            otPro.setCompleteOrderNo(map.get("CON").toString());
+            otPro.setOrderDetailId(map.get("ODI").toString());
+            otPro.setCabgId(map.get("ID").toString());
+            otPro.setCabgProcId(map.get("CABG_PROC_ID").toString());
+            otPro.setCabgProcDescription(map.get("CABG_DESCRIPTION").toString());
+            otPro.setCronaryId(map.get("CRONARY_ARTERY_ID").toString());
+            otPro.setCronaryDescription(map.get("CORONARY_DESCRIPTION").toString());
+            otPro.setConduitId(map.get("CONDUIT_ID").toString());
+            otPro.setConduitDescription(map.get("CONDUIT_DESCRIPTION").toString());
+            otPro.setDistalVesselId(map.get("DV_ID").toString());
+            otPro.setDistalVesselDescription(map.get("DIS_VESS_DESCRIPTION").toString());
+            otPro.setEndart(map.get("ENDART_ID").toString());
+            otPro.setPi(map.get("PL").toString());
+            otPro.setFlow(map.get("FLOW").toString());
+            listOTProcedure.add(otPro);
+        }
+
+        return listOTProcedure;
+
+    }
+
+    public boolean insertCabgProcedure(CardiacSurgery operate) {
+
+        String[] columns = {Database.DCMS.otCabg, "CON", "ODI", "ID", "CABG_PROC_ID",
+            "CRONARY_ARTERY_ID", "CONDUIT_ID", "DV_ID", "ENDART_ID", "PL", "FLOW",
+            "CRTD_BY", "CRTD_TERMINAL"};
+
+        HashMap mapUsers = new HashMap();
+
+        mapUsers.put("ID", this.getId(Database.DCMS.otCabg));
+        mapUsers.put("CON", "'" + operate.getCompleteOrderNo() + "'");
+        mapUsers.put("ODI", "'" + operate.getOrderDetailId() + "'");
+        mapUsers.put("CABG_PROC_ID", "'" + operate.getCabgProcId() + "'");
+        mapUsers.put("CRONARY_ARTERY_ID", "'" + operate.getCronaryId() + "'");
+        mapUsers.put("CONDUIT_ID", "'" + operate.getConduitId() + "'");
+        mapUsers.put("DV_ID", "'" + operate.getDistalVesselId() + "'");
+        mapUsers.put("ENDART_ID", "'" + operate.getEndart() + "'");
+        mapUsers.put("PL", "'" + operate.getPi() + "'");
+        mapUsers.put("FLOW", "'" + operate.getFlow() + "'");
+        mapUsers.put("CRTD_BY", "'" + Constants.userId + "'");
+        mapUsers.put("CRTD_TERMINAL", "'" + Constants.terminalId + "'");
+        List listUsers = new ArrayList();
+        listUsers.add(mapUsers);
+        return Constants.dao.insertData(listUsers, columns);
+    }
+
+    public boolean deletecabgDetail(String id) {
+        String query
+                = " DELETE   " + Database.DCMS.otCabg + "\n"
+                + " WHERE ID = '" + id + "'";
+        return Constants.dao.executeUpdate(query, false);
+    }
+
+    public boolean insertValSurgery(CardiacSurgery operate) {
+
+        String[] columns = {Database.DCMS.otValveSurg, "ID", "CON", "ODI",
+            "VAL_SUR_ID", "PROC_OPT_ID", "EXPLANT_ID", "IMPLANT_ID", "TYPE_ID",
+            "VAL_SIZE", "SR_NO"};
+
+        HashMap mapUsers = new HashMap();
+
+        mapUsers.put("ID", this.getId(Database.DCMS.otValveSurg));
+        mapUsers.put("CON", "'" + operate.getCompleteOrderNo() + "'");
+        mapUsers.put("ODI", "'" + operate.getOrderDetailId() + "'");
+        mapUsers.put("VAL_SUR_ID", "'" + operate.getValSurId() + "'");
+        mapUsers.put("PROC_OPT_ID", "'" + operate.getProcOptId() + "'");
+        mapUsers.put("EXPLANT_ID", "'" + operate.getExpId() + "'");
+        mapUsers.put("IMPLANT_ID", "'" + operate.getImpId() + "'");
+        mapUsers.put("TYPE_ID", "'" + operate.getTypeId() + "'");
+        mapUsers.put("VAL_SIZE", "'" + operate.getValSize() + "'");
+        mapUsers.put("SR_NO", "'" + operate.getValSrNo() + "'");
+        mapUsers.put("CRTD_BY", "'" + Constants.userId + "'");
+        mapUsers.put("CRTD_TERMINAL", "'" + Constants.terminalId + "'");
+        List listUsers = new ArrayList();
+        listUsers.add(mapUsers);
+        return Constants.dao.insertData(listUsers, columns);
+    }
+
+    public List<CardiacSurgery> selectValSurgery(String con, String odi) {
+
+        String[] col = {"-", "ID", "CON", "ODI", "VAL_SUR_ID", "VAL_SUR_DESCRIPTION",
+            "PROC_OPT_ID", "PROC_OPT_DESCRIPTION", "EXPLANT_ID", "EXPLANT_DESCRIPTION",
+            "IMPLANT_ID", "IMPLANT_DESCRIPTION", "TYPE_ID", "TYPE_DESCRIPTION",
+            "VAL_SIZE", "SR_NO"};
+
+        String query = " SELECT  OVS.ID          ID,                         \n"
+                + "  OVS.CON                     CON,                        \n"
+                + "  OVS.ODI                     ODI,                        \n"
+                + "  OVS.ID                      ID,                         \n"
+                + "  OVS.VAL_SUR_ID              VAL_SUR_ID,                 \n"
+                + "  VS.DESCRIPTION              VAL_SUR_DESCRIPTION,        \n"
+                + "  OVS.PROC_OPT_ID             PROC_OPT_ID,                \n"
+                + "  POI.DESCRIPTION             PROC_OPT_DESCRIPTION,       \n"
+                + "  OVS.EXPLANT_ID              EXPLANT_ID,                 \n"
+                + "  EX.DESCRIPTION              EXPLANT_DESCRIPTION,        \n"
+                + "  OVS.IMPLANT_ID              IMPLANT_ID,                 \n"
+                + "  OVS.TYPE_ID                 TYPE_ID,                    \n"
+                + "  IM.DESCRIPTION              IMPLANT_DESCRIPTION,        \n"
+                + "  TYP.DESCRIPTION             TYPE_DESCRIPTION,           \n"
+                + "  OVS.VAL_SIZE                VAL_SIZE,                   \n"
+                + "  OVS.SR_NO                   SR_NO                       \n"
+                + "  FROM                                                    \n"
+                + Database.DCMS.otValveSurg + "        OVS,                  \n"
+                + Database.DCMS.definitionTypeDetail + " VS,                 \n"
+                + Database.DCMS.definitionTypeDetail + " POI,                \n"
+                + Database.DCMS.definitionTypeDetail + " EX,                 \n"
+                + Database.DCMS.definitionTypeDetail + " IM,                 \n"
+                + Database.DCMS.definitionTypeDetail + " TYP                 \n"
+                + " WHERE OVS.CON = '" + con + "'                            \n"
+                + "  AND OVS.ODI = '" + odi + "'                             \n"
+                + "  AND OVS.VAL_SUR_ID = VS.ID                              \n"
+                + "  AND OVS.PROC_OPT_ID = POI.ID                            \n"
+                + "  AND OVS.EXPLANT_ID = EX.ID                              \n"
+                + "  AND OVS.IMPLANT_ID = IM.ID                              \n"
+                + "  AND OVS.TYPE_ID = TYP.ID  "
+                + "  ORDER BY OVS.ID DESC";
+
+        List<HashMap> listMap = Constants.dao.selectData(query, col);
+        List<CardiacSurgery> listOTProcedure = new ArrayList();
+
+        for (int i = 0; i < listMap.size(); i++) {
+            HashMap map = (HashMap) listMap.get(i);
+            CardiacSurgery otPro = new CardiacSurgery();
+            otPro.setCompleteOrderNo(map.get("CON").toString());
+            otPro.setOrderDetailId(map.get("ODI").toString());
+            otPro.setId(map.get("ID").toString());
+            otPro.setValSurId(map.get("VAL_SUR_ID").toString());
+            otPro.setValSurDescription(map.get("VAL_SUR_DESCRIPTION").toString());
+            otPro.setProcOptId(map.get("PROC_OPT_ID").toString());
+            otPro.setProcOptDescription(map.get("PROC_OPT_DESCRIPTION").toString());
+            otPro.setExpId(map.get("EXPLANT_ID").toString());
+            otPro.setExpDescription(map.get("EXPLANT_DESCRIPTION").toString());
+            otPro.setImpId(map.get("IMPLANT_ID").toString());
+            otPro.setImpDescription(map.get("IMPLANT_DESCRIPTION").toString());
+            otPro.setTypeId(map.get("TYPE_ID").toString());
+            otPro.setTypeDescription(map.get("TYPE_DESCRIPTION").toString());
+            otPro.setValSize(map.get("VAL_SIZE").toString());
+            otPro.setValSrNo(map.get("SR_NO").toString());
+
+            listOTProcedure.add(otPro);
+        }
+
+        return listOTProcedure;
+
+    }
+
+    public boolean deleteValveSurg(String id) {
+        String query
+                = " DELETE   " + Database.DCMS.otValveSurg + "\n"
+                + " WHERE ID = '" + id + "'";
+        return Constants.dao.executeUpdate(query, false);
+    }
+
+    public boolean insertClosurePaceWire(CardiacSurgery operate) {
+
+        String[] columns = {Database.DCMS.otClosurePacingWire, "ID", "CON", "ODI",
+            "DEF_TYPE", "CLOSURE_ID", "PACING_WIRE_ID", "CRTD_BY", "CRTD_TERMINAL"};
+
+        HashMap mapUsers = new HashMap();
+
+        mapUsers.put("ID", this.getId(Database.DCMS.otClosurePacingWire));
+        mapUsers.put("CON", "'" + operate.getCompleteOrderNo() + "'");
+        mapUsers.put("ODI", "'" + operate.getOrderDetailId() + "'");
+        mapUsers.put("DEF_TYPE", "'" + operate.getDefTypeId() + "'");
+        mapUsers.put("CLOSURE_ID", "'" + operate.getClosureId() + "'");
+        mapUsers.put("PACING_WIRE_ID", "'" + operate.getPaceWireId() + "'");
+        mapUsers.put("CRTD_BY", "'" + Constants.userId + "'");
+        mapUsers.put("CRTD_TERMINAL", "'" + Constants.terminalId + "'");
+        List listUsers = new ArrayList();
+        listUsers.add(mapUsers);
+        return Constants.dao.insertData(listUsers, columns);
+
+    }
+
+    public String getId(String tbl) {
+
+        String[] col = {"-", "ID"};
+
+        String query = "SELECT NVL(MAX(ID+1),1) ID FROM " + tbl;
+        List<HashMap> list = Constants.dao.selectData(query, col);
+
+        return list.get(0).get("ID").toString();
+    }
+
+}

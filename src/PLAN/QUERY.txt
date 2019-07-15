@@ -1,0 +1,3 @@
+ String query = "SELECT IT.ID, IT.DESCRIPTION FROM                    \n"
+                + Database.DCMS.item + " IT WHERE IT.ACTIVE = 'Y'            \n"
+                + " AND DECRIPTION LIKE '%" + txtItemDescription.getText().trim().toUpperCase() + "%'";
