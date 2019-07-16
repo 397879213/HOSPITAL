@@ -17,16 +17,18 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
 
         initComponents();
         this.setSize(Constants.xSize - 580, Constants.ySize - 160);
-
+        setGroupId();
+        selectUserParameters();
     }
     DisplayLOV lov = new DisplayLOV();
     UserWiseGroupParameterController ctlUserParameters = new UserWiseGroupParameterController();
 
-    String userId = "ADEEL.KAZMI";
-    String groupId = "1";
-    String parameterId = "2040";
+    String userId = "PLC";
+    String groupId = "";
+    String parameterId = "";
     List<UserWiseGroupParameterBO> listUserParameters = new ArrayList();
     UserWiseGroupParameterBO objUserWiseGroupParameter = new UserWiseGroupParameterBO();
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -85,6 +87,11 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
         jLabel2.setText("Select Group:");
 
         cboGroupName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Group 1", "Group 2", "Group 3", "Group 4" }));
+        cboGroupName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboGroupNameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -229,19 +236,35 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtLocationServicesActionPerformed
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
-        selectUserParameters();
+        String query = "SELECT USER_NAME ID ,NAME DESCRIPTION FROM           \n"
+                + Database.DCMS.users
+                + " WHERE UPPER(NAME) LIKE '%"
+                + txtUsername.getText().toUpperCase() + "%'                 \n"
+                + "AND ACTIVE = 'Y'";
+
+        lov.LOVSelection(query, this);
+        if (Constants.lovDescription.equalsIgnoreCase("DESCRIPTION")) {
+            txtUsername.setText("");
+            return;
+        } else {
+            txtUsername.setText(Constants.lovDescription.toUpperCase());
+            userId = Constants.lovID;
+            setGroupId();
+            selectUserParameters();
+        }
 
     }//GEN-LAST:event_txtUsernameActionPerformed
 
     private void txtParameterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtParameterActionPerformed
         // TODO add your handling code here:
+        setGroupId();
         String query = "SELECT ID,DESCRIPTION FROM                          \n"
                 + Database.DCMS.CPTParameter
                 + " WHERE UPPER(DESCRIPTION) LIKE '%"
                 + txtParameter.getText().toUpperCase() + "%' AND ACTIVE = 'Y'"
-                + "AND ID NOT IN ( SELECT PARAMETER_ID FROM "+ Database.DCMS.userWiseGroupParameters +" "
-                + "WHERE USER_ID " + userId +"                              \n"
-                + "AND GROUP_ID " + groupId +" )                            \n";
+                + "AND ID NOT IN ( SELECT PARAMETER_ID FROM " + Database.DCMS.userWiseGroupParameters + " "
+                + "WHERE USER_ID = '" + userId + "'                             \n"
+                + "AND GROUP_ID = " + groupId + " )                            \n";
 
         lov.LOVSelection(query, this);
         if (Constants.lovDescription.equalsIgnoreCase("DESCRIPTION")) {
@@ -254,11 +277,14 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
         objUserWiseGroupParameter.setGroupId(groupId);
         objUserWiseGroupParameter.setParameterId(parameterId);
         objUserWiseGroupParameter.setUserId(userId);
-        if(ctlUserParameters.insertUserParameters(null)){
+        if (ctlUserParameters.insertUserParameters(objUserWiseGroupParameter)) {
             JOptionPane.showMessageDialog(null, "Save successfully.");
-        }else{
+            selectUserParameters();
+        } else {
             JOptionPane.showMessageDialog(null, "Unable to Save.");
         }
+        txtParameter.setText("");
+        txtParameter.requestFocus();
     }//GEN-LAST:event_txtParameterActionPerformed
 
     private void tblGroupWiseParameterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGroupWiseParameterMouseClicked
@@ -276,7 +302,7 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
             UserWiseGroupParameterBO UserParameter = listUserParameters.get(
                     tblGroupWiseParameter.getSelectedRow());
 
-            if (ctlUserParameters.deleteUsersParameter(userId,parameterId,groupId)) {
+            if (ctlUserParameters.deleteUsersParameter(userId, parameterId, groupId)) {
                 JOptionPane.showMessageDialog(null, "Parameter Deleted successfully!");
                 selectUserParameters();
             } else {
@@ -289,6 +315,12 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
     private void tblGroupWiseParameterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblGroupWiseParameterKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_tblGroupWiseParameterKeyReleased
+
+    private void cboGroupNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboGroupNameActionPerformed
+        // TODO add your handling code here:
+        setGroupId();
+        selectUserParameters();
+    }//GEN-LAST:event_cboGroupNameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -314,5 +346,20 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
         // setParameterListColumnsWidths();
         selectionModel.setSelectionInterval(0, 0);
         Constants.tablelook.setJTableEnvironment(tblGroupWiseParameter);
+    }
+
+    private void setGroupId() {
+        if (cboGroupName.getSelectedIndex() == 0) {
+            groupId = "1";
+        }
+        if (cboGroupName.getSelectedIndex() == 1) {
+            groupId = "2";
+        }
+        if (cboGroupName.getSelectedIndex() == 2) {
+            groupId = "3";
+        }
+        if (cboGroupName.getSelectedIndex() == 3) {
+            groupId = "4";
+        }
     }
 }

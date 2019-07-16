@@ -21,14 +21,17 @@ public class UserWiseGroupParameterHandler implements java.io.Serializable {
         String[] selectColumns = {"-","USER_ID","USER_NAME","PARAMETER_ID",
             "PARAMETER_NAME","GROUP_ID","UNIT"};
 
-        String selectUserParameters = "SELECT UWP.USER_ID,USR.NAME USER_NAME,"
-                + "UWP.PARAMETER_ID,CP.DESCRIPTION PARAMETER_NAME,CP.UNIT,"
+        String selectUserParameters = "SELECT UWP.USER_ID,  \n"
+                + "USR.NAME USER_NAME,                      \n"
+                + "UWP.PARAMETER_ID,                        \n"
+                + "CP.DESCRIPTION PARAMETER_NAME,           \n"
+                + "NVL(CP.UNIT, ' ') UNIT,                  \n"
                 + " UWP.GROUP_ID                            \n"
-                + " FROM " + Database.DCMS.users + " USR,     \n"
-                + Database.DCMS.userWiseGroupParameters + " UWP,  \n"
-                + Database.DCMS.CPTParameter + " CP          \n"
-                + "WHERE UWP.USER_ID = '" + userId + "' \n"
-                + "AND UWP.GROUP_ID = " + groupId + "             \n"
+                + " FROM " + Database.DCMS.users + " USR,   \n"
+                + Database.DCMS.userWiseGroupParameters + " UWP,\n"
+                + Database.DCMS.CPTParameter + " CP         \n"
+                + "WHERE UWP.USER_ID = '" + userId + "'     \n"
+                + "AND UWP.GROUP_ID = " + groupId + "       \n"
                 + "AND USR.USER_NAME = UWP.USER_ID          \n"
                 + "AND CP.ID = UWP.PARAMETER_ID             \n"
                 + "";

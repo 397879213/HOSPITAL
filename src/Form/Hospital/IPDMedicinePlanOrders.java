@@ -2,7 +2,6 @@ package Form.Hospital;
 
 import BO.Hospital.MedicineOrderEntry;
 import BO.Hospital.PatientHospitalVisit;
-import Controller.Hospital.IPDMedicinePlanController;
 
 import TableModel.Hospital.IpdMedPlanDetailTableModel;
 import TableModel.Hospital.PatientOrderTableModel;
@@ -38,7 +37,7 @@ public class IPDMedicinePlanOrders extends javax.swing.JInternalFrame {
 
     public IPDMedicinePlanOrders() {
         Constants.completePatientId = "001001031254";
-        admission = ctlIpdMed.selectAdmissionInformation(Constants.completePatientId);
+//        admission = ctlIpdMed.selectAdmissionInformation(Constants.completePatientId);
         init();
         displayPatientInformation();
         PatientActiveItems();
@@ -1006,18 +1005,18 @@ public class IPDMedicinePlanOrders extends javax.swing.JInternalFrame {
             return;
         }
 
-        if (ctlIpdMed.saveIpdMedMaster(listOrderedItems)) {
-            this.PatientActiveItems();
-            listOrderedItems.clear();
-            IpdMedicineQueue();
-        }
-         if (ctlIpdMed.saveIpdMedPlanDetail(listOrderedItems)) {
-            this.PatientActiveItems();
-            listOrderedItems.clear();
-            IpdMedicineQueue();
-        } else {
-            JOptionPane.showMessageDialog(null, "Unable to Save. kindly Contact administrator");
-        }
+//        if (ctlIpdMed.saveIpdMedMaster(listOrderedItems)) {
+//            this.PatientActiveItems();
+//            listOrderedItems.clear();
+//            IpdMedicineQueue();
+//        }
+//         if (ctlIpdMed.saveIpdMedPlanDetail(listOrderedItems)) {
+//            this.PatientActiveItems();
+//            listOrderedItems.clear();
+//            IpdMedicineQueue();
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Unable to Save. kindly Contact administrator");
+//        }
 
     }//GEN-LAST:event_btnSaveOrderActionPerformed
 
@@ -1228,12 +1227,12 @@ public class IPDMedicinePlanOrders extends javax.swing.JInternalFrame {
         ActiveMed.setOrderStatusId(Status.ordered);
         ActiveMed.setIsActive("Y");
 
-        if (ctlIpdMed.ResumeOrder(ActiveMed)) {
-            this.PatientActiveItems();
-            this.PatientInactiveItems();
-        } else {
-            JOptionPane.showMessageDialog(null, "Unable To Update Medicine Plan. Kindly Contact Admnistrator");
-        }
+//        if (ctlIpdMed.ResumeOrder(ActiveMed)) {
+//            this.PatientActiveItems();
+//            this.PatientInactiveItems();
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Unable To Update Medicine Plan. Kindly Contact Admnistrator");
+//        }
 
     }//GEN-LAST:event_btnResumeOrderActionPerformed
 
@@ -1271,14 +1270,14 @@ public class IPDMedicinePlanOrders extends javax.swing.JInternalFrame {
         ActiveMed.setTotalQty(totalQty);
         ActiveMed.setDuration("" + duration);
 
-        if (ctlIpdMed.savOrder(ActiveMed)) {
-            duration = 0;
-            totalQty = "";
-            txtDuration.setText("");
-            PatientActiveItems();
-        } else {
-            JOptionPane.showMessageDialog(null, "Unable to Place Order. Kindly Contact Administrator");
-        }
+//        if (ctlIpdMed.savOrder(ActiveMed)) {
+//            duration = 0;
+//            totalQty = "";
+//            txtDuration.setText("");
+//            PatientActiveItems();
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Unable to Place Order. Kindly Contact Administrator");
+//        }
 
     }//GEN-LAST:event_btnOrderActionPerformed
 
@@ -1292,12 +1291,12 @@ public class IPDMedicinePlanOrders extends javax.swing.JInternalFrame {
         ActiveMed.setOrderStatusId(Status.canceled);
         ActiveMed.setIsActive("N");
 
-        if (ctlIpdMed.updateMedPlanMaster(ActiveMed)) {
-            this.PatientActiveItems();
-            this.PatientInactiveItems();
-        } else {
-            JOptionPane.showMessageDialog(null, "Unable to Stop. Kindly Contact Administrator");
-        }
+//        if (ctlIpdMed.updateMedPlanMaster(ActiveMed)) {
+//            this.PatientActiveItems();
+//            this.PatientInactiveItems();
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Unable to Stop. Kindly Contact Administrator");
+//        }
 
     }//GEN-LAST:event_btnStopPlanActionPerformed
 
@@ -1390,7 +1389,7 @@ public class IPDMedicinePlanOrders extends javax.swing.JInternalFrame {
     MedicineOrderEntry med = new MedicineOrderEntry();
     MedicineOrderEntry ActiveMed = new MedicineOrderEntry();
     DisplayLOV lov = new DisplayLOV();
-    IPDMedicinePlanController ctlIpdMed = new IPDMedicinePlanController();
+//    IPDMedicinePlanController ctlIpdMed = new IPDMedicinePlanController();
     int quantityPerDay = 0;
     int duration = 0;
     String clientId = "131";
@@ -1443,22 +1442,22 @@ public class IPDMedicinePlanOrders extends javax.swing.JInternalFrame {
 
     private void PatientInactiveItems() {
 
-        listInactiveItems = ctlIpdMed.selectIPDMedMaster(patientId, admissionNo, "N");
-
-        if (listInactiveItems.isEmpty()) {
-            MedicineOrderEntry med = new MedicineOrderEntry();
-            List list = new ArrayList();
-            list.add(med);
-            tblInactiveMedicines.setModel(new IpdMedPlanDetailTableModel(list));
-        } else {
-            tblInactiveMedicines.setModel(new IpdMedPlanDetailTableModel(listInactiveItems));
-        }
-
-        ListSelectionModel selectionModel = tblInactiveMedicines.getSelectionModel();
-        tblInactiveMedicines.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        setInactiveMedicinesColumnsWidths();
-        selectionModel.setSelectionInterval(0, 0);
-        Constants.tablelook.setJTableEnvironment(tblInactiveMedicines);
+//        listInactiveItems = ctlIpdMed.selectIPDMedMaster(patientId, admissionNo, "N");
+//
+//        if (listInactiveItems.isEmpty()) {
+//            MedicineOrderEntry med = new MedicineOrderEntry();
+//            List list = new ArrayList();
+//            list.add(med);
+//            tblInactiveMedicines.setModel(new IpdMedPlanDetailTableModel(list));
+//        } else {
+//            tblInactiveMedicines.setModel(new IpdMedPlanDetailTableModel(listInactiveItems));
+//        }
+//
+//        ListSelectionModel selectionModel = tblInactiveMedicines.getSelectionModel();
+//        tblInactiveMedicines.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        setInactiveMedicinesColumnsWidths();
+//        selectionModel.setSelectionInterval(0, 0);
+//        Constants.tablelook.setJTableEnvironment(tblInactiveMedicines);
 
     }
 
@@ -1480,22 +1479,22 @@ public class IPDMedicinePlanOrders extends javax.swing.JInternalFrame {
 
     private void PatientActiveItems() {
 
-        listActiveItems = ctlIpdMed.selectIPDMedMaster(patientId, admissionNo, "Y");
-
-        if (listActiveItems.isEmpty()) {
-            MedicineOrderEntry med = new MedicineOrderEntry();
-            List list = new ArrayList();
-            list.add(med);
-            tblActiveMedicines.setModel(new PatientOrderTableModel(list));
-        } else {
-            tblActiveMedicines.setModel(new PatientOrderTableModel(listActiveItems));
-        }
-
-        ListSelectionModel selectionModel = tblActiveMedicines.getSelectionModel();
-        tblActiveMedicines.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        setActiveItemsColumnsWidths();
-        selectionModel.setSelectionInterval(0, 0);
-        Constants.tablelook.setJTableEnvironment(tblActiveMedicines);
+//        listActiveItems = ctlIpdMed.selectIPDMedMaster(patientId, admissionNo, "Y");
+//
+//        if (listActiveItems.isEmpty()) {
+//            MedicineOrderEntry med = new MedicineOrderEntry();
+//            List list = new ArrayList();
+//            list.add(med);
+//            tblActiveMedicines.setModel(new PatientOrderTableModel(list));
+//        } else {
+//            tblActiveMedicines.setModel(new PatientOrderTableModel(listActiveItems));
+//        }
+//
+//        ListSelectionModel selectionModel = tblActiveMedicines.getSelectionModel();
+//        tblActiveMedicines.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        setActiveItemsColumnsWidths();
+//        selectionModel.setSelectionInterval(0, 0);
+//        Constants.tablelook.setJTableEnvironment(tblActiveMedicines);
 
     }
 
