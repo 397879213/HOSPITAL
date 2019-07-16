@@ -69,9 +69,9 @@ public class UserWiseGroupParameterHandler implements java.io.Serializable {
     public boolean deleteUsersParameter(String userId,String parameterId ,
            String groupId) {
         String query ="DELETE FROM "+Database.DCMS.userWiseGroupParameters+" UWP \n"
-                + "WHERE UWP.USER_ID = '"+userId+"'     \n"
-                + "AND PARAMETER_ID = "+parameterId+"   \n"
-                + "AND GROUP_ID = "+ groupId + "          \n";
+                + " WHERE UWP.USER_ID = '"+userId+"'     \n"
+                + " AND PARAMETER_ID = "+parameterId+"   \n"
+                + " AND GROUP_ID = "+ groupId + "          \n";
                 
         System.out.println(query);
         return Constants.dao.executeUpdate(query, false);
