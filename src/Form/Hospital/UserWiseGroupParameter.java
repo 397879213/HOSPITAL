@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.TableColumn;
 import utilities.Constants;
 import utilities.Database;
 import utilities.DisplayLOV;
@@ -23,7 +24,7 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
     DisplayLOV lov = new DisplayLOV();
     UserWiseGroupParameterController ctlUserParameters = new UserWiseGroupParameterController();
 
-    String userId = "PLC";
+    String userId = Constants.userId;
     String groupId = "";
     String parameterId = "";
     List<UserWiseGroupParameterBO> listUserParameters = new ArrayList();
@@ -343,7 +344,7 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
         tblGroupWiseParameter.setModel(new UserWiseGroupParameterTableModel(listUserParameters));
         ListSelectionModel selectionModel = tblGroupWiseParameter.getSelectionModel();
         tblGroupWiseParameter.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        // setParameterListColumnsWidths();
+        setParameterListColumnsWidths();
         selectionModel.setSelectionInterval(0, 0);
         Constants.tablelook.setJTableEnvironment(tblGroupWiseParameter);
     }
@@ -360,6 +361,21 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
         }
         if (cboGroupName.getSelectedIndex() == 3) {
             groupId = "4";
+        }
+    }
+
+    private void setParameterListColumnsWidths() {
+        TableColumn column = null;
+        for (int i = 0; i < tblGroupWiseParameter.getColumnCount(); i++) {
+            column = tblGroupWiseParameter.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(180);
+            } else if (i == 1) {
+                column.setPreferredWidth(100);
+            } else if (i == 2) {
+                column.setPreferredWidth(30);
+            }
+
         }
     }
 }

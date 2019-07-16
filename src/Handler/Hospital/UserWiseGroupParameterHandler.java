@@ -19,12 +19,13 @@ public class UserWiseGroupParameterHandler implements java.io.Serializable {
             String groupId) {
 
         String[] selectColumns = {"-","USER_ID","USER_NAME","PARAMETER_ID",
-            "PARAMETER_NAME","GROUP_ID","UNIT"};
+            "PARAMETER_NAME", "DISPLAY_NAME","GROUP_ID","UNIT"};
 
         String selectUserParameters = "SELECT UWP.USER_ID,  \n"
                 + "USR.NAME USER_NAME,                      \n"
                 + "UWP.PARAMETER_ID,                        \n"
                 + "CP.DESCRIPTION PARAMETER_NAME,           \n"
+                + "CP.DISPLAY_NAME DISPLAY_NAME,            \n"
                 + "NVL(CP.UNIT, ' ') UNIT,                  \n"
                 + " UWP.GROUP_ID                            \n"
                 + " FROM " + Database.DCMS.users + " USR,   \n"
@@ -47,6 +48,7 @@ public class UserWiseGroupParameterHandler implements java.io.Serializable {
             set.setUserName(map.get("USER_NAME").toString());
             set.setParameterId(map.get("PARAMETER_ID").toString());
             set.setParameterName(map.get("PARAMETER_NAME").toString());
+            set.setDisplayName(map.get("DISPLAY_NAME").toString());
             set.setGroupId(map.get("GROUP_ID").toString());
             set.setUnit(map.get("UNIT").toString());
 

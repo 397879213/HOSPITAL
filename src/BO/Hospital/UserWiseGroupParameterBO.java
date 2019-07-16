@@ -14,8 +14,17 @@ public class UserWiseGroupParameterBO {
    private String userName = "";
    private String parameterId = "";
    private String parameterName = "";
+   private String displayName = "";
    private String groupId = "";
    private String unit = "";
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
    
   
     public String getUserName() {

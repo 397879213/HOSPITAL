@@ -14,19 +14,19 @@ import javax.swing.table.AbstractTableModel;
  * @author Adeel
  */
 public class UserWiseGroupParameterTableModel extends AbstractTableModel {
-    private String[] columnNames = {"Parameter Name", "Display Name","Unit"};
+
+    private String[] columnNames = {"Parameter Name", "Display Name", "Unit"};
 
     private Object[][] data;
 
     public UserWiseGroupParameterTableModel(List<UserWiseGroupParameterBO> lovs) {
         data = new Object[lovs.size()][columnNames.length];
-      
+
         for (int i = 0; i < lovs.size(); i++) {
             UserWiseGroupParameterBO imp = (UserWiseGroupParameterBO) lovs.get(i);
-     //         data[i][0] = i++;
-              data[i][0] = imp.getParameterName();
-              data[i][1] = imp.getGroupId();
-              data[i][2] = imp.getUnit();
+            data[i][0] = imp.getParameterName();
+            data[i][1] = imp.getDisplayName();
+            data[i][2] = imp.getUnit();
         }
     }
 
@@ -82,7 +82,7 @@ public class UserWiseGroupParameterTableModel extends AbstractTableModel {
         }
 
         data[row][col] = value;
-     //   fireTableCellUpdated(row, col);
+        //   fireTableCellUpdated(row, col);
 
         if (DEBUG) {
             System.out.println("New value of data:");
@@ -105,4 +105,3 @@ public class UserWiseGroupParameterTableModel extends AbstractTableModel {
 
     }
 }
-
