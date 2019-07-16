@@ -19,7 +19,7 @@ public class UserWiseGroupParameterController {
     UserWiseGroupParameterHandler hdlUserParameters = new UserWiseGroupParameterHandler();
 
     public List<UserWiseGroupParameterBO> selectUserParameters(String userId,
-            int groupId) {
+            String groupId) {
         return hdlUserParameters.selectUserParameters(userId, groupId);
     }
 
@@ -35,7 +35,7 @@ public class UserWiseGroupParameterController {
     }
 
     public boolean deleteUsersParameter(String userId, String parameterId,
-            int groupId) {
+            String groupId) {
         Boolean ret = hdlUserParameters.deleteUsersParameter(userId, parameterId, groupId);
         if (ret) {
             ret = Constants.dao.commitTransaction();

@@ -7,6 +7,7 @@ public class Database {
     public static final class DCMS {
         
         
+        public static final String userWiseGroupParameters = DAO.username + ".USER_WISE_PARAMETERS   ";
         public static final String ipdMedicinePlan = DAO.username + ".IPD_MEDICINE_PLAN   ";
         public static final String patientWiseSelectedParameters = DAO.username + ".PAT_WISE_SELECTED_PARAMETER   ";
         public static final String userWiseParameterMaster = DAO.username + ".USER_WISE_PARAMETER_MASTER   ";

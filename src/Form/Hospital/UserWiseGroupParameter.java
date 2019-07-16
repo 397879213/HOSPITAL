@@ -23,10 +23,10 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
     UserWiseGroupParameterController ctlUserParameters = new UserWiseGroupParameterController();
 
     String userId = "ADEEL.KAZMI";
-    int groupId = 1;
+    String groupId = "1";
     String parameterId = "2040";
     List<UserWiseGroupParameterBO> listUserParameters = new ArrayList();
-
+    UserWiseGroupParameterBO objUserWiseGroupParameter = new UserWiseGroupParameterBO();
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -37,7 +37,7 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        cboGroupName = new javax.swing.JComboBox<>();
+        cboGroupName = new javax.swing.JComboBox<String>();
         jPanel5 = new javax.swing.JPanel();
         txtParameter = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -212,7 +212,7 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(443, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,10 +235,13 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
 
     private void txtParameterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtParameterActionPerformed
         // TODO add your handling code here:
-        String query = "SELECT ID,DESCRIPTION FROM "
+        String query = "SELECT ID,DESCRIPTION FROM                          \n"
                 + Database.DCMS.CPTParameter
                 + " WHERE UPPER(DESCRIPTION) LIKE '%"
-                + txtParameter.getText().toUpperCase() + "%' AND ACTIVE = 'Y'";
+                + txtParameter.getText().toUpperCase() + "%' AND ACTIVE = 'Y'"
+                + "AND ID NOT IN ( SELECT PARAMETER_ID FROM "+ Database.DCMS.userWiseGroupParameters +" "
+                + "WHERE USER_ID " + userId +"                              \n"
+                + "AND GROUP_ID " + groupId +" )                            \n";
 
         lov.LOVSelection(query, this);
         if (Constants.lovDescription.equalsIgnoreCase("DESCRIPTION")) {
@@ -247,7 +250,14 @@ public class UserWiseGroupParameter extends javax.swing.JInternalFrame {
         } else {
             txtParameter.setText(Constants.lovDescription.toUpperCase());
             parameterId = Constants.lovID;
-//            txtParameter = Constants.lovDescription.toUpperCase();
+        }
+        objUserWiseGroupParameter.setGroupId(groupId);
+        objUserWiseGroupParameter.setParameterId(parameterId);
+        objUserWiseGroupParameter.setUserId(userId);
+        if(ctlUserParameters.insertUserParameters(null)){
+            JOptionPane.showMessageDialog(null, "Save successfully.");
+        }else{
+            JOptionPane.showMessageDialog(null, "Unable to Save.");
         }
     }//GEN-LAST:event_txtParameterActionPerformed
 

@@ -16,7 +16,7 @@ import utilities.Database;
 public class UserWiseGroupParameterHandler implements java.io.Serializable {
 
     public List<UserWiseGroupParameterBO> selectUserParameters(String userId,
-            int groupId) {
+            String groupId) {
 
         String[] selectColumns = {"-","USER_ID","USER_NAME","PARAMETER_ID",
             "PARAMETER_NAME","GROUP_ID","UNIT"};
@@ -55,23 +55,19 @@ public class UserWiseGroupParameterHandler implements java.io.Serializable {
     public boolean insertUserParameters(UserWiseGroupParameterBO imp) {
 
         String[] columns = {Database.DCMS.userWiseGroupParameters,
-            "USER_ID", "USER_NAME", "PARAMETER_ID", "PARAMETER_NAME",
-            "GROUP_ID","UNIT"};
+            "USER_ID", "PARAMETER_ID", "GROUP_ID"};
 
         HashMap map = new HashMap();
         map.put("USER_ID", "'" + imp.getUserId() + "'");
-        map.put("USER_NAME", "'" + imp.getUserName() + "'");
         map.put("PARAMETER_ID", "'" + imp.getParameterId() + "'");
-        map.put("PARAMETER_NAME", "'" + imp.getParameterName() + "'");
         map.put("GROUP_ID", "'" + imp.getGroupId() + "'");
-        map.put("UNIT", "'" + imp.getUnit() + "'");
         List InsertEmp = new ArrayList();
         InsertEmp.add(map);
         return Constants.dao.insertData(InsertEmp, columns);
     }
 
     public boolean deleteUsersParameter(String userId,String parameterId ,
-           int groupId) {
+           String groupId) {
         String query ="DELETE FROM "+Database.DCMS.userWiseGroupParameters+" UWP \n"
                 + "WHERE UWP.USER_ID = '"+userId+"'     \n"
                 + "AND PARAMETER_ID = "+parameterId+"   \n"
