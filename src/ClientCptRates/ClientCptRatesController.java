@@ -40,18 +40,11 @@ public class ClientCptRatesController {
         return ret;
     }
 
-    public boolean updateRefundMaster(ClientCptRatesBo objUpdate) {
+    public boolean updateInMasterTables(ClientCptRatesBo objUpdate) {
         boolean ret = hdlClientCptRates.updateRefundMaster(objUpdate);
-        if (ret) {
-            Constants.dao.commitTransaction();
-        } else {
-            Constants.dao.rollBack();
+        if(ret){
+            ret = hdlClientCptRates.updateInvoiceMaster(objUpdate);
         }
-        return ret;
-    }
-
-    public boolean updateInvoiceMaster(ClientCptRatesBo objUpdate) {
-        boolean ret = hdlClientCptRates.updateInvoiceMaster(objUpdate);
         if (ret) {
             Constants.dao.commitTransaction();
         } else {
@@ -87,6 +80,9 @@ public class ClientCptRatesController {
                 objChangeClient.setRefundAmount("0");
             }
             ret = updateIVDRates(objChangeClient);
+            if(ret){
+                ret = changeInIVM(objChangeClient.getCompleteOrderNo());
+            }
         }
         return ret;
     }
@@ -95,10 +91,7 @@ public class ClientCptRatesController {
         boolean ret = true;
         listSumOfIvd = hdlClientCptRates.selectForIvm(con);
         ClientCptRatesBo objForMaster = listSumOfIvd.get(0);
-        ret = hdlClientCptRates.updateInvoiceMaster(objForMaster);
-        if (ret) {
-            ret = hdlClientCptRates.updateRefundMaster(objForMaster);
-        }
+        ret = updateInMasterTables(objForMaster);
         return ret;
     }
 

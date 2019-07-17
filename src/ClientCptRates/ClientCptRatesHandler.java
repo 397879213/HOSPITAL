@@ -147,8 +147,8 @@ public class ClientCptRatesHandler {
 
         String query
                 = " UPDATE " + Database.DCMS.refundMaster + " SET   \n"
-                + "REFUND_AMOUNT  = '" + objUpdate.getRefundAmount()+ "', \n"
-                + "INVOICE_BALANCE_ADJUSTED  = '" + objUpdate.getInvoiceBalanceAdjsted()+ "'\n"
+                + "REFUND_AMOUNT  = '" + objUpdate.getSumRefundAmount()+ "', \n"
+                + "INVOICE_BALANCE_ADJUSTED  = '" + objUpdate.getSumRefundAmount()+ "'\n"
                 + "WHERE COMPLETE_ORDER_NO = '" + objUpdate.getCompleteOrderNo() + "' \n";
         System.out.println(query);
         return Constants.dao.executeUpdate(query, false);
@@ -158,11 +158,11 @@ public class ClientCptRatesHandler {
 
         String query
                 = " UPDATE " + Database.DCMS.invoiceMaster + " SET   \n"
-                + "PAYABLE_AMOUNT  = '" + objUpdate.getPayablelAmount() + "', \n"
-                + "REPORT_PENDING_AMOUNT  = '" + objUpdate.getReportPendingAmount()+ "',      \n"
-                + "TOTAL_AMOUNT  = '" + objUpdate.getTotalAmount() + "',    \n"
-                + "BALANCE_AMOUNT  = '" + objUpdate.getBalanceAmount() + "',    \n"
-                + "REFUND_AMOUNT  = '" + objUpdate.getRefundAmount() + "'     \n"
+                + "PAYABLE_AMOUNT  = '" + objUpdate.getSumPayablelAmount()+ "', \n"
+                + "REPORT_PENDING_AMOUNT  = '" + objUpdate.getSumPayablelAmount()+ "',      \n"
+                + "TOTAL_AMOUNT  = '" + objUpdate.getSumPayablelAmount() + "',    \n"
+                + "BALANCE_AMOUNT  = '" + objUpdate.getSumBlanceAmount()+ "',    \n"
+                + "REFUND_AMOUNT  = '" + objUpdate.getSumRefundAmount()+ "'     \n"
                 + "WHERE COMPLETE_ORDER_NO = '" + objUpdate.getCompleteOrderNo() + "' \n";
         System.out.println(query);
         return Constants.dao.executeUpdate(query, false);
