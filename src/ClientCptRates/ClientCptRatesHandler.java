@@ -50,7 +50,7 @@ public class ClientCptRatesHandler {
     }
     
     
-      public List<ClientCptRatesBo>selectForIvd(String toDate, String fromDate){
+      public List<ClientCptRatesBo>selectForIvd(String fromDate, String toDate){
 
         String[] columns = {"",
             "COMPLETE_ORDER_NO", "ORDER_DETAIL_ID", "INVOICE_NO",
@@ -97,7 +97,7 @@ String query = "SELECT IVD.COMPLETE_ORDER_NO         COMPLETE_ORDER_NO,     \n"
             selectobj.setPrice((String) map.get("PRICE"));
             selectobj.setUpdatePrice((String) map.get("UPDATE_PRICE"));
             selectobj.setPayablelAmount((String) map.get("PAYABLE_AMOUNT"));
-            selectobj.setBlanceAmount((String) map.get("BALANCE_AMOUNT"));
+            selectobj.setBalanceAmount((String) map.get("BALANCE_AMOUNT"));
             selectobj.setRefundAmount((String) map.get("REFUND_AMOUNT"));
             selectobj.setTotalAmount((String) map.get("TOTAL_AMOUNT"));
             
@@ -106,5 +106,32 @@ String query = "SELECT IVD.COMPLETE_ORDER_NO         COMPLETE_ORDER_NO,     \n"
         return listVisit;
     }
 
+    public String selectCPTRates(String cptId) {
+
+        String[] columns = {"-", "CPT_RATES"};
+
+        String query = "SELECT SAVE_COST CPT_RATES  FROM \n"
+                + Database.DCMS.CPT + " IVD,             \n"
+                + " WHERE CPT_ID = '"+ cptId +"'         \n";
+
+        System.out.println(query);
+        List<HashMap> listMap = Constants.dao.selectDatainList(query, columns);
+        return listMap.get(0).get("CPT_RATES").toString();
+    }
+      
+    public boolean updateIVDRates(ClientCptRatesBo objUpdate) {
+
+        String query
+                = " UPDATE " + Database.DCMS.invoiceDetail + " SET   \n"
+         + "PAYABLE_AMOUNT  = '" + objUpdate.getPayablelAmount()+ "', \n"
+        + "PRICE  = '" + objUpdate.getPrice()+ "',      \n"
+        + "TOTAL_AMOUNT  = '" + objUpdate.getTotalAmount()+ "',    \n"
+        + "BALANCE_AMOUNT  = '" + objUpdate.getBalanceAmount()+ "',    \n"
+        + "REFUND_AMOUNT  = '" + objUpdate.getRefundAmount()+ "',    \n"
+        + "WHERE COMPLETE_ORDER_NO = '"+ objUpdate.getCompleteOrderNo()+"' \n"
+        + "AND ORDER_DETAIL_ID = '"+ objUpdate.getOrderDetailId()+"'    \n";
+
+        return Constants.dao.executeUpdate(query, false);
+    }
 }
 

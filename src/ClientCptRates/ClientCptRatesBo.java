@@ -33,7 +33,7 @@ public class ClientCptRatesBo implements java.io.Serializable {
     private String UpdatePrice = "";
     private String payablelAmount = "";
     private String refundAmount = "";
-    private String blanceAmount = "";
+    private String balanceAmount = "";
     private String totalAmount = "";
 
     public String getCompleteOrderNo() {
@@ -140,12 +140,12 @@ public class ClientCptRatesBo implements java.io.Serializable {
         this.refundAmount = refundAmount;
     }
 
-    public String getBlanceAmount() {
-        return blanceAmount;
+    public String getBalanceAmount() {
+        return balanceAmount;
     }
 
-    public void setBlanceAmount(String blanceAmount) {
-        this.blanceAmount = blanceAmount;
+    public void setBalanceAmount(String balanceAmount) {
+        this.balanceAmount = balanceAmount;
     }
 
     public String getTotalAmount() {
