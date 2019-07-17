@@ -100,9 +100,9 @@ public class ClientCptRatesController {
         String fromDate = "01-JUL-19";
         String toDate = "17-JUL-19";
         if (ctlClientCptRates.changeInIVD(fromDate, toDate)) {
-            JOptionPane.showMessageDialog(null, "Records Updated Successfully");
+            System.out.println("Records Updated Successfully");
         } else {
-            JOptionPane.showMessageDialog(null, "Unable to run Process!");
+            System.out.println("Unable to run Process successfully!");
         }
     }
 }
