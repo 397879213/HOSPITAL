@@ -45,7 +45,7 @@ public class ClientCptRatesController {
         System.err.println("sixeee" +listSelectPatients.size());
         for (int i = 0; i < listSelectPatients.size(); i++) {
             ClientCptRatesBo objChangeClient = listSelectPatients.get(i);
-
+            hdlClientCptRates.selectForIvm("001001180150445");
             String cost = hdlClientCptRates.selectCPTRates(objChangeClient.getCptId());
 
             if (objChangeClient.getStatusId().equalsIgnoreCase("14")) {
@@ -56,7 +56,7 @@ public class ClientCptRatesController {
                 objChangeClient.setRefundAmount(cost);
                 objChangeClient.setInvoiceBalanceAdjsted(cost);
                 objChangeClient.setUnitPrice(cost);
-                
+                // update cost in Refund Detail against con, odi
                 ret = updateRefundDetail(objChangeClient);
             } else {
                 objChangeClient.setPayablelAmount(cost);
@@ -67,6 +67,12 @@ public class ClientCptRatesController {
             }
             ret = updateIVDRates(objChangeClient);
         }
+        return ret;
+    }
+    
+    public boolean changeInIVM(String con) {
+        boolean ret = true;
+        
         return ret;
     }
 

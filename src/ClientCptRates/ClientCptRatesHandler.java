@@ -21,14 +21,14 @@ public class ClientCptRatesHandler {
 
         String[] columns = {"",
             "SUM_PAYABLE_AMOUNT", "SUM_REFUND_AMOUNT", "SUM_BALANCE_AMOUNT",
-            "SUM_COMPLETE_ORDER_NO",};
+            "SUM_COMPLETE_ORDER_NO"};
 
         String query = "SELECT SUM(IVD.PAYABLE_AMOUNT)   SUM_PAYABLE_AMOUNT, \n"
                 + " SUM(IVD.REFUND_AMOUNT)               SUM_REFUND_AMOUNT,  \n"
                 + "  SUM(IVD.BALANCE_AMOUNT)             SUM_BALANCE_AMOUNT, \n"
                 + "  IVD.COMPLETE_ORDER_NO               SUM_COMPLETE_ORDER_NO\n"
-                + "  FROM"
-                + Database.DCMS.invoiceDetail + " IVD,                      \n"
+                + "  FROM                                                   \n"
+                + Database.DCMS.invoiceDetail + " IVD                       \n"
                 + " WHERE IVD.COMPLETE_ORDER_NO = '" + completeOrderNo + "'\n"
                 + " GROUP BY IVD.COMPLETE_ORDER_NO                          \n";
 
@@ -134,6 +134,32 @@ public class ClientCptRatesHandler {
 
         String query
                 = " UPDATE " + Database.DCMS.refundDetail + " SET   \n"
+                + "REFUND_AMOUNT  = '" + objUpdate.getRefundAmount()+ "', \n"
+                + "INVOICE_BALANCE_ADJUSTED  = '" + objUpdate.getInvoiceBalanceAdjsted()+ "',      \n"
+                + "UNIT_PRICE  = '" + objUpdate.getUnitPrice()+ "'    \n"
+                + "WHERE COMPLETE_ORDER_NO = '" + objUpdate.getCompleteOrderNo() + "' \n"
+                + "AND ORDER_DETAIL_ID = '" + objUpdate.getOrderDetailId() + "'    \n";
+        System.out.println(query);
+        return Constants.dao.executeUpdate(query, false);
+    }
+    
+    public boolean updateRefundMaster(ClientCptRatesBo objUpdate) {
+
+        String query
+                = " UPDATE " + Database.DCMS.refundMaster + " SET   \n"
+                + "REFUND_AMOUNT  = '" + objUpdate.getRefundAmount()+ "', \n"
+                + "INVOICE_BALANCE_ADJUSTED  = '" + objUpdate.getInvoiceBalanceAdjsted()+ "',      \n"
+                + "UNIT_PRICE  = '" + objUpdate.getUnitPrice()+ "'    \n"
+                + "WHERE COMPLETE_ORDER_NO = '" + objUpdate.getCompleteOrderNo() + "' \n"
+                + "AND ORDER_DETAIL_ID = '" + objUpdate.getOrderDetailId() + "'    \n";
+        System.out.println(query);
+        return Constants.dao.executeUpdate(query, false);
+    }
+    
+    public boolean updateInvoiceMaster(ClientCptRatesBo objUpdate) {
+
+        String query
+                = " UPDATE " + Database.DCMS.invoiceMaster + " SET   \n"
                 + "REFUND_AMOUNT  = '" + objUpdate.getRefundAmount()+ "', \n"
                 + "INVOICE_BALANCE_ADJUSTED  = '" + objUpdate.getInvoiceBalanceAdjsted()+ "',      \n"
                 + "UNIT_PRICE  = '" + objUpdate.getUnitPrice()+ "'    \n"
