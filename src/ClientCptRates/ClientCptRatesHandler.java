@@ -148,10 +148,8 @@ public class ClientCptRatesHandler {
         String query
                 = " UPDATE " + Database.DCMS.refundMaster + " SET   \n"
                 + "REFUND_AMOUNT  = '" + objUpdate.getRefundAmount()+ "', \n"
-                + "INVOICE_BALANCE_ADJUSTED  = '" + objUpdate.getInvoiceBalanceAdjsted()+ "',      \n"
-                + "UNIT_PRICE  = '" + objUpdate.getUnitPrice()+ "'    \n"
-                + "WHERE COMPLETE_ORDER_NO = '" + objUpdate.getCompleteOrderNo() + "' \n"
-                + "AND ORDER_DETAIL_ID = '" + objUpdate.getOrderDetailId() + "'    \n";
+                + "INVOICE_BALANCE_ADJUSTED  = '" + objUpdate.getInvoiceBalanceAdjsted()+ "'\n"
+                + "WHERE COMPLETE_ORDER_NO = '" + objUpdate.getCompleteOrderNo() + "' \n";
         System.out.println(query);
         return Constants.dao.executeUpdate(query, false);
     }
@@ -160,11 +158,12 @@ public class ClientCptRatesHandler {
 
         String query
                 = " UPDATE " + Database.DCMS.invoiceMaster + " SET   \n"
-                + "REFUND_AMOUNT  = '" + objUpdate.getRefundAmount()+ "', \n"
-                + "INVOICE_BALANCE_ADJUSTED  = '" + objUpdate.getInvoiceBalanceAdjsted()+ "',      \n"
-                + "UNIT_PRICE  = '" + objUpdate.getUnitPrice()+ "'    \n"
-                + "WHERE COMPLETE_ORDER_NO = '" + objUpdate.getCompleteOrderNo() + "' \n"
-                + "AND ORDER_DETAIL_ID = '" + objUpdate.getOrderDetailId() + "'    \n";
+                + "PAYABLE_AMOUNT  = '" + objUpdate.getPayablelAmount() + "', \n"
+                + "REPORT_PENDING_AMOUNT  = '" + objUpdate.getReportPendingAmount()+ "',      \n"
+                + "TOTAL_AMOUNT  = '" + objUpdate.getTotalAmount() + "',    \n"
+                + "BALANCE_AMOUNT  = '" + objUpdate.getBalanceAmount() + "',    \n"
+                + "REFUND_AMOUNT  = '" + objUpdate.getRefundAmount() + "'     \n"
+                + "WHERE COMPLETE_ORDER_NO = '" + objUpdate.getCompleteOrderNo() + "' \n";
         System.out.println(query);
         return Constants.dao.executeUpdate(query, false);
     }
