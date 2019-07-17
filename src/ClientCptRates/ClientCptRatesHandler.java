@@ -129,4 +129,17 @@ public class ClientCptRatesHandler {
         System.out.println(query);
         return Constants.dao.executeUpdate(query, false);
     }
+    
+    public boolean updateRefundDetail(ClientCptRatesBo objUpdate) {
+
+        String query
+                = " UPDATE " + Database.DCMS.refundDetail + " SET   \n"
+                + "REFUND_AMOUNT  = '" + objUpdate.getRefundAmount()+ "', \n"
+                + "INVOICE_BALANCE_ADJUSTED  = '" + objUpdate.getInvoiceBalanceAdjsted()+ "',      \n"
+                + "UNIT_PRICE  = '" + objUpdate.getUnitPrice()+ "'    \n"
+                + "WHERE COMPLETE_ORDER_NO = '" + objUpdate.getCompleteOrderNo() + "' \n"
+                + "AND ORDER_DETAIL_ID = '" + objUpdate.getOrderDetailId() + "'    \n";
+        System.out.println(query);
+        return Constants.dao.executeUpdate(query, false);
+    }
 }

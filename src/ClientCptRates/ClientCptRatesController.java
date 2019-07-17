@@ -29,6 +29,16 @@ public class ClientCptRatesController {
         return ret;
     }
 
+    public boolean updateRefundDetail(ClientCptRatesBo objUpdate) {
+        boolean ret = hdlClientCptRates.updateRefundDetail(objUpdate);
+        if (ret) {
+            Constants.dao.commitTransaction();
+        } else {
+            Constants.dao.rollBack();
+        }
+        return ret;
+    }
+    
     public boolean changeInIVD(String fromDate, String toDate) {
         boolean ret = true;
         listSelectPatients = hdlClientCptRates.selectForIvd(fromDate, toDate);
@@ -44,6 +54,10 @@ public class ClientCptRatesController {
                 objChangeClient.setPrice(cost);
                 objChangeClient.setBalanceAmount("0");
                 objChangeClient.setRefundAmount(cost);
+                objChangeClient.setInvoiceBalanceAdjsted(cost);
+                objChangeClient.setUnitPrice(cost);
+                
+                ret = updateRefundDetail(objChangeClient);
             } else {
                 objChangeClient.setPayablelAmount(cost);
                 objChangeClient.setTotalAmount(cost);
