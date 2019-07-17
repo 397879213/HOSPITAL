@@ -29,7 +29,7 @@ public class ClientCptRatesHandler {
                 + "  IVD.COMPLETE_ORDER_NO               SUM_COMPLETE_ORDER_NO\n"
                 + "  FROM"
                 + Database.DCMS.invoiceDetail + " IVD,                      \n"
-                + " WHERE IVD.COMPLETE_ORDER_NO = '001001190109424'\n"
+                + " WHERE IVD.COMPLETE_ORDER_NO = '" + completeOrderNo + "'\n"
                 + " GROUP BY IVD.COMPLETE_ORDER_NO                          \n";
 
         System.out.println(query);
@@ -43,45 +43,41 @@ public class ClientCptRatesHandler {
             selectobj.setSumRefundAmount((String) map.get("SUM_REFUND_AMOUNT"));
             selectobj.setSumBlanceAmount((String) map.get("SUM_BALANCE_AMOUNT"));
             selectobj.setCompleteOrderNo((String) map.get("SUM_COMPLETE_ORDER_NO"));
-            
+
             listVisit.add(selectobj);
         }
         return listVisit;
     }
-    
-    
-      public List<ClientCptRatesBo>selectForIvd(String fromDate, String toDate){
+
+    public List<ClientCptRatesBo> selectForIvd(String fromDate, String toDate) {
 
         String[] columns = {"",
             "COMPLETE_ORDER_NO", "ORDER_DETAIL_ID", "INVOICE_NO",
-            "STATUS_ID","CPT_ID","CPT_NAME","UPDATE_PRICE","PRICE",
-            "PAYABLE_AMOUNT","BALANCE_AMOUNT","REFUND_AMOUNT","TOTAL_AMOUNT"};
+            "STATUS_ID", "CPT_ID", "CPT_NAME", "UPDATE_PRICE", "PRICE",
+            "PAYABLE_AMOUNT", "BALANCE_AMOUNT", "REFUND_AMOUNT", "TOTAL_AMOUNT"};
 
-                
-                
-String query = "SELECT IVD.COMPLETE_ORDER_NO         COMPLETE_ORDER_NO,     \n" 
-        + "   IVD.ORDER_DETAIL_ID,                   ORDER_DETAIL_ID,       \n" 
-        + "   IVD.INVOICE_NO                         INVOICE_NO,            \n" 
-        + "   IVD.STATUS_ID                          STATUS_ID ,            \n" 
-        + "   IVD.CPT_ID                             CPT_ID,                \n" 
-        + "   CP.DESCRIPTION                         CPT_NAME,              \n" 
-        + "   CP.SAVE_COST                           UPDATE_PRICE,          \n" 
-        + "   IVD.PRICE                              PRICE,                 \n" 
-        + "   IVD.PAYABLE_AMOUNT                     PAYABLE_AMOUNT,        \n" 
-        + "   IVD.BALANCE_AMOUNT                     BALANCE_AMOUNT,        \n"
-        + "   IVD.REFUND_AMOUNT                      REFUND_AMOUNT ,        \n" 
-        + "   IVD.TOTAL_AMOUNT                       TOTAL_AMOUNT           \n" 
-        + "   FROM "
-        + Database.DCMS.invoiceDetail + " IVD,                              \n"
-        + Database.DCMS.invoiceMaster + " IVM,                              \n"
-        + Database.DCMS.CPT + " CP,                                         \n"
-        
-        + "  WHERE IVD.TRN_DATE BETWEEN '01-JUL-19' AND '01-JUL-19'         \n" 
-        + "  AND IVD.DEPARTMENT_ID = '127'                                  \n" 
-        + "  AND IVM.PAYMENT_MODE_ID = '62'                                 \n" 
-        + "  AND IVD.COMPLETE_ORDER_NO = IVM.COMPLETE_ORDER_NO              \n" 
-        + "  AND IVD.CPT_ID = CP.CPT_ID                                     \n";
-               
+        String query = "SELECT IVD.COMPLETE_ORDER_NO         COMPLETE_ORDER_NO,     \n"
+                + "   IVD.ORDER_DETAIL_ID,                   ORDER_DETAIL_ID,       \n"
+                + "   IVD.INVOICE_NO                         INVOICE_NO,            \n"
+                + "   IVD.STATUS_ID                          STATUS_ID ,            \n"
+                + "   IVD.CPT_ID                             CPT_ID,                \n"
+                + "   CP.DESCRIPTION                         CPT_NAME,              \n"
+                + "   CP.SAVE_COST                           UPDATE_PRICE,          \n"
+                + "   IVD.PRICE                              PRICE,                 \n"
+                + "   IVD.PAYABLE_AMOUNT                     PAYABLE_AMOUNT,        \n"
+                + "   IVD.BALANCE_AMOUNT                     BALANCE_AMOUNT,        \n"
+                + "   IVD.REFUND_AMOUNT                      REFUND_AMOUNT ,        \n"
+                + "   IVD.TOTAL_AMOUNT                       TOTAL_AMOUNT           \n"
+                + "   FROM "
+                + Database.DCMS.invoiceDetail + " IVD,                              \n"
+                + Database.DCMS.invoiceMaster + " IVM,                              \n"
+                + Database.DCMS.CPT + " CP                                          \n"
+                + "  WHERE IVD.TRN_DATE BETWEEN '" + fromDate + "' AND '" + toDate + "' \n"
+                + "  AND IVD.DEPARTMENT_ID = '127'                                  \n"
+                + "  AND IVM.PAYMENT_MODE_ID = '62'                                 \n"
+                + "  AND IVD.COMPLETE_ORDER_NO = IVM.COMPLETE_ORDER_NO              \n"
+                + "  AND IVD.CPT_ID = CP.CPT_ID                                     \n";
+        System.out.println(query);
         List<HashMap> list = Constants.dao.selectDatainList(query, columns);
         List<ClientCptRatesBo> listVisit = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -100,7 +96,7 @@ String query = "SELECT IVD.COMPLETE_ORDER_NO         COMPLETE_ORDER_NO,     \n"
             selectobj.setBalanceAmount((String) map.get("BALANCE_AMOUNT"));
             selectobj.setRefundAmount((String) map.get("REFUND_AMOUNT"));
             selectobj.setTotalAmount((String) map.get("TOTAL_AMOUNT"));
-            
+
             listVisit.add(selectobj);
         }
         return listVisit;
@@ -111,27 +107,26 @@ String query = "SELECT IVD.COMPLETE_ORDER_NO         COMPLETE_ORDER_NO,     \n"
         String[] columns = {"-", "CPT_RATES"};
 
         String query = "SELECT SAVE_COST CPT_RATES  FROM \n"
-                + Database.DCMS.CPT + " IVD,             \n"
-                + " WHERE CPT_ID = '"+ cptId +"'         \n";
-
+                + Database.DCMS.CPT + "            \n"
+                + " WHERE CPT_ID = '" + cptId + "'         \n";
+        System.out.println(query);
         System.out.println(query);
         List<HashMap> listMap = Constants.dao.selectDatainList(query, columns);
         return listMap.get(0).get("CPT_RATES").toString();
     }
-      
+
     public boolean updateIVDRates(ClientCptRatesBo objUpdate) {
 
         String query
                 = " UPDATE " + Database.DCMS.invoiceDetail + " SET   \n"
-         + "PAYABLE_AMOUNT  = '" + objUpdate.getPayablelAmount()+ "', \n"
-        + "PRICE  = '" + objUpdate.getPrice()+ "',      \n"
-        + "TOTAL_AMOUNT  = '" + objUpdate.getTotalAmount()+ "',    \n"
-        + "BALANCE_AMOUNT  = '" + objUpdate.getBalanceAmount()+ "',    \n"
-        + "REFUND_AMOUNT  = '" + objUpdate.getRefundAmount()+ "',    \n"
-        + "WHERE COMPLETE_ORDER_NO = '"+ objUpdate.getCompleteOrderNo()+"' \n"
-        + "AND ORDER_DETAIL_ID = '"+ objUpdate.getOrderDetailId()+"'    \n";
-
+                + "PAYABLE_AMOUNT  = '" + objUpdate.getPayablelAmount() + "', \n"
+                + "PRICE  = '" + objUpdate.getPrice() + "',      \n"
+                + "TOTAL_AMOUNT  = '" + objUpdate.getTotalAmount() + "',    \n"
+                + "BALANCE_AMOUNT  = '" + objUpdate.getBalanceAmount() + "',    \n"
+                + "REFUND_AMOUNT  = '" + objUpdate.getRefundAmount() + "'     \n"
+                + "WHERE COMPLETE_ORDER_NO = '" + objUpdate.getCompleteOrderNo() + "' \n"
+                + "AND ORDER_DETAIL_ID = '" + objUpdate.getOrderDetailId() + "'    \n";
+        System.out.println(query);
         return Constants.dao.executeUpdate(query, false);
     }
 }
-

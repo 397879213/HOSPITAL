@@ -7,6 +7,7 @@ package ClientCptRates;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import utilities.Constants;
 
 /**
@@ -21,16 +22,17 @@ public class ClientCptRatesController {
     public boolean updateIVDRates(ClientCptRatesBo objUpdate) {
         boolean ret = hdlClientCptRates.updateIVDRates(objUpdate);
         if (ret) {
-            ret = Constants.dao.commitTeleTransaction();
+            Constants.dao.commitTransaction();
         } else {
             Constants.dao.rollBack();
         }
         return ret;
     }
 
-    public void changeInIVD(String fromDate, String toDate) {
+    public boolean changeInIVD(String fromDate, String toDate) {
+        boolean ret = true;
         listSelectPatients = hdlClientCptRates.selectForIvd(fromDate, toDate);
-
+        System.err.println("sixeee" +listSelectPatients.size());
         for (int i = 0; i < listSelectPatients.size(); i++) {
             ClientCptRatesBo objChangeClient = listSelectPatients.get(i);
 
@@ -49,14 +51,19 @@ public class ClientCptRatesController {
                 objChangeClient.setBalanceAmount(cost);
                 objChangeClient.setRefundAmount("0");
             }
-            updateIVDRates(objChangeClient);
+            ret = updateIVDRates(objChangeClient);
         }
+        return ret;
     }
 
     public static void main(String[] args) {
         ClientCptRatesController ctlClientCptRates = new ClientCptRatesController();
         String fromDate = "01-JUL-19";
-        String toDate = "10-JUL-19";
-        ctlClientCptRates.changeInIVD(fromDate, toDate);
+        String toDate = "17-JUL-19";
+        if(ctlClientCptRates.changeInIVD(fromDate, toDate)){
+            JOptionPane.showMessageDialog(null, "Records Updated Successfully");
+        }else{
+            JOptionPane.showMessageDialog(null, "Unable to run Process!");
+        }
     }
 }

@@ -35,6 +35,8 @@ public class ClientCptRatesBo implements java.io.Serializable {
     private String refundAmount = "";
     private String balanceAmount = "";
     private String totalAmount = "";
+    private String invoiceBalanceAdjsted = "";
+    private String unitPrice = "";
 
     public String getCompleteOrderNo() {
         return completeOrderNo;
@@ -154,6 +156,22 @@ public class ClientCptRatesBo implements java.io.Serializable {
 
     public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getInvoiceBalanceAdjsted() {
+        return invoiceBalanceAdjsted;
+    }
+
+    public void setInvoiceBalanceAdjsted(String invoiceBalanceAdjsted) {
+        this.invoiceBalanceAdjsted = invoiceBalanceAdjsted;
+    }
+
+    public String getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(String unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
    
