@@ -167,4 +167,36 @@ public class ClientCptRatesHandler {
         System.out.println(query);
         return Constants.dao.executeUpdate(query, false);
     }
+    
+    public List<ClientCptRatesBo> selectForRefundDetail(String refundNo) {
+
+        String[] columns = {"",
+            "SUM_PAYABLE_AMOUNT", "SUM_REFUND_AMOUNT", "SUM_BALANCE_AMOUNT",
+            "SUM_COMPLETE_ORDER_NO"};
+
+        String query = "SELECT SUM(IVD.PAYABLE_AMOUNT)   SUM_PAYABLE_AMOUNT, \n"
+                + " SUM(IVD.REFUND_AMOUNT)               SUM_REFUND_AMOUNT,  \n"
+                + "  SUM(IVD.BALANCE_AMOUNT)             SUM_BALANCE_AMOUNT, \n"
+                + "  IVD.COMPLETE_ORDER_NO               SUM_COMPLETE_ORDER_NO\n"
+                + "  FROM                                                   \n"
+                + Database.DCMS.invoiceDetail + " IVD                       \n"
+                + " WHERE IVD.COMPLETE_ORDER_NO = '" + refundNo + "'\n"
+                + " GROUP BY IVD.COMPLETE_ORDER_NO                          \n";
+
+        System.out.println(query);
+        List<HashMap> list = Constants.dao.selectDatainList(query, columns);
+        List<ClientCptRatesBo> listVisit = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            HashMap map = list.get(i);
+            ClientCptRatesBo selectobj = new ClientCptRatesBo();
+
+            selectobj.setSumPayablelAmount((String) map.get("SUM_PAYABLE_AMOUNT"));
+            selectobj.setSumRefundAmount((String) map.get("SUM_REFUND_AMOUNT"));
+            selectobj.setSumBlanceAmount((String) map.get("SUM_BALANCE_AMOUNT"));
+            selectobj.setCompleteOrderNo((String) map.get("SUM_COMPLETE_ORDER_NO"));
+
+            listVisit.add(selectobj);
+        }
+        return listVisit;
+    }
 }
