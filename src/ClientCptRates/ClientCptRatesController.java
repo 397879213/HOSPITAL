@@ -19,6 +19,7 @@ public class ClientCptRatesController {
     ClientCptRatesHandler hdlClientCptRates = new ClientCptRatesHandler();
     List<ClientCptRatesBo> listSelectPatients = new ArrayList();
     List<ClientCptRatesBo> listSumOfIvd = new ArrayList();
+    List<ClientCptRatesBo> listRefundDetail = new ArrayList();
 
     public boolean updateIVDRates(ClientCptRatesBo objUpdate) {
         boolean ret = hdlClientCptRates.updateIVDRates(objUpdate);
@@ -40,11 +41,18 @@ public class ClientCptRatesController {
         return ret;
     }
 
-    public boolean updateInMasterTables(ClientCptRatesBo objUpdate) {
+    public boolean updateRefundMaster(ClientCptRatesBo objUpdate) {
         boolean ret = hdlClientCptRates.updateRefundMaster(objUpdate);
-        if(ret){
-            ret = hdlClientCptRates.updateInvoiceMaster(objUpdate);
+        if (ret) {
+            Constants.dao.commitTransaction();
+        } else {
+            Constants.dao.rollBack();
         }
+        return ret;
+    }
+
+    public boolean updateInMasterTables(ClientCptRatesBo objUpdate) {
+        boolean ret = hdlClientCptRates.updateInvoiceMaster(objUpdate);
         if (ret) {
             Constants.dao.commitTransaction();
         } else {
@@ -72,6 +80,14 @@ public class ClientCptRatesController {
                 objChangeClient.setUnitPrice(cost);
                 // update cost in Refund Detail against con, odi
                 ret = updateRefundDetail(objChangeClient);
+                if (ret) {
+                    listRefundDetail = hdlClientCptRates.selectForRefundDetail(
+                            objChangeClient.getCompleteOrderNo());
+                    for (int j = 0; j < listSelectPatients.size(); j++) {
+                        ClientCptRatesBo objRefund = listRefundDetail.get(j);
+                        updateRefundMaster(objRefund);
+                    }
+                }
             } else {
                 objChangeClient.setPayablelAmount(cost);
                 objChangeClient.setTotalAmount(cost);
@@ -80,7 +96,7 @@ public class ClientCptRatesController {
                 objChangeClient.setRefundAmount("0");
             }
             ret = updateIVDRates(objChangeClient);
-            if(ret){
+            if (ret) {
                 ret = changeInIVM(objChangeClient.getCompleteOrderNo());
             }
         }

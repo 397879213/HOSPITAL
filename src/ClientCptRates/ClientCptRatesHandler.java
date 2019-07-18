@@ -143,17 +143,6 @@ public class ClientCptRatesHandler {
         return Constants.dao.executeUpdate(query, false);
     }
     
-    public boolean updateRefundMaster(ClientCptRatesBo objUpdate) {
-
-        String query
-                = " UPDATE " + Database.DCMS.refundMaster + " SET   \n"
-                + "REFUND_AMOUNT  = '" + objUpdate.getSumRefundAmount()+ "', \n"
-                + "INVOICE_BALANCE_ADJUSTED  = '" + objUpdate.getSumRefundAmount()+ "'\n"
-                + "WHERE COMPLETE_ORDER_NO = '" + objUpdate.getCompleteOrderNo() + "' \n";
-        System.out.println(query);
-        return Constants.dao.executeUpdate(query, false);
-    }
-    
     public boolean updateInvoiceMaster(ClientCptRatesBo objUpdate) {
 
         String query
@@ -168,20 +157,17 @@ public class ClientCptRatesHandler {
         return Constants.dao.executeUpdate(query, false);
     }
     
-    public List<ClientCptRatesBo> selectForRefundDetail(String refundNo) {
+    public List<ClientCptRatesBo> selectForRefundDetail(String completeOrderNo) {
 
         String[] columns = {"",
             "SUM_PAYABLE_AMOUNT", "SUM_REFUND_AMOUNT", "SUM_BALANCE_AMOUNT",
             "SUM_COMPLETE_ORDER_NO"};
 
-        String query = "SELECT SUM(IVD.PAYABLE_AMOUNT)   SUM_PAYABLE_AMOUNT, \n"
-                + " SUM(IVD.REFUND_AMOUNT)               SUM_REFUND_AMOUNT,  \n"
-                + "  SUM(IVD.BALANCE_AMOUNT)             SUM_BALANCE_AMOUNT, \n"
-                + "  IVD.COMPLETE_ORDER_NO               SUM_COMPLETE_ORDER_NO\n"
-                + "  FROM                                                   \n"
-                + Database.DCMS.invoiceDetail + " IVD                       \n"
-                + " WHERE IVD.COMPLETE_ORDER_NO = '" + refundNo + "'\n"
-                + " GROUP BY IVD.COMPLETE_ORDER_NO                          \n";
+        String query = "SELECT SUM(RFD.REFUND_AMOUNT) SUM_REFUND_AMOUNT, \n"
+                + " RFD.REFUND_NO FROM                                   \n"
+                + Database.DCMS.refundDetail + " RFD                     \n"
+                + " WHERE RFD.COMPLETE_ORDER_NO = '" + completeOrderNo + "'\n"
+                + " GROUP BY RFD.REFUND_NO                               \n";
 
         System.out.println(query);
         List<HashMap> list = Constants.dao.selectDatainList(query, columns);
@@ -190,13 +176,22 @@ public class ClientCptRatesHandler {
             HashMap map = list.get(i);
             ClientCptRatesBo selectobj = new ClientCptRatesBo();
 
-            selectobj.setSumPayablelAmount((String) map.get("SUM_PAYABLE_AMOUNT"));
             selectobj.setSumRefundAmount((String) map.get("SUM_REFUND_AMOUNT"));
-            selectobj.setSumBlanceAmount((String) map.get("SUM_BALANCE_AMOUNT"));
-            selectobj.setCompleteOrderNo((String) map.get("SUM_COMPLETE_ORDER_NO"));
+            selectobj.setRefundNo((String) map.get("REFUND_NO"));
 
             listVisit.add(selectobj);
         }
         return listVisit;
+    }
+    
+    public boolean updateRefundMaster(ClientCptRatesBo objUpdate) {
+
+        String query
+                = " UPDATE " + Database.DCMS.refundMaster + " SET   \n"
+                + "REFUND_AMOUNT  = '" + objUpdate.getSumRefundAmount()+ "', \n"
+                + "INVOICE_BALANCE_ADJUSTED  = '" + objUpdate.getSumRefundAmount()+ "'\n"
+                + "WHERE REFUND_NO = '" + objUpdate.getRefundNo()+ "' \n";
+        System.out.println(query);
+        return Constants.dao.executeUpdate(query, false);
     }
 }

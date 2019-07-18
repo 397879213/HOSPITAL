@@ -24,6 +24,7 @@ public class ClientCptRatesBo implements java.io.Serializable {
     private String orderDetailId = "";
     private String SumPayablelAmount = "";
     private String SumRefundAmount = "";
+    private String refundNo = "";
     private String SumBlanceAmount = "";
     private String invoiceNo = "";
     private String statusId = "";
@@ -181,5 +182,13 @@ public class ClientCptRatesBo implements java.io.Serializable {
 
     public void setReportPendingAmount(String reportPendingAmount) {
         this.reportPendingAmount = reportPendingAmount;
+    }
+
+    public String getRefundNo() {
+        return refundNo;
+    }
+
+    public void setRefundNo(String refundNo) {
+        this.refundNo = refundNo;
     }
 }
