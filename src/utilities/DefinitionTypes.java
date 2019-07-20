@@ -259,6 +259,7 @@ public class DefinitionTypes {
     public static final String otDistalVessel = "363";
     public static final String otProOpt = "364";
     public static final String otExplantImplant = "365";
+    public static final String pathology = "417";
     public static String otCronaryArtery = "366";//
     public static String medSpecialApprovalType = "367";// 
     public static String OPDVisitCaseCategory = "368";// 

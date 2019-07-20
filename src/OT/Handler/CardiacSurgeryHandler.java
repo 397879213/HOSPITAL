@@ -10,7 +10,7 @@ import utilities.Database;
 public class CardiacSurgeryHandler {
 
     String[] selectTypes = {"-", "ID", "CON", "ODI", "TYPE_DETAIL_ID",
-        "DESCRIPTION", "DEF_TYPE_ID", "CRTD_BY", "REMARKS", "CRTD_DATE", "CRTD_TERMINAL"};
+        "DESCRIPTION", "ACTION_ID", "CRTD_BY", "REMARKS", "CRTD_DATE", "CRTD_TERMINAL"};
 
     String pendingGeneralQuery = " SELECT                                \n"
             + "  OSD.ID                       ID,                        \n"
@@ -18,8 +18,8 @@ public class CardiacSurgeryHandler {
             + "  OSD.ODI                      ODI,                       \n"
             + "  DT.DESCRIPTION               DESCRIPTION,               \n"
             + "  OSD.TYPE_DETAIL_ID           TYPE_DETAIL_ID,            \n"
-            + "  OSD.DEF_TYPE_ID              DEF_TYPE_ID,               \n"
-            + "  OSD.REMARKS                  REMARKS,                   \n"
+            + "  OSD.ACTION_ID                ACTION_ID,                 \n"
+            + "  NVL(OSD.REMARKS, ' ')        REMARKS,                   \n"
             + "  OSD.CRTD_BY                  CRTD_BY,                   \n"
             + "  OSD.CRTD_DATE                CRTD_DATE,                 \n"
             + "  OSD.CRTD_TERMINAL            CRTD_TERMINAL              \n"
@@ -40,7 +40,8 @@ public class CardiacSurgeryHandler {
             otPro.setCompleteOrderNo(map.get("CON").toString());
             otPro.setOrderDetailId(map.get("ODI").toString());
             otPro.setDescription(map.get("DESCRIPTION").toString());
-            otPro.setDefTypeId(map.get("DEF_TYPE_ID").toString());
+            otPro.setTypeDetailId(map.get("TYPE_DETAIL_ID").toString());
+            otPro.setActionId(map.get("ACTION_ID").toString());
             otPro.setType(map.get("REMARKS").toString());
             otPro.setCrtdBy(map.get("CRTD_BY").toString());
             otPro.setCrtdDate(map.get("CRTD_DATE").toString());
@@ -53,15 +54,19 @@ public class CardiacSurgeryHandler {
         return listOTProcedure;
     }
 
-    public List selectDetails(String con, String odi, String typeDetailId, String deftypeid) {
+    public List selectDetails(String con, String odi, String typeDetailId, 
+            String actionId) {
 
         String query = pendingGeneralQuery
                 + " WHERE 1=1";
-        if (!con.equalsIgnoreCase("")) {
+        if (con.length() != 0) {
             query += "  AND OSD.CON = '" + con + "' \n";
         }
-        if (!odi.equalsIgnoreCase("")) {
+        if (odi.length() != 0) {
             query += "  AND OSD.ODI = '" + odi + "' \n";
+        }
+        if (actionId.length() != 0) {
+            query += "  AND ACTION_ID = "+ actionId +"\n";
         }
         query += pendingGeneralJoin;
 
@@ -72,7 +77,7 @@ public class CardiacSurgeryHandler {
     public boolean insertOperDetail(CardiacSurgery operate) {
 
         String[] columns = {Database.DCMS.otSetupDetail, "ID", "CON",
-            "ODI", "TYPE_DETAIL_ID", "DEF_TYPE_ID", "REMARKS", "CRTD_BY", 
+            "ODI", "TYPE_DETAIL_ID", "ACTION_ID", "REMARKS", "CRTD_BY", 
             "CRTD_DATE", "CRTD_TERMINAL"};
 
         HashMap mapUsers = new HashMap();
@@ -81,7 +86,7 @@ public class CardiacSurgeryHandler {
         mapUsers.put("CON", "'" + operate.getCompleteOrderNo() + "'");
         mapUsers.put("ODI", "'" + operate.getOrderDetailId() + "'");
         mapUsers.put("TYPE_DETAIL_ID", "'" + operate.getTypeDetailId() + "'");
-        mapUsers.put("DEF_TYPE_ID", "'" + operate.getDefTypeId() + "'");
+        mapUsers.put("ACTION_ID", "'" + operate.getActionId()+ "'");
         mapUsers.put("REMARKS", "'" + operate.getType() + "'");
         mapUsers.put("CRTD_BY", "'" + Constants.userId + "'");
         mapUsers.put("CRTD_DATE",  Constants.today );
@@ -94,7 +99,7 @@ public class CardiacSurgeryHandler {
     public boolean updateStatus(String id, CardiacSurgery card) {
         String query
                 = " UPDATE   " + Database.DCMS.otSetupDetail + "\n"
-                + " SET TYPE_DETAIL_ID = '" + card.getTypeDetailId() + "'        \n"
+                + " SET ACTION_ID = '" + card.getTypeDetailId() + "'        \n"
                 + " WHERE ID = '" + card.getId() + "'";
         return Constants.dao.executeUpdate(query, false);
     }

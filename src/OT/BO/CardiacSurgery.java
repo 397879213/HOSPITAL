@@ -70,7 +70,16 @@ public class CardiacSurgery {
     private String aorticClampTime = "";
     private String thoracicAeroticRemarks = ""; 
     private String remarks = "";
+    private String actionId = "";
 
+    public String getActionId() {
+        return actionId;
+    }
+
+    public void setActionId(String actionId) {
+        this.actionId = actionId;
+    }
+    
     public String getSurgeryDay() {
         return surgeryDay;
     }

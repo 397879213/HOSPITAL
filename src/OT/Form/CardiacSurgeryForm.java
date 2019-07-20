@@ -51,6 +51,8 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     String currentCabgId = "";
     String questionId = "";
     String surgeryDate = "";
+    String actionId = "";
+    String detailId = "";
     CardiacController ctlOtCardiac = new CardiacController();
     List<CardiacSurgery> listCabgProcedure = new ArrayList();
     List<CardiacSurgery> listOtOperation = new ArrayList();
@@ -88,11 +90,10 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 //        selectCabgProcedure(con, odi);
 //        selectValSurgery();
 //    }
-    
     public CardiacSurgeryForm() {
 
         initComponents();
-        this.setSize(Constants.xSize + 340, Constants.ySize - Constants.yExtension + 35);
+        this.setSize(Constants.xSize - 80, Constants.ySize + 40);
         this.con = con;
         this.odi = odi;
         selectPatientQuestionaire();
@@ -201,8 +202,6 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         btnValSur = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
         txtValSur = new javax.swing.JTextField();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        tblAorticQestions = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
         txtComments = new javax.swing.JTextField();
@@ -222,9 +221,9 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         chkShuntYes = new javax.swing.JCheckBox();
         chkShuntNo = new javax.swing.JCheckBox();
         jPanel18 = new javax.swing.JPanel();
-        txtValSur2 = new javax.swing.JTextField();
+        txtPathology = new javax.swing.JTextField();
         jScrollPane14 = new javax.swing.JScrollPane();
-        tblAorticQuestionaire1 = new javax.swing.JTable();
+        tblpathology = new javax.swing.JTable();
         jPanel19 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         txtOperationSIte1 = new javax.swing.JTextArea();
@@ -1328,81 +1327,51 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
             }
         });
 
-        tblAorticQestions.setBackground(java.awt.SystemColor.activeCaption);
-        tblAorticQestions.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        tblAorticQestions.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"", "", "", "" },
-            },
-            new String [] {
-                "Questions","Select"
-            }
-        ));
-        tblAorticQestions.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAorticQestionsMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tblAorticQestionsMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblAorticQestionsMouseReleased(evt);
-            }
-        });
-        tblAorticQestions.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblAorticQestionsKeyReleased(evt);
-            }
-        });
-        jScrollPane10.setViewportView(tblAorticQestions);
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtValSur, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                            .addComponent(txtType))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(5, 5, 5)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(txtSize, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
-                            .addComponent(txtProc))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtExp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtImplant, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtValSur, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                                    .addComponent(txtType))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(4, 4, 4)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(txtSize, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                                    .addComponent(txtProc))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtExp)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtImplant, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(471, 471, 471)
-                                .addComponent(txtSrNo, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnValSur, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txtSrNo, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnValSur, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane6)))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1429,9 +1398,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                     .addComponent(txtType)
                     .addComponent(btnValSur, javax.swing.GroupLayout.PREFERRED_SIZE, 20, Short.MAX_VALUE))
                 .addGap(5, 5, 5)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5))
         );
 
@@ -1619,21 +1586,21 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         jPanel18.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
         jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pathology", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 13), new java.awt.Color(102, 0, 0))); // NOI18N
 
-        txtValSur2.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        txtValSur2.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtPathology.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtPathology.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                txtValSur2MouseReleased(evt);
+                txtPathologyMouseReleased(evt);
             }
         });
-        txtValSur2.addActionListener(new java.awt.event.ActionListener() {
+        txtPathology.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValSur2ActionPerformed(evt);
+                txtPathologyActionPerformed(evt);
             }
         });
 
-        tblAorticQuestionaire1.setBackground(java.awt.SystemColor.activeCaption);
-        tblAorticQuestionaire1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        tblAorticQuestionaire1.setModel(new javax.swing.table.DefaultTableModel(
+        tblpathology.setBackground(java.awt.SystemColor.activeCaption);
+        tblpathology.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tblpathology.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"", "", "", "" },
             },
@@ -1641,23 +1608,23 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                 "ID", "DESCRIPTION"
             }
         ));
-        tblAorticQuestionaire1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblpathology.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAorticQuestionaire1MouseClicked(evt);
+                tblpathologyMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tblAorticQuestionaire1MousePressed(evt);
+                tblpathologyMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblAorticQuestionaire1MouseReleased(evt);
+                tblpathologyMouseReleased(evt);
             }
         });
-        tblAorticQuestionaire1.addKeyListener(new java.awt.event.KeyAdapter() {
+        tblpathology.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblAorticQuestionaire1KeyReleased(evt);
+                tblpathologyKeyReleased(evt);
             }
         });
-        jScrollPane14.setViewportView(tblAorticQuestionaire1);
+        jScrollPane14.setViewportView(tblpathology);
 
         jPanel19.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
         jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Remarks", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12), new java.awt.Color(102, 0, 0))); // NOI18N
@@ -1688,7 +1655,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                        .addComponent(txtValSur2)
+                        .addComponent(txtPathology)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2))
                     .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
@@ -1699,7 +1666,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtValSur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPathology, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -2048,8 +2015,8 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         txtConduit.setText(curentSelectedOperationObj.getConduitDescription());
         txtDV.setText(curentSelectedOperationObj.getDistalVesselDescription());
         cboEndart.setAction(cboEndart.getAction());
-        txtPl.setText(curentSelectedOperationObj.getPi());
-        txtFlow.setText(curentSelectedOperationObj.getFlow());
+        txtPl1.setText(curentSelectedOperationObj.getPi());
+        txtFlow1.setText(curentSelectedOperationObj.getFlow());
     }//GEN-LAST:event_tblCabgProcMouseReleased
 
     private void tblCabgProcKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblCabgProcKeyReleased
@@ -2192,31 +2159,12 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         objQuesMaster.setOrderDetailId(odi);
         questionId = objQuesMaster.getQuestionaireTypeId();
 
-        selectQuestions();
 
     }//GEN-LAST:event_tblAorticQuestionaireMouseReleased
 
     private void tblAorticQuestionaireKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblAorticQuestionaireKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_tblAorticQuestionaireKeyReleased
-
-    private void tblAorticQestionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAorticQestionsMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblAorticQestionsMouseClicked
-
-    private void tblAorticQestionsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAorticQestionsMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblAorticQestionsMousePressed
-
-    private void tblAorticQestionsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAorticQestionsMouseReleased
-
-        txtComments.setText(lstQuesDetail.get(tblAorticQestions.getSelectedRow()).getQuestionRemarks());
-
-    }//GEN-LAST:event_tblAorticQestionsMouseReleased
-
-    private void tblAorticQestionsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblAorticQestionsKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblAorticQestionsKeyReleased
 
     private void tblReasonForRedoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReasonForRedoMouseClicked
 
@@ -2645,15 +2593,14 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         boolean ret = false;
         List<CPTQuestionaire> lstQuesUpdate = new ArrayList();
 
-        for (int i = 0; i < tblAorticQestions.getRowCount(); i++) {
-            ret = Boolean.parseBoolean(tblAorticQestions.getValueAt(i, 1).toString());
-            if (ret) {
-                objQues = lstQuesDetail.get(i);
-                objQues.setQuestionResult("Y");
-                lstQuesUpdate.add(objQues);
-            }
-        }
-
+//        for (int i = 0; i < tblAorticQestions.getRowCount(); i++) {
+//            ret = Boolean.parseBoolean(tblAorticQestions.getValueAt(i, 1).toString());
+//            if (ret) {
+//                objQues = lstQuesDetail.get(i);
+//                objQues.setQuestionResult("Y");
+//                lstQuesUpdate.add(objQues);
+//            }
+//        }
         if (lstQuesUpdate.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No Question selected");
             return;
@@ -2723,29 +2670,31 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValSur1ActionPerformed
 
-    private void txtValSur2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValSur2MouseReleased
+    private void txtPathologyMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPathologyMouseReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtValSur2MouseReleased
+    }//GEN-LAST:event_txtPathologyMouseReleased
 
-    private void txtValSur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValSur2ActionPerformed
+    private void txtPathologyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPathologyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtValSur2ActionPerformed
+        saveOTSetupDetail(DefinitionTypes.pathology);
+        txtPathology.requestFocus();
+    }//GEN-LAST:event_txtPathologyActionPerformed
 
-    private void tblAorticQuestionaire1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAorticQuestionaire1MouseClicked
+    private void tblpathologyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblpathologyMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblAorticQuestionaire1MouseClicked
+    }//GEN-LAST:event_tblpathologyMouseClicked
 
-    private void tblAorticQuestionaire1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAorticQuestionaire1MousePressed
+    private void tblpathologyMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblpathologyMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblAorticQuestionaire1MousePressed
+    }//GEN-LAST:event_tblpathologyMousePressed
 
-    private void tblAorticQuestionaire1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAorticQuestionaire1MouseReleased
+    private void tblpathologyMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblpathologyMouseReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblAorticQuestionaire1MouseReleased
+    }//GEN-LAST:event_tblpathologyMouseReleased
 
-    private void tblAorticQuestionaire1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblAorticQuestionaire1KeyReleased
+    private void tblpathologyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblpathologyKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblAorticQuestionaire1KeyReleased
+    }//GEN-LAST:event_tblpathologyKeyReleased
 
     private void txtValSur3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValSur3MouseReleased
         // TODO add your handling code here:
@@ -2753,6 +2702,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     private void txtValSur3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValSur3ActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_txtValSur3ActionPerformed
 
     private void tblAorticQuestionaire2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAorticQuestionaire2MouseClicked
@@ -2775,10 +2725,10 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         objSave.setCompleteOrderNo(con);
         objSave.setOrderDetailId(odi);
-        if(chkShuntNo.isSelected()){
+        if (chkShuntNo.isSelected()) {
             objSave.setUseOfShunt("N");
         }
-        if(chkShuntYes.isSelected()){
+        if (chkShuntYes.isSelected()) {
             objSave.setUseOfShunt("Y");
         }
         objSave.setSurgeryDate(surgeryDate);
@@ -2786,24 +2736,24 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         objSave.setLaLine(txtLALine.getText().trim());
         objSave.setThoracicAeroticRemarks(txtOperationSIte.getText().trim());
         objSave.setAorticClampTime(txtAorticClampTime.getText().trim());
-        
-        if(ctlOtCardiac.insertCabgsurgery(objSave)){
+
+        if (ctlOtCardiac.insertCabgsurgery(objSave)) {
             JOptionPane.showMessageDialog(null, "Save successfully.");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Unable to save.");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void chkShuntYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShuntYesActionPerformed
         // TODO add your handling code here:
-        if(chkShuntNo.isSelected()){
+        if (chkShuntNo.isSelected()) {
             chkShuntNo.setSelected(false);
         }
     }//GEN-LAST:event_chkShuntYesActionPerformed
 
     private void chkShuntNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShuntNoActionPerformed
         // TODO add your handling code here:
-        if(chkShuntYes.isSelected()){
+        if (chkShuntYes.isSelected()) {
             chkShuntYes.setSelected(false);
         }
     }//GEN-LAST:event_chkShuntNoActionPerformed
@@ -2877,7 +2827,6 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
@@ -2895,15 +2844,14 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel pnlPL;
     private javax.swing.JTable tblAccess;
-    private javax.swing.JTable tblAorticQestions;
     private javax.swing.JTable tblAorticQuestionaire;
-    private javax.swing.JTable tblAorticQuestionaire1;
     private javax.swing.JTable tblAorticQuestionaire2;
     private javax.swing.JTable tblCabgProc;
     private javax.swing.JTable tblOTClosure;
     private javax.swing.JTable tblOTPaceWire;
     private javax.swing.JTable tblReasonForRedo;
     private javax.swing.JTable tblValSurg;
+    private javax.swing.JTable tblpathology;
     private javax.swing.JTextField txtAdmissionNo;
     private javax.swing.JTextArea txtAorticClampTime;
     private javax.swing.JTextField txtClosure;
@@ -2923,6 +2871,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea txtOperationSIte2;
     private javax.swing.JTextArea txtOtherProcedureInfo;
     private javax.swing.JTextField txtPaceWire;
+    private javax.swing.JTextField txtPathology;
     private javax.swing.JTextField txtPerformingPhysician;
     private javax.swing.JTextField txtPl;
     private javax.swing.JTextField txtPl1;
@@ -2937,14 +2886,13 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtType;
     private javax.swing.JTextField txtValSur;
     private javax.swing.JTextField txtValSur1;
-    private javax.swing.JTextField txtValSur2;
     private javax.swing.JTextField txtValSur3;
     private javax.swing.JTextField txtWard;
     // End of variables declaration//GEN-END:variables
 
     private void selectOperationDetail(String con, String odi, String typeDetailId,
-            String deftypeid) {
-        listOtOperation = ctlOtCardiac.selectOTPendingAll(con, odi, typeDetailId, deftypeid);
+            String actionId) {
+        listOtOperation = ctlOtCardiac.selectOTPendingAll(con, odi, typeDetailId, actionId);
 
         if (listOtOperation.isEmpty()) {
             tblReasonForRedo.setModel(new OtDateOfOperationTableModel(listOtOperation));
@@ -2979,27 +2927,26 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     }
 
-    public void selectQuestions() {
-
-        lstQuesDetail = ctlOtCardiac.selectQuestionaireDetail(con, odi, Status.inOT, questionId);
-
-        if (lstQuesDetail.isEmpty()) {
-            List li = new ArrayList();
-            CPTQuestionaire obj = new CPTQuestionaire();
-            li.add(obj);
-            tblAorticQestions.setModel(new OTQuestionsTableModel(li));
-        } else {
-            tblAorticQestions.setModel(new OTQuestionsTableModel(lstQuesDetail));
-        }
-
-        ListSelectionModel selectionModel = tblAorticQestions.getSelectionModel();
-        tblAorticQestions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        setColumnsWidthsQuestions();
-        selectionModel.setSelectionInterval(0, 0);
-        Constants.tablelook.setJTableEnvironment(tblAorticQestions);
-
-    }
-
+//    public void selectQuestions() {
+//
+//        lstQuesDetail = ctlOtCardiac.selectQuestionaireDetail(con, odi, Status.inOT, questionId);
+//
+//        if (lstQuesDetail.isEmpty()) {
+//            List li = new ArrayList();
+//            CPTQuestionaire obj = new CPTQuestionaire();
+//            li.add(obj);
+////            tblAorticQestions.setModel(new OTQuestionsTableModel(li));
+//        } else {
+////            tblAorticQestions.setModel(new OTQuestionsTableModel(lstQuesDetail));
+//        }
+//
+//        ListSelectionModel selectionModel = tblAorticQestions.getSelectionModel();
+//        tblAorticQestions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        setColumnsWidthsQuestions();
+//        selectionModel.setSelectionInterval(0, 0);
+//        Constants.tablelook.setJTableEnvironment(tblAorticQestions);
+//
+//    }
     public void setColumnsWidthsOperation() {
 
         TableColumn column = null;
@@ -3015,19 +2962,18 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         }
     }
 
-    public void setColumnsWidthsQuestions() {
-
-        TableColumn column = null;
-        for (int i = 0; i < tblAorticQestions.getColumnCount(); i++) {
-            column = tblAorticQestions.getColumnModel().getColumn(i);
-            if (i == 0) {
-                column.setPreferredWidth(90);
-            } else if (i == 1) {
-                column.setPreferredWidth(10);
-            }
-        }
-    }
-
+//    public void setColumnsWidthsQuestions() {
+//
+//        TableColumn column = null;
+//        for (int i = 0; i < tblAorticQestions.getColumnCount(); i++) {
+//            column = tblAorticQestions.getColumnModel().getColumn(i);
+//            if (i == 0) {
+//                column.setPreferredWidth(90);
+//            } else if (i == 1) {
+//                column.setPreferredWidth(10);
+//            }
+//        }
+//    }
     public void setColumnsWidthsQuestionaire() {
 
         TableColumn column = null;
@@ -3127,14 +3073,14 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         txtLALine.setText(obj.getLaLine());
         txtOperationSIte.setText(obj.getThoracicAeroticRemarks());
         txtAorticClampTime.setText(obj.getAorticClampTime());
-        if(obj.getUseOfShunt().equalsIgnoreCase("N")){
+        if (obj.getUseOfShunt().equalsIgnoreCase("N")) {
             chkShuntNo.setSelected(true);
         }
-        if(obj.getUseOfShunt().equalsIgnoreCase("Y")){
+        if (obj.getUseOfShunt().equalsIgnoreCase("Y")) {
             chkShuntYes.setSelected(true);
         }
     }
-    
+
     private void setDate(int day) {
         try {
             Date date = new Date();
@@ -3147,6 +3093,41 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
             txtOTPlanDate.setDate(date2);
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void saveOTSetupDetail(String actionId) {
+        String query = " SELECT ID ID, DESCRIPTION  FROM            \n"
+                + Database.DCMS.definitionTypeDetail + " DT         \n"
+                + " WHERE DT.DEF_TYPE_ID = '" + actionId + "'"
+                + " AND ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
+                + Database.DCMS.otSetupDetail
+                + " WHERE ACTION_ID = " + actionId + " )"
+                + " ORDER BY ID";
+        lov.LOVSelection(query, this);
+
+        if (Constants.lovID.equalsIgnoreCase("ID")) {
+            return;
+        }
+        deftypeid = Constants.lovID;
+        CardiacSurgery operate = new CardiacSurgery();
+        operate.setOrderDetailId(odi);
+        operate.setCompleteOrderNo(con);
+        operate.setTypeDetailId(deftypeid);
+        operate.setActionId(actionId);
+
+        if (ctlOtCardiac.insertInOTDetail(operate)) {
+            listOtOperation = ctlOtCardiac.selectOTPendingAll(con, odi, 
+                    typeDetailId, actionId);
+            System.err.println("Listttt" + listOtOperation.size());
+            tblpathology.setModel(new OtDateOfOperationTableModel(listOtOperation));
+            ListSelectionModel selectionModel = tblpathology.getSelectionModel();
+            tblpathology.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            setColumnsWidthsOperation();
+            selectionModel.setSelectionInterval(0, 0);
+            Constants.tablelook.setJTableEnvironment(tblpathology);
+        } else {
+            JOptionPane.showMessageDialog(null, "Unable to Add, Kindly Contact Administrator");
         }
     }
 }

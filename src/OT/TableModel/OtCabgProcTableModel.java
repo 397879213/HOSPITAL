@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
 public class OtCabgProcTableModel extends AbstractTableModel {
 
     private String[] columnNames
-            = {"Cabg Procedure","Cronary Artery","Conduit","Distal Vessel","Endart","Pl", "Flow"};
+            = {"Cabg Procedure","Cronary Artery","Conduit","Distal Vessel","Endart"};
 
     private Object[][] data;
 
@@ -23,8 +23,6 @@ public class OtCabgProcTableModel extends AbstractTableModel {
             data[row][2] = order.getCronaryDescription();
             data[row][3] = order.getDistalVesselDescription();
             data[row][4] = order.getEndart();
-            data[row][5] = order.getPi();
-            data[row][6] = order.getFlow();
 
             row++;
         }

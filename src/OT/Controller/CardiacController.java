@@ -25,8 +25,9 @@ public class CardiacController {
     CPTQuestionaireHandler hdlQues = new CPTQuestionaireHandler();
 
     public List<CardiacSurgery>
-            selectOTPendingAll(String con, String odi, String typeDetailId, String deftypeid) {
-        return hdlCardiacSurg.selectDetails(con, odi, typeDetailId, deftypeid);
+            selectOTPendingAll(String con, String odi, String typeDetailId,
+                    String actionId) {
+        return hdlCardiacSurg.selectDetails(con, odi, typeDetailId, actionId);
     }
 
     public boolean insertOperDetail(List<CardiacSurgery> operate) {
@@ -215,11 +216,25 @@ public class CardiacController {
         }
 
         return ret;
+    }
 
+    public boolean insertInOTDetail(CardiacSurgery operate) {
+        boolean ret = hdlCardiacSurg.insertOperDetail(operate);
+
+        if (ret) {
+            Constants.dao.commitTransaction();
+        }
+
+        if (!ret) {
+            Constants.dao.commitTransaction();
+        }
+        return ret;
     }
+
     public List<CardiacSurgery> selectCabgSurgery(String con, String odi) {
-        return  hdlCardiacSurg.selectCabgSurgery(con, odi);
+        return hdlCardiacSurg.selectCabgSurgery(con, odi);
     }
+
     public List<CPTQuestionaire> selectQuestionaireMaster(String con, String odi, String orderStatusId) {
         return hdlQues.selectQuestionaireMaster(con, odi, orderStatusId);
     }
