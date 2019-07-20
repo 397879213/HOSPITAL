@@ -42,8 +42,8 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     String coronaryId = "";
     String conduitId = "";
     String endart = "";
-    String con = "";
-    String odi = "";
+    String con = "001001140002044";
+    String odi = "1";
     String deftypeid = "";
     String currentId = "";
     String currentCabgId = "";
@@ -215,8 +215,8 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         txtAorticClampTime = new javax.swing.JTextArea();
         jLabel33 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
+        chkShuntYes = new javax.swing.JCheckBox();
+        chkShuntNo = new javax.swing.JCheckBox();
         jPanel18 = new javax.swing.JPanel();
         txtValSur2 = new javax.swing.JTextField();
         jScrollPane14 = new javax.swing.JScrollPane();
@@ -1544,15 +1544,25 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel33.setText("Use of Shunt :  ");
 
-        jCheckBox1.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
-        jCheckBox1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(102, 0, 0));
-        jCheckBox1.setText("Yes");
+        chkShuntYes.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
+        chkShuntYes.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        chkShuntYes.setForeground(new java.awt.Color(102, 0, 0));
+        chkShuntYes.setText("Yes");
+        chkShuntYes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkShuntYesActionPerformed(evt);
+            }
+        });
 
-        jCheckBox2.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
-        jCheckBox2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jCheckBox2.setForeground(new java.awt.Color(102, 0, 0));
-        jCheckBox2.setText("No");
+        chkShuntNo.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
+        chkShuntNo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        chkShuntNo.setForeground(new java.awt.Color(102, 0, 0));
+        chkShuntNo.setText("No");
+        chkShuntNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkShuntNoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -1574,9 +1584,9 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                             .addGroup(jPanel15Layout.createSequentialGroup()
                                 .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
-                                .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(chkShuntYes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(17, 17, 17)
-                                .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(chkShuntNo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel15Layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
                                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
@@ -1594,8 +1604,8 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel33)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2))
+                    .addComponent(chkShuntYes)
+                    .addComponent(chkShuntNo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2759,12 +2769,40 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        objSave.setCompleteOrderNo(con);
+        objSave.setOrderDetailId(odi);
+        if(chkShuntNo.isSelected()){
+            objSave.setUseOfShunt("N");
+        }
+        if(chkShuntYes.isSelected()){
+            objSave.setUseOfShunt("Y");
+        }
+        objSave.setSurgeryDate(surgeryDate);
+        objSave.setNonCardiacProc(txtOtherProcedureInfo.getText().trim());
+        objSave.setLaLine(txtLALine.getText().trim());
+        objSave.setThoracicAeroticRemarks(txtOperationSIte.getText().trim());
+        objSave.setAorticClampTime(txtAorticClampTime.getText().trim());
+        
         if(ctlOtCardiac.insertCabgsurgery(objSave)){
             JOptionPane.showMessageDialog(null, "Save successfully.");
         }else{
             JOptionPane.showMessageDialog(null, "Unable to save.");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void chkShuntYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShuntYesActionPerformed
+        // TODO add your handling code here:
+        if(chkShuntNo.isSelected()){
+            chkShuntNo.setSelected(false);
+        }
+    }//GEN-LAST:event_chkShuntYesActionPerformed
+
+    private void chkShuntNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShuntNoActionPerformed
+        // TODO add your handling code here:
+        if(chkShuntYes.isSelected()){
+            chkShuntYes.setSelected(false);
+        }
+    }//GEN-LAST:event_chkShuntNoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2783,11 +2821,11 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox cboPriorityStatus;
     private javax.swing.JComboBox cboPriorityStatus1;
     private javax.swing.JComboBox cbofirstRedo;
+    private javax.swing.JCheckBox chkShuntNo;
+    private javax.swing.JCheckBox chkShuntYes;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;

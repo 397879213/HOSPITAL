@@ -364,13 +364,81 @@ public class CardiacSurgeryHandler {
         mapUsers.put("THORACIC_AORTIC_REMARKS", "'" + operate.getThoracicAeroticRemarks()+ "'");
         mapUsers.put("REMARKS", "'" + operate.getRemarks()+ "'");
         mapUsers.put("CRTD_BY", "'" + Constants.userId + "'");
-        mapUsers.put("CRTD_DATE", "'" + Constants.today + "'");
+        mapUsers.put("CRTD_DATE",  Constants.today);
         mapUsers.put("CRTD_TERMINAL", "'" + Constants.terminalId + "'");
         List listUsers = new ArrayList();
         listUsers.add(mapUsers);
         return Constants.dao.insertData(listUsers, columns);
     }
 
+    public List<CardiacSurgery> selectCabgsurgery(String con, String odi) {
+
+        String[] col = {"-", "ID", "CON", "ODI", "SURGERY_DATE", "LA_LINE", 
+            "NON_CARDIAC_PROC", "USE_OF_SHUNT", "AORTIC_CLAMP_TIME", 
+            "THORACIC_AORTIC_REMARKS", "REMARKS", "CRTD_BY", "CRTD_DATE",
+            "CRTD_TERMINAL"};
+
+        String query = " SELECT  OVS.ID          ID,                         \n"
+                + "  OVS.CON                     CON,                        \n"
+                + "  OVS.ODI                     ODI,                        \n"
+                + "  OVS.ID                      ID,                         \n"
+                + "  OVS.VAL_SUR_ID              VAL_SUR_ID,                 \n"
+                + "  VS.DESCRIPTION              VAL_SUR_DESCRIPTION,        \n"
+                + "  OVS.PROC_OPT_ID             PROC_OPT_ID,                \n"
+                + "  POI.DESCRIPTION             PROC_OPT_DESCRIPTION,       \n"
+                + "  OVS.EXPLANT_ID              EXPLANT_ID,                 \n"
+                + "  EX.DESCRIPTION              EXPLANT_DESCRIPTION,        \n"
+                + "  OVS.IMPLANT_ID              IMPLANT_ID,                 \n"
+                + "  OVS.TYPE_ID                 TYPE_ID,                    \n"
+                + "  IM.DESCRIPTION              IMPLANT_DESCRIPTION,        \n"
+                + "  TYP.DESCRIPTION             TYPE_DESCRIPTION,           \n"
+                + "  OVS.VAL_SIZE                VAL_SIZE,                   \n"
+                + "  OVS.SR_NO                   SR_NO                       \n"
+                + "  FROM                                                    \n"
+                + Database.DCMS.otValveSurg + "        OVS,                  \n"
+                + Database.DCMS.definitionTypeDetail + " VS,                 \n"
+                + Database.DCMS.definitionTypeDetail + " POI,                \n"
+                + Database.DCMS.definitionTypeDetail + " EX,                 \n"
+                + Database.DCMS.definitionTypeDetail + " IM,                 \n"
+                + Database.DCMS.definitionTypeDetail + " TYP                 \n"
+                + " WHERE OVS.CON = '" + con + "'                            \n"
+                + "  AND OVS.ODI = '" + odi + "'                             \n"
+                + "  AND OVS.VAL_SUR_ID = VS.ID                              \n"
+                + "  AND OVS.PROC_OPT_ID = POI.ID                            \n"
+                + "  AND OVS.EXPLANT_ID = EX.ID                              \n"
+                + "  AND OVS.IMPLANT_ID = IM.ID                              \n"
+                + "  AND OVS.TYPE_ID = TYP.ID  "
+                + "  ORDER BY OVS.ID DESC";
+
+        List<HashMap> listMap = Constants.dao.selectData(query, col);
+        List<CardiacSurgery> listOTProcedure = new ArrayList();
+
+        for (int i = 0; i < listMap.size(); i++) {
+            HashMap map = (HashMap) listMap.get(i);
+            CardiacSurgery otPro = new CardiacSurgery();
+            otPro.setCompleteOrderNo(map.get("CON").toString());
+            otPro.setOrderDetailId(map.get("ODI").toString());
+            otPro.setId(map.get("ID").toString());
+            otPro.setValSurId(map.get("VAL_SUR_ID").toString());
+            otPro.setValSurDescription(map.get("VAL_SUR_DESCRIPTION").toString());
+            otPro.setProcOptId(map.get("PROC_OPT_ID").toString());
+            otPro.setProcOptDescription(map.get("PROC_OPT_DESCRIPTION").toString());
+            otPro.setExpId(map.get("EXPLANT_ID").toString());
+            otPro.setExpDescription(map.get("EXPLANT_DESCRIPTION").toString());
+            otPro.setImpId(map.get("IMPLANT_ID").toString());
+            otPro.setImpDescription(map.get("IMPLANT_DESCRIPTION").toString());
+            otPro.setTypeId(map.get("TYPE_ID").toString());
+            otPro.setTypeDescription(map.get("TYPE_DESCRIPTION").toString());
+            otPro.setValSize(map.get("VAL_SIZE").toString());
+            otPro.setValSrNo(map.get("SR_NO").toString());
+
+            listOTProcedure.add(otPro);
+        }
+
+        return listOTProcedure;
+
+    }
+    
     public String getId(String tbl) {
 
         String[] col = {"-", "ID"};
