@@ -26,6 +26,7 @@ public class CardiacSurgery {
     private String wardDescription = "";
     private String bedDescription = "";
     private String crtdBy = "";
+    private String crtdByName = "";
     private String crtdDate = "";
     private String crtdTerminalId = "";
     private String age = "";
@@ -69,6 +70,14 @@ public class CardiacSurgery {
     private String thoracicAeroticRemarks = ""; 
     private String remarks = "";
 
+    public String getCrtdByName() {
+        return crtdByName;
+    }
+
+    public void setCrtdByName(String crtdByName) {
+        this.crtdByName = crtdByName;
+    }
+    
     public String getSurgeryDate() {
         return surgeryDate;
     }

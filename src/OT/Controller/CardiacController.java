@@ -217,7 +217,9 @@ public class CardiacController {
         return ret;
 
     }
-
+    public List<CardiacSurgery> selectCabgSurgery(String con, String odi) {
+        return  hdlCardiacSurg.selectCabgSurgery(con, odi);
+    }
     public List<CPTQuestionaire> selectQuestionaireMaster(String con, String odi, String orderStatusId) {
         return hdlQues.selectQuestionaireMaster(con, odi, orderStatusId);
     }

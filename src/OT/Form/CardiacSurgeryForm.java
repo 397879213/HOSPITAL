@@ -50,6 +50,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     String questionId = "";
     String surgeryDate = "";
     CardiacController ctlOtCardiac = new CardiacController();
+    List<CardiacSurgery> listCabgProcedure = new ArrayList();
     List<CardiacSurgery> listOtOperation = new ArrayList();
     List<CardiacSurgery> listReasonForRedo = new ArrayList();
     List<CardiacSurgery> listAccessSelect = new ArrayList();
@@ -97,6 +98,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         selectAccessDetail(con, odi, typeDetailId, deftypeid);
         selectCabgProcedure(con, odi);
         selectValSurgery();
+        selectCabgSurgery();
     }
 
     @SuppressWarnings("unchecked")
@@ -3113,5 +3115,21 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         setColumnsWidthsCabgProc();
         selectionModel.setSelectionInterval(0, 0);
         Constants.tablelook.setJTableEnvironment(tblValSurg);
+    }
+
+    private void selectCabgSurgery() {
+        listCabgProcedure = ctlOtCardiac.selectCabgSurgery(con, odi);
+        CardiacSurgery obj = listCabgProcedure.get(0);
+        obj.getSurgeryDate();
+        txtOtherProcedureInfo.setText(obj.getNonCardiacProc().trim());
+        txtLALine.setText(obj.getLaLine());
+        txtOperationSIte.setText(obj.getThoracicAeroticRemarks());
+        txtAorticClampTime.setText(obj.getAorticClampTime());
+        if(obj.getUseOfShunt().equalsIgnoreCase("N")){
+            chkShuntNo.setSelected(true);
+        }
+        if(obj.getUseOfShunt().equalsIgnoreCase("Y")){
+            chkShuntYes.setSelected(true);
+        }
     }
 }
