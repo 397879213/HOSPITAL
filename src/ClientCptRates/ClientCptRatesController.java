@@ -67,7 +67,7 @@ public class ClientCptRatesController {
         System.err.println("sixeee" + listSelectPatients.size());
         for (int i = 0; i < listSelectPatients.size(); i++) {
             ClientCptRatesBo objChangeClient = listSelectPatients.get(i);
-            hdlClientCptRates.selectForIvm("001001180150445");
+            hdlClientCptRates.selectForIvm(objChangeClient.getCompleteOrderNo());
             String cost = hdlClientCptRates.selectCPTRates(objChangeClient.getCptId());
 
             if (objChangeClient.getStatusId().equalsIgnoreCase("14")) {
@@ -83,7 +83,7 @@ public class ClientCptRatesController {
                 if (ret) {
                     listRefundDetail = hdlClientCptRates.selectForRefundDetail(
                             objChangeClient.getCompleteOrderNo());
-                    for (int j = 0; j < listSelectPatients.size(); j++) {
+                    for (int j = 0; j < listRefundDetail.size(); j++) {
                         ClientCptRatesBo objRefund = listRefundDetail.get(j);
                         updateRefundMaster(objRefund);
                     }
@@ -114,7 +114,7 @@ public class ClientCptRatesController {
     public static void main(String[] args) {
         ClientCptRatesController ctlClientCptRates = new ClientCptRatesController();
         String fromDate = "01-JUL-19";
-        String toDate = "17-JUL-19";
+        String toDate = "20-JUL-19";
         if (ctlClientCptRates.changeInIVD(fromDate, toDate)) {
             System.out.println("Records Updated Successfully");
         } else {

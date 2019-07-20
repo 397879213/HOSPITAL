@@ -159,9 +159,7 @@ public class ClientCptRatesHandler {
     
     public List<ClientCptRatesBo> selectForRefundDetail(String completeOrderNo) {
 
-        String[] columns = {"",
-            "SUM_PAYABLE_AMOUNT", "SUM_REFUND_AMOUNT", "SUM_BALANCE_AMOUNT",
-            "SUM_COMPLETE_ORDER_NO"};
+        String[] columns = {"-", "SUM_REFUND_AMOUNT", "REFUND_NO"};
 
         String query = "SELECT SUM(RFD.REFUND_AMOUNT) SUM_REFUND_AMOUNT, \n"
                 + " RFD.REFUND_NO FROM                                   \n"
