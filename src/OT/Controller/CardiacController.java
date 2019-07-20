@@ -203,6 +203,21 @@ public class CardiacController {
 
     }
 
+    public boolean insertCabgsurgery(CardiacSurgery operate) {
+        boolean ret = hdlCardiacSurg.insertCabgsurgery(operate);
+
+        if (ret) {
+            ret = Constants.dao.commitTransaction();
+        }
+
+        if (!ret) {
+            Constants.dao.rollBack();
+        }
+
+        return ret;
+
+    }
+
     public List<CPTQuestionaire> selectQuestionaireMaster(String con, String odi, String orderStatusId) {
         return hdlQues.selectQuestionaireMaster(con, odi, orderStatusId);
     }

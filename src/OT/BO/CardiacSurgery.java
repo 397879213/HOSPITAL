@@ -60,7 +60,71 @@ public class CardiacSurgery {
     private String paceWireId = "";
     private String paceWireDescription = "";
     private String type = "";
+    
+    private String surgeryDate = "";
+    private String laLine = "";
+    private String nonCardiacProc = "";
+    private String useOfShunt = "";
+    private String aorticClampTime = "";
+    private String thoracicAeroticRemarks = ""; 
+    private String remarks = "";
 
+    public String getSurgeryDate() {
+        return surgeryDate;
+    }
+
+    public void setSurgeryDate(String surgeryDate) {
+        this.surgeryDate = surgeryDate;
+    }
+
+    public String getLaLine() {
+        return laLine;
+    }
+
+    public void setLaLine(String laLine) {
+        this.laLine = laLine;
+    }
+
+    public String getNonCardiacProc() {
+        return nonCardiacProc;
+    }
+
+    public void setNonCardiacProc(String nonCardiacProc) {
+        this.nonCardiacProc = nonCardiacProc;
+    }
+
+    public String getUseOfShunt() {
+        return useOfShunt;
+    }
+
+    public void setUseOfShunt(String useOfShunt) {
+        this.useOfShunt = useOfShunt;
+    }
+
+    public String getAorticClampTime() {
+        return aorticClampTime;
+    }
+
+    public void setAorticClampTime(String aorticClampTime) {
+        this.aorticClampTime = aorticClampTime;
+    }
+
+    public String getThoracicAeroticRemarks() {
+        return thoracicAeroticRemarks;
+    }
+
+    public void setThoracicAeroticRemarks(String thoracicAeroticRemarks) {
+        this.thoracicAeroticRemarks = thoracicAeroticRemarks;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+    
     public String getDefTypeId() {
         return defTypeId;
     }

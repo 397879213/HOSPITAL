@@ -610,6 +610,7 @@ public class Database {
 
         public static final String userWiseGroup = DAO.username + ". USER_WISE_GROUP   ";
 
+        public static final String cabgSurgery = DAO.username + ".CABG_SURGERY   ";
         public static final String otValveSurg = DAO.username + ".OT_VALVE_SUR   ";
         public static final String otClosurePacingWire = DAO.username + ".OT_CLOSURE_PACE_WIRE   ";
         public static final String otCabg = DAO.username + ".OT_CABG   ";

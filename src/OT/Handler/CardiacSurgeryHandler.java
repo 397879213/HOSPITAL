@@ -343,6 +343,33 @@ public class CardiacSurgeryHandler {
         return Constants.dao.insertData(listUsers, columns);
 
     }
+    
+    public boolean insertCabgsurgery(CardiacSurgery operate) {
+
+        String[] columns = {Database.DCMS.cabgSurgery, "ID", "CON", "ODI",
+            "SURGERY_DATE", "LA_LINE", "NON_CARDIAC_PROC", "USE_OF_SHUNT",
+            "AORTIC_CLAMP_TIME", "THORACIC_AORTIC_REMARKS", "REMARKS",
+                "CRTD_BY", "CRTD_DATE","CRTD_TERMINAL"};
+
+        HashMap mapUsers = new HashMap();
+
+        mapUsers.put("ID", this.getId(Database.DCMS.cabgSurgery));
+        mapUsers.put("CON", "'" + operate.getCompleteOrderNo() + "'");
+        mapUsers.put("ODI", "'" + operate.getOrderDetailId() + "'");
+        mapUsers.put("SURGERY_DATE", "'" + operate.getSurgeryDate()+ "'");
+        mapUsers.put("LA_LINE", "'" + operate.getLaLine()+ "'");
+        mapUsers.put("NON_CARDIAC_PROC", "'" + operate.getNonCardiacProc()+ "'");
+        mapUsers.put("USE_OF_SHUNT", "'" + operate.getUseOfShunt()+ "'");
+        mapUsers.put("AORTIC_CLAMP_TIME", "'" + operate.getAorticClampTime()+ "'");
+        mapUsers.put("THORACIC_AORTIC_REMARKS", "'" + operate.getThoracicAeroticRemarks()+ "'");
+        mapUsers.put("REMARKS", "'" + operate.getRemarks()+ "'");
+        mapUsers.put("CRTD_BY", "'" + Constants.userId + "'");
+        mapUsers.put("CRTD_DATE", "'" + Constants.today + "'");
+        mapUsers.put("CRTD_TERMINAL", "'" + Constants.terminalId + "'");
+        List listUsers = new ArrayList();
+        listUsers.add(mapUsers);
+        return Constants.dao.insertData(listUsers, columns);
+    }
 
     public String getId(String tbl) {
 
