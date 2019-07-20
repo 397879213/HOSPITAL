@@ -63,6 +63,7 @@ public class CardiacSurgery {
     private String type = "";
     
     private String surgeryDate = "";
+    private String surgeryDay = "";
     private String laLine = "";
     private String nonCardiacProc = "";
     private String useOfShunt = "";
@@ -70,6 +71,14 @@ public class CardiacSurgery {
     private String thoracicAeroticRemarks = ""; 
     private String remarks = "";
 
+    public String getSurgeryDay() {
+        return surgeryDay;
+    }
+
+    public void setSurgeryDay(String surgeryDay) {
+        this.surgeryDay = surgeryDay;
+    }
+    
     public String getCrtdByName() {
         return crtdByName;
     }

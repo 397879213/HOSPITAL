@@ -14,6 +14,8 @@ import OT.TableModel.OtQuestionaireTableModel;
 import OT.TableModel.OTQuestionsTableModel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -3120,7 +3122,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private void selectCabgSurgery() {
         listCabgProcedure = ctlOtCardiac.selectCabgSurgery(con, odi);
         CardiacSurgery obj = listCabgProcedure.get(0);
-        obj.getSurgeryDate();
+        setDate(Integer.parseInt(obj.getSurgeryDay()));
         txtOtherProcedureInfo.setText(obj.getNonCardiacProc().trim());
         txtLALine.setText(obj.getLaLine());
         txtOperationSIte.setText(obj.getThoracicAeroticRemarks());
@@ -3130,6 +3132,21 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         }
         if(obj.getUseOfShunt().equalsIgnoreCase("Y")){
             chkShuntYes.setSelected(true);
+        }
+    }
+    
+    private void setDate(int day) {
+        try {
+            Date date = new Date();
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DATE, day);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
+            Date date2 = dateFormat.parse(dateFormat.format(c.getTime()));
+            txtOTPlanDate.setDate(date2);
+            surgeryDate = dateFormat.format(date2);
+            txtOTPlanDate.setDate(date2);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }

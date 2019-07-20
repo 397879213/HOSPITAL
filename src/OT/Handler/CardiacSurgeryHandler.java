@@ -374,7 +374,7 @@ public class CardiacSurgeryHandler {
     public List<CardiacSurgery> selectCabgSurgery(String con, String odi) {
 
         String[] col = {"-", "ID", "CON", "ODI", "SURGERY_DATE", "LA_LINE", 
-            "NON_CARDIAC_PROC", "USE_OF_SHUNT", "AORTIC_CLAMP_TIME", 
+            "NON_CARDIAC_PROC", "USE_OF_SHUNT", "AORTIC_CLAMP_TIME", "SURGERY_DAY",
             "THORACIC_AORTIC_REMARKS", "REMARKS", "CRTD_BY", "CRTD_BY_NAME",
             "CRTD_DATE", "CRTD_TERMINAL"};
 
@@ -382,18 +382,18 @@ public class CardiacSurgeryHandler {
                 + "  CBS.CON                     CON,                        \n"
                 + "  CBS.ODI                     ODI,                        \n"
                 + "  TO_CHAR(CBS.SURGERY_DATE, 'DD-MON-YY')  SURGERY_DATE,   \n"
-                + "  CBS.LA_LINE, CBS.NON_CARDIAC_PROC, CBS.USE_OF_SHUNT,                \n"
-                + "  CBS.AORTIC_CLAMP_TIME,        \n"
-                + "  CBS.THORACIC_AORTIC_REMARKS,                \n"
-                + "  CBS.REMARKS,       \n"
-                + "  CBS.CRTD_BY,                 \n"
-                + "  USR.NAME                   CRTD_BY_NAME,                 \n"
-                + "  TO_CHAR(CBS.CRTD_DATE, 'DD-MON-YY')     CRTD_DATE,  \n"
-                + "  CBS.CRTD_TERMINAL                       \n"
+                + " ROUND(CBS.SURGERY_DATE - SYSDATE  )+1     SURGERY_DAY,     \n"
+                + "  CBS.LA_LINE, CBS.NON_CARDIAC_PROC, CBS.USE_OF_SHUNT,   \n"
+                + "  CBS.AORTIC_CLAMP_TIME,                                 \n"
+                + "  CBS.THORACIC_AORTIC_REMARKS,                           \n"
+                + "  NVL(CBS.REMARKS, ' ') REMARKS,                                           \n"
+                + "  CBS.CRTD_BY,                                           \n"
+                + "  USR.NAME                   CRTD_BY_NAME,               \n"
+                + "  TO_CHAR(CBS.CRTD_DATE, 'DD-MON-YY')     CRTD_DATE,     \n"
+                + "  CBS.CRTD_TERMINAL                                          \n"
                 + "  FROM                                                    \n"
                 + Database.DCMS.cabgSurgery + "        CBS,                  \n"
-                + Database.DCMS.users + " USR                \n"
-                
+                + Database.DCMS.users + " USR                                \n"
                 + " WHERE CBS.CON = '" + con + "'                            \n"
                 + "  AND CBS.ODI = '" + odi + "'                             \n"
                 + "  AND USR.USER_NAME = CBS.CRTD_BY  ";
@@ -408,6 +408,7 @@ public class CardiacSurgeryHandler {
             otPro.setOrderDetailId(map.get("ODI").toString());
             otPro.setId(map.get("ID").toString());
             otPro.setSurgeryDate(map.get("SURGERY_DATE").toString());
+            otPro.setSurgeryDay(map.get("SURGERY_DAY").toString());
             otPro.setLaLine(map.get("LA_LINE").toString());
             otPro.setNonCardiacProc(map.get("NON_CARDIAC_PROC").toString());
             otPro.setUseOfShunt(map.get("USE_OF_SHUNT").toString());

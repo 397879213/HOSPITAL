@@ -91,7 +91,7 @@ public class AntenatalCardForm extends javax.swing.JInternalFrame {
         btnEditPOH.setMnemonic(KeyEvent.VK_U);
 //        selectPregnancyVisitId();
 //        setPatientDemography();
-//        setDate(0);
+        setDate(0);
 //        setYearsMarriedDate(0);
 //        setVisitDate(0);
 //        selectAntenatalPatient();
