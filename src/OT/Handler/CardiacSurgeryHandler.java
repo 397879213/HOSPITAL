@@ -54,6 +54,13 @@ public class CardiacSurgeryHandler {
         }
         return listOTProcedure;
     }
+    
+    public boolean deleteOtDetail(String id) {
+        String query
+                = " DELETE   " + Database.DCMS.otSetupDetail + "\n"
+                + " WHERE ID = '" + id + "'";
+        return Constants.dao.executeUpdate(query, false);
+    }
 
 //    String[] selectTypes = {"-", "ID", "CON", "ODI", "TYPE_DETAIL_ID",
 //        "DESCRIPTION", "ACTION_ID", "CRTD_BY", "REMARKS", "CRTD_DATE", "CRTD_TERMINAL"};

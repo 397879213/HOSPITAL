@@ -23,8 +23,22 @@ public class CardiacController {
 
     CardiacSurgeryHandler hdlCardiacSurg = new CardiacSurgeryHandler();
     CPTQuestionaireHandler hdlQues = new CPTQuestionaireHandler();
-    
+
     List<CardiacSurgery> listOtOperation = new ArrayList();
+
+    public boolean deleteOtDetail(String id) {
+        boolean ret = true;
+        ret = hdlCardiacSurg.deleteOtDetail(id);
+
+        if (ret) {
+            Constants.dao.commitTransaction();
+        }
+
+        if (!ret) {
+            Constants.dao.commitTransaction();
+        }
+        return ret;
+    }
 
 //    public List<CardiacSurgery> selectOTPendingAll(String con, String odi, 
 //            String typeDetailId, String actionId) {
@@ -33,7 +47,6 @@ public class CardiacController {
 //        return hdlCardiacSurg.selectDetails(con, odi, typeDetailId, actionId);
 //        
 //    }
-    
     public List<CardiacSurgery> selectOtDetail(String con, String odi, String actionId) {
         return hdlCardiacSurg.selectOtDetail(con, odi, actionId);
     }
@@ -228,7 +241,6 @@ public class CardiacController {
 
     public boolean insertInOTDetail(CardiacSurgery operate) {
         boolean ret = hdlCardiacSurg.insertOperDetail(operate);
-
         if (ret) {
             Constants.dao.commitTransaction();
         }

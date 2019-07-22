@@ -102,7 +102,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         selectCabgProcedure(con, odi);
         selectValSurgery();
         selectCabgSurgery();
-        saveOTSetupDetail(operate);
+        selectOTDetail(DefinitionTypes.pathology);
     }
 
     @SuppressWarnings("unchecked")
@@ -2674,10 +2674,10 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         String query = " SELECT ID ID, DESCRIPTION  FROM            \n"
                 + Database.DCMS.definitionTypeDetail + " DT         \n"
-                + " WHERE DT.DEF_TYPE_ID = '" + actionId + "'"
+                + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.pathology + "'"
                 + " AND ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
                 + Database.DCMS.otSetupDetail
-                + " WHERE ACTION_ID = " + actionId + " )"
+                + " WHERE ACTION_ID = " + DefinitionTypes.pathology + " )"
                 + " ORDER BY ID";
         lov.LOVSelection(query, this);
 
@@ -2689,7 +2689,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         operate.setOrderDetailId(odi);
         operate.setCompleteOrderNo(con);
         operate.setTypeDetailId(deftypeid);
-        operate.setActionId(actionId);
+        operate.setActionId(DefinitionTypes.pathology);
         saveOTSetupDetail(operate);
         txtPathology.requestFocus();
     }//GEN-LAST:event_txtPathologyActionPerformed
@@ -2704,6 +2704,13 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     private void tblpathologyMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblpathologyMouseReleased
         // TODO add your handling code here:
+        CardiacSurgery objDlt = listOtOperation.get(tblpathology.getSelectedRow());
+        if(ctlOtCardiac.deleteOtDetail(objDlt.getId())){
+            JOptionPane.showMessageDialog(null, "Record Deleted");
+            selectOTDetail(DefinitionTypes.pathology);
+        }else{
+            JOptionPane.showMessageDialog(null, "unable to Deleted");
+        }
     }//GEN-LAST:event_tblpathologyMouseReleased
 
     private void tblpathologyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblpathologyKeyReleased
@@ -2774,6 +2781,14 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        deftypeid = Constants.lovID;
+        CardiacSurgery operate = new CardiacSurgery();
+        operate.setOrderDetailId(odi);
+        operate.setCompleteOrderNo(con);
+        operate.setTypeDetailId(deftypeid);
+        operate.setActionId(actionId);
+        saveOTSetupDetail(operate);
+        txtPathology.requestFocus();
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -3115,7 +3130,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private void saveOTSetupDetail(CardiacSurgery operate) {
 
         if (ctlOtCardiac.insertInOTDetail(operate)) {
-            selectOTDetail();
+            selectOTDetail(DefinitionTypes.pathology);
         } else {
             JOptionPane.showMessageDialog(null, "Unable to Add, Kindly Contact Administrator");
         }
