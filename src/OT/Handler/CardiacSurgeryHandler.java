@@ -8,32 +8,36 @@ import utilities.Constants;
 import utilities.Database;
 
 public class CardiacSurgeryHandler {
+    
+    public List<CardiacSurgery> selectOtDetail(String con, String odi, String actionId) {
 
-    String[] selectTypes = {"-", "ID", "CON", "ODI", "TYPE_DETAIL_ID",
+        String[] col = {"-", "ID", "CON", "ODI", "TYPE_DETAIL_ID",
         "DESCRIPTION", "ACTION_ID", "CRTD_BY", "REMARKS", "CRTD_DATE", "CRTD_TERMINAL"};
 
-    String pendingGeneralQuery = " SELECT                                \n"
-            + "  OSD.ID                       ID,                        \n"
-            + "  OSD.CON                      CON,                       \n"
-            + "  OSD.ODI                      ODI,                       \n"
-            + "  DT.DESCRIPTION               DESCRIPTION,               \n"
-            + "  OSD.TYPE_DETAIL_ID           TYPE_DETAIL_ID,            \n"
-            + "  OSD.ACTION_ID                ACTION_ID,                 \n"
-            + "  NVL(OSD.REMARKS, ' ')        REMARKS,                   \n"
-            + "  OSD.CRTD_BY                  CRTD_BY,                   \n"
-            + "  OSD.CRTD_DATE                CRTD_DATE,                 \n"
-            + "  OSD.CRTD_TERMINAL            CRTD_TERMINAL              \n"
-            + "  FROM                                                    \n"
-            + Database.DCMS.otSetupDetail + "        OSD,                \n"
-            + Database.DCMS.definitionTypeDetail + " DT                  \n";
+    String query = " SELECT                                             \n"
+            + "  OSD.ID                       ID,                       \n"
+            + "  OSD.CON                      CON,                      \n"
+            + "  OSD.ODI                      ODI,                      \n"
+            + "  DT.DESCRIPTION               DESCRIPTION,              \n"
+            + "  OSD.TYPE_DETAIL_ID           TYPE_DETAIL_ID,           \n"
+            + "  NVL(OSD.ACTION_ID, 0)        ACTION_ID,                \n"
+            + "  NVL(OSD.REMARKS, ' ')        REMARKS,                  \n"
+            + "  OSD.CRTD_BY                  CRTD_BY,                  \n"
+            + "  OSD.CRTD_DATE                CRTD_DATE,                \n"
+            + "  OSD.CRTD_TERMINAL            CRTD_TERMINAL             \n"
+            + "  FROM                                                   \n"
+            + Database.DCMS.otSetupDetail + "        OSD,               \n"
+            + Database.DCMS.definitionTypeDetail + " DT                 \n"
+            + " WHERE OSD.CON = '" + con + "'                           \n"
+            + " AND OSD.ODI = '" + odi + "'                             \n"
+            + " AND ACTION_ID = "+ actionId +"                          \n"
+            + " AND OSD.TYPE_DETAIL_ID = DT.ID                          \n"
+            + "ORDER BY ID                                              \n";
 
-    String pendingGeneralJoin = "  AND OSD.TYPE_DETAIL_ID = DT.ID        \n";
-
-    public List selectData(List list) {
-
+        List<HashMap> listMap = Constants.dao.selectDatainList(query, col);
         List listOTProcedure = new ArrayList();
-        for (int i = 0; i < list.size(); i++) {
-            HashMap map = (HashMap) list.get(i);
+        for (int i = 0; i < listMap.size(); i++) {
+            HashMap map = (HashMap) listMap.get(i);
             CardiacSurgery otPro = new CardiacSurgery();
             otPro.setId(map.get("ID").toString());
             otPro.setTypeDetailId(map.get("TYPE_DETAIL_ID").toString());
@@ -42,37 +46,80 @@ public class CardiacSurgeryHandler {
             otPro.setDescription(map.get("DESCRIPTION").toString());
             otPro.setTypeDetailId(map.get("TYPE_DETAIL_ID").toString());
             otPro.setActionId(map.get("ACTION_ID").toString());
-            otPro.setType(map.get("REMARKS").toString());
+            otPro.setRemarks(map.get("REMARKS").toString());
             otPro.setCrtdBy(map.get("CRTD_BY").toString());
             otPro.setCrtdDate(map.get("CRTD_DATE").toString());
             otPro.setCrtdTerminalId(map.get("CRTD_TERMINAL").toString());
-
-            if (otPro.getType().equalsIgnoreCase("LOV")) {
-                listOTProcedure.add(otPro);
-            }
+            listOTProcedure.add(otPro);
         }
         return listOTProcedure;
     }
 
-    public List selectDetails(String con, String odi, String typeDetailId, 
-            String actionId) {
-
-        String query = pendingGeneralQuery
-                + " WHERE 1=1";
-        if (con.length() != 0) {
-            query += "  AND OSD.CON = '" + con + "' \n";
-        }
-        if (odi.length() != 0) {
-            query += "  AND OSD.ODI = '" + odi + "' \n";
-        }
-        if (actionId.length() != 0) {
-            query += "  AND ACTION_ID = "+ actionId +"\n";
-        }
-        query += pendingGeneralJoin;
-
-        return selectData(Constants.dao.selectData(query, selectTypes));
-
-    }
+//    String[] selectTypes = {"-", "ID", "CON", "ODI", "TYPE_DETAIL_ID",
+//        "DESCRIPTION", "ACTION_ID", "CRTD_BY", "REMARKS", "CRTD_DATE", "CRTD_TERMINAL"};
+//
+//    String pendingGeneralQuery = " SELECT                                \n"
+//            + "  OSD.ID                       ID,                        \n"
+//            + "  OSD.CON                      CON,                       \n"
+//            + "  OSD.ODI                      ODI,                       \n"
+//            + "  DT.DESCRIPTION               DESCRIPTION,               \n"
+//            + "  OSD.TYPE_DETAIL_ID           TYPE_DETAIL_ID,            \n"
+//            + "  NVL(OSD.ACTION_ID, 0)      ACTION_ID,                 \n"
+//            + "  NVL(OSD.REMARKS, ' ')        REMARKS,                   \n"
+//            + "  OSD.CRTD_BY                  CRTD_BY,                   \n"
+//            + "  OSD.CRTD_DATE                CRTD_DATE,                 \n"
+//            + "  OSD.CRTD_TERMINAL            CRTD_TERMINAL              \n"
+//            + "  FROM                                                    \n"
+//            + Database.DCMS.otSetupDetail + "        OSD,                \n"
+//            + Database.DCMS.definitionTypeDetail + " DT                  \n";
+//
+//    String pendingGeneralJoin = "  AND OSD.TYPE_DETAIL_ID = DT.ID        \n"
+//            + "ORDER BY ID                                               \n";
+//
+//    public List selectData(List list) {
+//
+//        List listOTProcedure = new ArrayList();
+//        for (int i = 0; i < list.size(); i++) {
+//            HashMap map = (HashMap) list.get(i);
+//            CardiacSurgery otPro = new CardiacSurgery();
+//            otPro.setId(map.get("ID").toString());
+//            otPro.setTypeDetailId(map.get("TYPE_DETAIL_ID").toString());
+//            otPro.setCompleteOrderNo(map.get("CON").toString());
+//            otPro.setOrderDetailId(map.get("ODI").toString());
+//            otPro.setDescription(map.get("DESCRIPTION").toString());
+//            otPro.setTypeDetailId(map.get("TYPE_DETAIL_ID").toString());
+//            otPro.setActionId(map.get("ACTION_ID").toString());
+//            otPro.setRemarks(map.get("REMARKS").toString());
+//            otPro.setCrtdBy(map.get("CRTD_BY").toString());
+//            otPro.setCrtdDate(map.get("CRTD_DATE").toString());
+//            otPro.setCrtdTerminalId(map.get("CRTD_TERMINAL").toString());
+//
+//            if (otPro.getType().equalsIgnoreCase("LOV")) {
+//                listOTProcedure.add(otPro);
+//            }
+//        }
+//        return listOTProcedure;
+//    }
+//
+//    public List selectDetails(String con, String odi, String typeDetailId, 
+//            String actionId) {
+//
+//        String query = pendingGeneralQuery
+//                + " WHERE 1=1";
+//        if (con.length() != 0) {
+//            query += "  AND OSD.CON = '" + con + "' \n";
+//        }
+//        if (odi.length() != 0) {
+//            query += "  AND OSD.ODI = '" + odi + "' \n";
+//        }
+//        if (actionId.length() != 0) {
+//            query += "  AND ACTION_ID = "+ actionId +"\n";
+//        }
+//        query += pendingGeneralJoin;
+//
+//        return selectData(Constants.dao.selectDatainList(query, selectTypes));
+//
+//    }
 
     public boolean insertOperDetail(CardiacSurgery operate) {
 

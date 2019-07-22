@@ -2322,6 +2322,9 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Add"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -2349,7 +2352,7 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="txtValSur3" min="-2" pref="212" max="-2" attributes="3"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButton3" max="32767" attributes="0"/>
                                       </Group>
                                       <Component id="jPanel21" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jScrollPane15" alignment="1" pref="0" max="32767" attributes="1"/>

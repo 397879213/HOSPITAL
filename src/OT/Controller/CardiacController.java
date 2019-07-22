@@ -23,11 +23,19 @@ public class CardiacController {
 
     CardiacSurgeryHandler hdlCardiacSurg = new CardiacSurgeryHandler();
     CPTQuestionaireHandler hdlQues = new CPTQuestionaireHandler();
+    
+    List<CardiacSurgery> listOtOperation = new ArrayList();
 
-    public List<CardiacSurgery>
-            selectOTPendingAll(String con, String odi, String typeDetailId,
-                    String actionId) {
-        return hdlCardiacSurg.selectDetails(con, odi, typeDetailId, actionId);
+//    public List<CardiacSurgery> selectOTPendingAll(String con, String odi, 
+//            String typeDetailId, String actionId) {
+//        listOtOperation = hdlCardiacSurg.selectDetails(con, odi, typeDetailId, actionId);
+//        System.err.println("Listttt" + listOtOperation.size());
+//        return hdlCardiacSurg.selectDetails(con, odi, typeDetailId, actionId);
+//        
+//    }
+    
+    public List<CardiacSurgery> selectOtDetail(String con, String odi, String actionId) {
+        return hdlCardiacSurg.selectOtDetail(con, odi, actionId);
     }
 
     public boolean insertOperDetail(List<CardiacSurgery> operate) {
