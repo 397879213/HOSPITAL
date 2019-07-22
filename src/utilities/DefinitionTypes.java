@@ -261,7 +261,7 @@ public class DefinitionTypes {
     public static final String otExplantImplant = "365";
     public static final String cardiacPathology = "417";
     public static final String cardiacSiteOfOperation = "418";
-    public static final String cardiacAorticProcedure = "419";
+    public static final String cardiacAorticProcedure = "419";;
     public static String otCronaryArtery = "366";//
     public static String medSpecialApprovalType = "367";// 
     public static String OPDVisitCaseCategory = "368";// 

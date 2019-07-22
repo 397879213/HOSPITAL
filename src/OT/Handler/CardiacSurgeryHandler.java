@@ -32,10 +32,10 @@ public class CardiacSurgeryHandler {
             + Database.DCMS.surgeryInformation + " SGI,                 \n"
             + Database.DCMS.definitionTypeDetail + " RSN,               \n"
             + Database.DCMS.users + " USR                               \n"
-            + " WHERE CON = '" + con + "'                               \n"
-            + " AND ODI = '" + odi + "'                                 \n"
-            + " AND SGI.SURGERY_REMARKS = RSN.ID                        \n"
-            + " AND CRTD_BY = USR.USER_NAME                             \n";
+            + " WHERE SGI.CON = '" + con + "'                           \n"
+            + " AND SGI.ODI = '" + odi + "'                             \n"
+            + " AND SGI.SURGERY_REMARKS_ID = RSN.ID                     \n"
+            + " AND SGI.CRTD_BY = USR.USER_NAME                         \n";
 
         List<HashMap> listMap = Constants.dao.selectDatainList(query, col);
         List listOTProcedure = new ArrayList();
@@ -71,7 +71,7 @@ public class CardiacSurgeryHandler {
         mapUsers.put("PRIORITY", "'" + operate.getPriority()+ "'");
         mapUsers.put("ROLE_OF_ROBOT", "'" + operate.getRoleofRobot()+ "'");
         mapUsers.put("FIRST_REDO", "'" + operate.getFirstRedo()+ "'");
-        mapUsers.put("SURGERY_REMARKS", "'" + operate.getRemarks().replaceAll("'", "''")+ "'");
+        mapUsers.put("SURGERY_REMARKS_ID", "'" + operate.getSurgeryRemarksId()+ "'");
         mapUsers.put("CRTD_BY", "'" + Constants.userId + "'");
         mapUsers.put("CRTD_DATE",  Constants.today );
         mapUsers.put("CRTD_TERMINAL", "'" + Constants.terminalId + "'");
@@ -87,13 +87,13 @@ public class CardiacSurgeryHandler {
             "CRTD_BY_NAME"};
 
     String query = " SELECT                                             \n"
-            + "  AIN.OSD.CON                      CON,                   \n"
-            + "  AIN.OSD.ODI                      ODI,                   \n"
+            + "  AIN.CON                      CON,                      \n"
+            + "  AIN.ODI                      ODI,                      \n"
             + "  AIN.ACCESS_INFO,                                        \n"
             + "  AIN.IS_ELECTIVE,                                        \n"
             + "  AIN.ACCESS_REMARKS_ID,                                  \n"
             + "  ARM.DESCRIPTION              ACCESS_REMARKS,            \n"
-            + "  AIN.CRTD_BY                      CRTD_BY,               \n"
+            + "  AIN.CRTD_BY                  CRTD_BY,                   \n"
             + "  USR.NAME                     CRTD_BY_NAME,              \n"
             + "  AIN.CRTD_DATE                CRTD_DATE,                 \n"
             + "  AIN.CRTD_TERMINAL            CRTD_TERMINAL              \n"
@@ -101,9 +101,10 @@ public class CardiacSurgeryHandler {
             + Database.DCMS.accessInformation + " AIN,                   \n"
             + Database.DCMS.definitionTypeDetail + " ARM,                \n"
             + Database.DCMS.users + " USR                                \n"
-            + " WHERE CON = '" + con + "'                                \n"
-            + " AND ODI = '" + odi + "'                                  \n"
-            + " AND CRTD_BY = USR.USER_NAME                              \n";
+            + " WHERE AIN.CON = '" + con + "'                            \n"
+            + " AND AIN.ODI = '" + odi + "'                              \n"
+            + " AND AIN.ACCESS_REMARKS_ID = ARM.ID                       \n"
+            + " AND AIN.CRTD_BY = USR.USER_NAME                          \n";
 
         List<HashMap> listMap = Constants.dao.selectDatainList(query, col);
         List listOTProcedure = new ArrayList();
@@ -127,8 +128,8 @@ public class CardiacSurgeryHandler {
     
     public boolean insertAccessInfo(CardiacSurgery operate) {
 
-        String[] columns = {Database.DCMS.surgeryInformation, "CON", "ODI", 
-            "ACCESS_INFO", "IS_ELECTIVE", "ACCESS_REMARKS", "CRTD_BY", "CRTD_DATE", 
+        String[] columns = {Database.DCMS.accessInformation, "CON", "ODI", 
+            "ACCESS_INFO", "IS_ELECTIVE", "ACCESS_REMARKS_ID", "CRTD_BY", "CRTD_DATE", 
             "CRTD_TERMINAL"};
 
         HashMap mapUsers = new HashMap();
@@ -137,7 +138,7 @@ public class CardiacSurgeryHandler {
         mapUsers.put("ODI", "'" + operate.getOrderDetailId() + "'");
         mapUsers.put("ACCESS_INFO", "'" + operate.getAccess()+ "'");
         mapUsers.put("IS_ELECTIVE", "'" + operate.getIsElective()+ "'");
-        mapUsers.put("ACCESS_REMARKS", "'" + operate.getElectiveRemarks().replaceAll("'", "''")+ "'");
+        mapUsers.put("ACCESS_REMARKS_ID", "'" + operate.getElectiveRemarksId()+ "'");
         mapUsers.put("CRTD_BY", "'" + Constants.userId + "'");
         mapUsers.put("CRTD_DATE",  Constants.today );
         mapUsers.put("CRTD_TERMINAL", "'" + Constants.terminalId + "'");
@@ -177,7 +178,6 @@ public class CardiacSurgeryHandler {
             HashMap map = (HashMap) listMap.get(i);
             CardiacSurgery otPro = new CardiacSurgery();
             otPro.setId(map.get("ID").toString());
-            otPro.setTypeDetailId(map.get("TYPE_DETAIL_ID").toString());
             otPro.setCompleteOrderNo(map.get("CON").toString());
             otPro.setOrderDetailId(map.get("ODI").toString());
             otPro.setDescription(map.get("DESCRIPTION").toString());

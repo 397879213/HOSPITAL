@@ -9,6 +9,7 @@ import OT.TableModel.OtCabgProcTableModel;
 import OT.TableModel.OtClosureTableModel;
 import OT.TableModel.OtDateOfOperationTableModel;
 import OT.TableModel.OtPaceWireTableModel;
+import OT.TableModel.OtPacingWireTableModel;
 import OT.TableModel.OtProcOptTableModel;
 import OT.TableModel.OtQuestionaireTableModel;
 import OT.TableModel.SurgeryInfoTableModel;
@@ -30,6 +31,7 @@ import utilities.Status;
 public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     DisplayLOV lov = new DisplayLOV();
+    String redoRemarksId = "";
     String typeDetailId = "";
     String IfnotElectiveId = "";
     String IfnotElectiveLov = "";
@@ -104,9 +106,13 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         selectCabgProcedure(con, odi);
         selectValSurgery();
         selectCabgSurgery();
-//        selectPathologyDetail();
+        selectPathologyDetail();
         selectAorticProcedure();
-//        selectSiteOfOperation();
+        selectSiteOfOperation();
+        selectAccessInformation();
+        selectSurgeryInfo();
+        selectClosure();
+        selectPacingWire();
     }
 
     @SuppressWarnings("unchecked")
@@ -1905,7 +1911,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
             return;
         }
 
-        typeDetailId = Constants.lovID;
+        redoRemarksId = Constants.lovID;
         redoName = Constants.lovDescription;
         txtReasonForRedo.setText(Constants.lovDescription);
     }//GEN-LAST:event_txtReasonForRedoActionPerformed
@@ -2146,6 +2152,17 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     private void tblOTPaceWireMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOTPaceWireMouseReleased
         // TODO add your handling code here:
+        if (!lstpaceWire.isEmpty()) {
+            CardiacSurgery objDlt = lstpaceWire.get(tblOTPaceWire.getSelectedRow());
+            if (evt.getClickCount() == 2) {
+                if (ctlOtCardiac.deleteOtDetail(objDlt.getId())) {
+                    JOptionPane.showMessageDialog(null, "Record Deleted");
+                    selectPacingWire();
+                } else {
+                    JOptionPane.showMessageDialog(null, "unable to Deleted");
+                }
+            }
+        }
     }//GEN-LAST:event_tblOTPaceWireMouseReleased
 
     private void tblOTPaceWireKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblOTPaceWireKeyReleased
@@ -2390,82 +2407,17 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtClosureMouseReleased
 
     private void txtClosureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClosureActionPerformed
-
-        String query = " SELECT DT.ID ID, DT.DESCRIPTION DESCRIPTION FROM        \n"
-                + Database.DCMS.definitionTypeDetail + " DT    \n"
-                + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.otClosure + "'"
-                + " AND DT.ID NOT IN (SELECT OCP.CLOSURE_ID FROM "
-                + Database.DCMS.otClosurePacingWire + " OCP"
-                + " WHERE OCP.CON = '" + con + "' AND OCP.ODI = '" + odi + "'"
-                + " AND OCP.CLOSURE_ID IS NOT NULL) \n"
-                + " ORDER BY ID";
-
-        lov.LOVSelection(query, this);
-        if (Constants.lovID.equalsIgnoreCase("ID")) {
-            return;
-        }
-        objSave = new CardiacSurgery();
-        objSave.setCompleteOrderNo(con);
-        objSave.setOrderDetailId(odi);
-        objSave.setClosureId(Constants.lovID);
-        objSave.setPaceWireId("");
-        objSave.setClosureDescription(Constants.lovDescription);
-        objSave.setDefTypeId(DefinitionTypes.otClosure);
-
-        if (ctlOtCardiac.insertClosurePaceWire(objSave)) {
-            lstClosure.add(objSave);
-            tblOTClosure.setModel(new OtClosureTableModel(lstClosure));
-            this.tblLookAndFeel(tblOTClosure);
-        } else {
-            JOptionPane.showMessageDialog(null, "Unable to Add. Kindy Contact Administrator.");
-        }
-
+        // TODO add your handling code here:
+        saveClosure();
     }//GEN-LAST:event_txtClosureActionPerformed
-
-    private void tblLookAndFeel(JTable tbl) {
-        ListSelectionModel selectionModel = tbl.getSelectionModel();
-        tbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        setColumnsWidthsOperation();
-        selectionModel.setSelectionInterval(0, 0);
-        Constants.tablelook.setJTableEnvironment(tbl);
-    }
 
     private void txtPaceWireMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPaceWireMouseReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPaceWireMouseReleased
 
     private void txtPaceWireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPaceWireActionPerformed
-
-        String query = " SELECT DT.ID ID, DT.DESCRIPTION DESCRIPTION FROM        \n"
-                + Database.DCMS.definitionTypeDetail + " DT    \n"
-                + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.otPacingWire + "'"
-                + " AND DT.ID NOT IN (SELECT OCP.PACING_WIRE_ID FROM "
-                + Database.DCMS.otClosurePacingWire + " OCP"
-                + " WHERE OCP.CON = '" + con + "' AND OCP.ODI = '" + odi + "'"
-                + " AND OCP.PACING_WIRE_ID IS NOT NULL) \n"
-                + " ORDER BY ID";
-        lov.LOVSelection(query, this);
-
-        if (Constants.lovID.equalsIgnoreCase("ID")) {
-            return;
-        }
-
-        objSave = new CardiacSurgery();
-        objSave.setCompleteOrderNo(con);
-        objSave.setOrderDetailId(odi);
-        objSave.setPaceWireId(Constants.lovID);
-        objSave.setPaceWireDescription(Constants.lovDescription);
-        objSave.setClosureId("");
-        objSave.setDefTypeId(DefinitionTypes.otPacingWire);
-
-        if (ctlOtCardiac.insertClosurePaceWire(objSave)) {
-            lstpaceWire.add(objSave);
-            tblOTPaceWire.setModel(new OtPaceWireTableModel(lstpaceWire));
-            this.tblLookAndFeel(tblOTPaceWire);
-        } else {
-            JOptionPane.showMessageDialog(null, "Unable to Add. Kindy Contact Administrator.");
-        }
-
+        // TODO add your handling code here:
+        savePacingWire();
     }//GEN-LAST:event_txtPaceWireActionPerformed
 
     private void tblCabgProcKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblCabgProcKeyPressed
@@ -2486,6 +2438,17 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     private void tblOTClosureMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOTClosureMouseReleased
         // TODO add your handling code here:
+        if (!lstClosure.isEmpty()) {
+            CardiacSurgery objDlt = lstClosure.get(tblOTClosure.getSelectedRow());
+            if (evt.getClickCount() == 2) {
+                if (ctlOtCardiac.deleteOtDetail(objDlt.getId())) {
+                    JOptionPane.showMessageDialog(null, "Record Deleted");
+                    selectClosure();
+                } else {
+                    JOptionPane.showMessageDialog(null, "unable to Deleted");
+                }
+            }
+        }
     }//GEN-LAST:event_tblOTClosureMouseReleased
 
     private void tblOTClosureKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblOTClosureKeyReleased
@@ -2645,7 +2608,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         if (evt.getClickCount() == 2) {
             if (ctlOtCardiac.deleteOtDetail(objDlt.getId())) {
                 JOptionPane.showMessageDialog(null, "Record Deleted");
-                selectPathologyDetail();
+                selectAorticProcedure();
             } else {
                 JOptionPane.showMessageDialog(null, "unable to Deleted");
             }
@@ -3038,9 +3001,10 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         String query = " SELECT ID ID, DESCRIPTION  FROM            \n"
                 + Database.DCMS.definitionTypeDetail + " DT         \n"
                 + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.cardiacPathology + "'"
-                + " AND ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
+                + " AND DT.ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
                 + Database.DCMS.otSetupDetail
-                + " WHERE ACTION_ID = " + DefinitionTypes.cardiacPathology + " )"
+                + " WHERE CON = '" + con + "' AND ODI = '" + odi + "'"
+                + " AND ACTION_ID = " + DefinitionTypes.cardiacPathology + ") \n"
                 + " ORDER BY ID";
         lov.LOVSelection(query, this);
 
@@ -3096,9 +3060,10 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         String query = " SELECT ID ID, DESCRIPTION  FROM            \n"
                 + Database.DCMS.definitionTypeDetail + " DT         \n"
                 + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.cardiacSiteOfOperation + "'"
-                + " AND ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
+                + " AND DT.ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
                 + Database.DCMS.otSetupDetail
-                + " WHERE ACTION_ID = " + DefinitionTypes.cardiacSiteOfOperation + " )"
+                + " WHERE CON = '" + con + "' AND ODI = '" + odi + "'"
+                + " AND ACTION_ID = " + DefinitionTypes.cardiacSiteOfOperation + ") \n"
                 + " ORDER BY ID";
         lov.LOVSelection(query, this);
 
@@ -3145,7 +3110,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         Constants.tablelook.setJTableEnvironment(tblSiteOfOperation);
         if (!listSiteofOperation.isEmpty()) {
             CardiacSurgery setRemarks = listSiteofOperation.get(0);
-            txtSiteOfOperation.setText(setRemarks.getRemarks().trim());
+            txtOperationSIte.setText(setRemarks.getRemarks().trim());
         }
 
     }
@@ -3154,9 +3119,10 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         String query = " SELECT ID ID, DESCRIPTION  FROM            \n"
                 + Database.DCMS.definitionTypeDetail + " DT         \n"
                 + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.cardiacAorticProcedure + "'"
-                + " AND ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
+                + " AND DT.ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
                 + Database.DCMS.otSetupDetail
-                + " WHERE ACTION_ID = " + DefinitionTypes.cardiacAorticProcedure + " )"
+                + " WHERE CON = '" + con + "' AND ODI = '" + odi + "'"
+                + " AND ACTION_ID = " + DefinitionTypes.cardiacAorticProcedure + ") \n"
                 + " ORDER BY ID";
         lov.LOVSelection(query, this);
 
@@ -3244,7 +3210,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         }
 
         if (cbofirstRedo.getSelectedIndex() >= 1) {
-            if (typeDetailId.equalsIgnoreCase("") || typeDetailId == null) {
+            if (redoRemarksId.length() == 0) {
                 JOptionPane.showMessageDialog(null, "Kinly Select Reason");
                 return;
             }
@@ -3255,7 +3221,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         objSave.setPriority(cboPriorityStatus.getSelectedItem().toString());
         objSave.setRoleofRobot(cboRoleofRobo.getSelectedItem().toString());
         objSave.setFirstRedo(cbofirstRedo.getSelectedItem().toString());
-        objSave.setSurgeryRemarks(txtReasonForRedo.getText());
+        objSave.setSurgeryRemarksId(redoRemarksId);
 
         if (ctlOtCardiac.insertSurgeryInfo(objSave)) {
             selectSurgeryInfo();
@@ -3276,14 +3242,13 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                 return;
             }
         }
-        
+
         objSave = new CardiacSurgery();
         objSave.setCompleteOrderNo(con);
         objSave.setOrderDetailId(odi);
-        objSave.setPriority(cboPriorityStatus.getSelectedItem().toString());
-        objSave.setRoleofRobot(cboRoleofRobo.getSelectedItem().toString());
-        objSave.setFirstRedo(cbofirstRedo.getSelectedItem().toString());
-        objSave.setSurgeryRemarks(txtReasonForRedo.getText());
+        objSave.setAccess(cboAccess.getSelectedItem().toString());
+        objSave.setIsElective(cboElective.getSelectedItem().toString());
+        objSave.setElectiveRemarksId(IfnotElectiveId);
 
         if (ctlOtCardiac.insertAccessInfo(objSave)) {
             selectAccessInformation();
@@ -3294,14 +3259,14 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     private void selectAccessInformation() {
         listAccess = ctlOtCardiac.selectAccessInfo(con, odi);
-        tblAccess.setModel(new SurgeryInfoTableModel(listAccess));
+        tblAccess.setModel(new OtAccessTableModel(listAccess));
         ListSelectionModel selectionModel = tblAccess.getSelectionModel();
         tblAccess.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setAccessInformationColumnsWidths();
         selectionModel.setSelectionInterval(0, 0);
         Constants.tablelook.setJTableEnvironment(tblAccess);
     }
-    
+
     private void setAccessInformationColumnsWidths() {
         TableColumn column = null;
         for (int i = 0; i < tblAccess.getColumnCount(); i++) {
@@ -3309,10 +3274,114 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
             if (i == 0) {
                 column.setPreferredWidth(10);
             } else if (i == 1) {
-                column.setPreferredWidth(40);
+                column.setPreferredWidth(60);
             } else if (i == 2) {
-                column.setPreferredWidth(40);
+                column.setPreferredWidth(60);
             } else if (i == 3) {
+                column.setPreferredWidth(120);
+            }
+        }
+    }
+
+    private void saveClosure() {
+        String query = " SELECT DT.ID ID, DT.DESCRIPTION DESCRIPTION FROM        \n"
+                + Database.DCMS.definitionTypeDetail + " DT    \n"
+                + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.otClosure + "'"
+                + " AND DT.ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
+                + Database.DCMS.otSetupDetail
+                + " WHERE CON = '" + con + "' AND ODI = '" + odi + "'"
+                + " AND ACTION_ID = " + DefinitionTypes.otClosure + ") \n"
+                + " ORDER BY ID";
+
+        lov.LOVSelection(query, this);
+        if (Constants.lovID.equalsIgnoreCase("ID")) {
+            return;
+        }
+
+        CardiacSurgery operate = new CardiacSurgery();
+        operate.setOrderDetailId(odi);
+        operate.setCompleteOrderNo(con);
+        operate.setTypeDetailId(Constants.lovID);
+        operate.setActionId(DefinitionTypes.otClosure);
+        operate.setRemarks(txtOperationSIte.getText().trim());
+
+        if (ctlOtCardiac.insertInOTDetail(operate)) {
+            selectClosure();
+        } else {
+            JOptionPane.showMessageDialog(null, "Unable to Add, Kindly Contact Administrator");
+        }
+    }
+
+    private void selectClosure() {
+        lstClosure = ctlOtCardiac.selectOtDetail(con, odi,
+                DefinitionTypes.otClosure);
+        tblOTClosure.setModel(new OtClosureTableModel(lstClosure));
+        ListSelectionModel selectionModel = tblOTClosure.getSelectionModel();
+        tblOTClosure.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setClosureColumnsWidths();
+        selectionModel.setSelectionInterval(0, 0);
+        Constants.tablelook.setJTableEnvironment(tblOTClosure);
+    }
+
+    private void setClosureColumnsWidths() {
+        TableColumn column = null;
+        for (int i = 0; i < tblOTClosure.getColumnCount(); i++) {
+            column = tblOTClosure.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(10);
+            } else if (i == 1) {
+                column.setPreferredWidth(80);
+            }
+        }
+    }
+
+    private void savePacingWire() {
+        String query = " SELECT DT.ID ID, DT.DESCRIPTION DESCRIPTION FROM        \n"
+                + Database.DCMS.definitionTypeDetail + " DT    \n"
+                + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.otPacingWire + "'"
+                + " AND DT.ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
+                + Database.DCMS.otSetupDetail
+                + " WHERE CON = '" + con + "' AND ODI = '" + odi + "'"
+                + " AND ACTION_ID = " + DefinitionTypes.otPacingWire + ") \n"
+                + " ORDER BY ID";
+        lov.LOVSelection(query, this);
+
+        if (Constants.lovID.equalsIgnoreCase("ID")) {
+            return;
+        }
+
+        CardiacSurgery operate = new CardiacSurgery();
+        operate.setOrderDetailId(odi);
+        operate.setCompleteOrderNo(con);
+        operate.setTypeDetailId(Constants.lovID);
+        operate.setActionId(DefinitionTypes.otPacingWire);
+        operate.setRemarks(txtOperationSIte.getText().trim());
+
+        if (ctlOtCardiac.insertInOTDetail(operate)) {
+            selectPacingWire();
+        } else {
+            JOptionPane.showMessageDialog(null, "Unable to Add, Kindly Contact Administrator");
+        }
+    }
+
+    private void selectPacingWire() {
+        lstpaceWire = ctlOtCardiac.selectOtDetail(con, odi,
+                DefinitionTypes.otPacingWire);
+        tblOTPaceWire.setModel(new OtPacingWireTableModel(lstpaceWire));
+        ListSelectionModel selectionModel = tblOTPaceWire.getSelectionModel();
+        tblOTPaceWire.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setPacingWireColumnsWidths();
+        selectionModel.setSelectionInterval(0, 0);
+        Constants.tablelook.setJTableEnvironment(tblOTPaceWire);
+    }
+
+    private void setPacingWireColumnsWidths() {
+        TableColumn column = null;
+        for (int i = 0; i < tblOTPaceWire.getColumnCount(); i++) {
+            column = tblOTPaceWire.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(10);
+            } else if (i == 1) {
                 column.setPreferredWidth(80);
             }
         }

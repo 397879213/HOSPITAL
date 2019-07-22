@@ -6,14 +6,14 @@ import java.awt.Color;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-public class OtClosureTableModel extends AbstractTableModel {
+public class OtPacingWireTableModel extends AbstractTableModel {
 
     private String[] columnNames
             = {"ID","Description"};
 
     private Object[][] data;
 
-    public OtClosureTableModel(List<CardiacSurgery> lstClosure) {
+    public OtPacingWireTableModel(List<CardiacSurgery> lstClosure) {
         data = new Object[lstClosure.size()][columnNames.length];
         int row = 0;
         for (int i = 0; i < lstClosure.size(); i++) {
