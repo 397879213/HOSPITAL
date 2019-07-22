@@ -24,8 +24,40 @@ public class CardiacController {
     CardiacSurgeryHandler hdlCardiacSurg = new CardiacSurgeryHandler();
     CPTQuestionaireHandler hdlQues = new CPTQuestionaireHandler();
 
+    public List<CardiacSurgery> selectSurgeryInfo(String con, String odi) {
+        return hdlCardiacSurg.selectSurgeryInfo(con, odi);
+    }
+
+    public List<CardiacSurgery> selectAccessInfo(String con, String odi) {
+        return hdlCardiacSurg.selectAccessInfo(con, odi);
+    }
+
     List<CardiacSurgery> listOtOperation = new ArrayList();
 
+    public boolean insertSurgeryInfo(CardiacSurgery operate) {
+        boolean ret = hdlCardiacSurg.insertSurgeryInfo(operate);
+
+        if (ret) {
+            Constants.dao.commitTransaction();
+        }
+        if (!ret) {
+            Constants.dao.commitTransaction();
+        }
+        return ret;
+    }
+    
+    public boolean insertAccessInfo(CardiacSurgery operate) {
+        boolean ret = hdlCardiacSurg.insertAccessInfo(operate);
+
+        if (ret) {
+            Constants.dao.commitTransaction();
+        }
+        if (!ret) {
+            Constants.dao.commitTransaction();
+        }
+        return ret;
+    }
+    
     public boolean deleteOtDetail(String id) {
         boolean ret = true;
         ret = hdlCardiacSurg.deleteOtDetail(id);

@@ -5,22 +5,23 @@ import java.awt.Color;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-public class OtAccessTableModel extends AbstractTableModel {
+public class SurgeryInfoTableModel extends AbstractTableModel {
 
     private String[] columnNames
-            = {"Sr.", "Access", "Elective", "Reason"};
+                = {"Priority", "Role of Robot", "First/ Redo", "Remarks"};
 
     private Object[][] data;
 
-    public OtAccessTableModel(List orders) {
+    public SurgeryInfoTableModel(List orders) {
         data = new Object[orders.size()][columnNames.length];
         int row = 0;
         for (int i = 0; i < orders.size(); i++) {
             CardiacSurgery order = (CardiacSurgery) orders.get(i);
-            data[row][0] = i + 1;
-            data[row][1] = order.getAccess();
-            data[row][2] = order.getIsElective();
-            data[row][3] = order.getElectiveRemarks();
+//            data[row][0] = i + 1;
+            data[row][0] = order.getPriority();
+            data[row][1] = order.getRoleofRobot();
+            data[row][2] = order.getFirstRedo();
+            data[row][3] = order.getSurgeryRemarks();
 
             row++;
         }

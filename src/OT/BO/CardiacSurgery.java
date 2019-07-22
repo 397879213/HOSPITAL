@@ -71,6 +71,88 @@ public class CardiacSurgery {
     private String thoracicAeroticRemarks = ""; 
     private String remarks = "";
     private String actionId = "";
+    
+    private String priority = "";
+    private String roleofRobot = "";
+    private String firstRedo = "";
+    private String surgeryRemarksId = "";
+    private String surgeryRemarks = "";
+    private String access = "";
+    private String isElective = "";
+    private String electiveRemarksId = "";
+    private String electiveRemarks = "";
+
+    public String getElectiveRemarksId() {
+        return electiveRemarksId;
+    }
+
+    public void setElectiveRemarksId(String electiveRemarksId) {
+        this.electiveRemarksId = electiveRemarksId;
+    }
+    
+    public String getSurgeryRemarksId() {
+        return surgeryRemarksId;
+    }
+
+    public void setSurgeryRemarksId(String surgeryRemarksId) {
+        this.surgeryRemarksId = surgeryRemarksId;
+    }
+    
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public String getRoleofRobot() {
+        return roleofRobot;
+    }
+
+    public void setRoleofRobot(String roleofRobot) {
+        this.roleofRobot = roleofRobot;
+    }
+
+    public String getFirstRedo() {
+        return firstRedo;
+    }
+
+    public void setFirstRedo(String firstRedo) {
+        this.firstRedo = firstRedo;
+    }
+
+    public String getSurgeryRemarks() {
+        return surgeryRemarks;
+    }
+
+    public void setSurgeryRemarks(String surgeryRemarks) {
+        this.surgeryRemarks = surgeryRemarks;
+    }
+
+    public String getAccess() {
+        return access;
+    }
+
+    public void setAccess(String access) {
+        this.access = access;
+    }
+
+    public String getIsElective() {
+        return isElective;
+    }
+
+    public void setIsElective(String isElective) {
+        this.isElective = isElective;
+    }
+
+    public String getElectiveRemarks() {
+        return electiveRemarks;
+    }
+
+    public void setElectiveRemarks(String electiveRemarks) {
+        this.electiveRemarks = electiveRemarks;
+    }
 
     public String getActionId() {
         return actionId;

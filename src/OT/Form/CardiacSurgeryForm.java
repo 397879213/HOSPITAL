@@ -1,17 +1,17 @@
 package OT.Form;
 
 import BO.Order.CPTQuestionaire;
-
 import OT.BO.CardiacSurgery;
 import OT.Controller.CardiacController;
+import OT.TableModel.OTQuestionsTableModel;
 import OT.TableModel.OtAccessTableModel;
 import OT.TableModel.OtCabgProcTableModel;
-import OT.TableModel.OtDateOfOperationTableModel;
-import OT.TableModel.OtProcOptTableModel;
 import OT.TableModel.OtClosureTableModel;
+import OT.TableModel.OtDateOfOperationTableModel;
 import OT.TableModel.OtPaceWireTableModel;
+import OT.TableModel.OtProcOptTableModel;
 import OT.TableModel.OtQuestionaireTableModel;
-import OT.TableModel.OTQuestionsTableModel;
+import OT.TableModel.SurgeryInfoTableModel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,7 +61,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     List<CardiacSurgery> listReasonForRedo = new ArrayList();
     List<CardiacSurgery> listAccessSelect = new ArrayList();
     List<CardiacSurgery> listAccess = new ArrayList();
-    List<CardiacSurgery> listReasonForNotElective = new ArrayList();
+    List<CardiacSurgery> listSurgeryInfo = new ArrayList();
     List<CardiacSurgery> listCabgSelect = new ArrayList();
     List<CardiacSurgery> listVal = new ArrayList();
     List<CardiacSurgery> lstClosure = new ArrayList();
@@ -74,10 +74,10 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private int curentSelectedOperationIndex = 0;
     CardiacSurgery curentSelectedOperationObj = new CardiacSurgery();
 
-    String[] cboStatus = {"", "8661", "8662", "8663", "8664"};
-    String[] cboRedo = {"", "8665", "8666", "8667", "8668"};
-    String[] cboAcs = {"", "8678", "8679", "8680", "8681", "8682"};
-    String[] cboEle = {"", "8669", "8670", "8671", "8672", "8673", "8674", "8675", "8676", "8677"};
+//    String[] cboStatus = {"", "8661", "8662", "8663", "8664"};
+//    String[] cboRedo = {"", "8665", "8666", "8667", "8668"};
+//    String[] cboAcs = {"", "8678", "8679", "8680", "8681", "8682"};
+//    String[] cboEle = {"", "8669", "8670", "8671", "8672", "8673", "8674", "8675", "8676", "8677"};
     String[] cabgProc = {"", "8708", "8709", "8710", "8711", "8712", "8713", "8714"};
 
 //    public CardiacSurgeryForm(String con, String odi) {
@@ -104,7 +104,9 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         selectCabgProcedure(con, odi);
         selectValSurgery();
         selectCabgSurgery();
-        selectPathologyDetail(DefinitionTypes.cardiacPathology);
+//        selectPathologyDetail();
+        selectAorticProcedure();
+//        selectSiteOfOperation();
     }
 
     @SuppressWarnings("unchecked")
@@ -140,7 +142,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         btnAddDateOperation = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtOTPlanDate = new org.jdesktop.swingx.JXDatePicker();
-        cboPriorityStatus1 = new javax.swing.JComboBox();
+        cboRoleofRobo = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         cboAccess = new javax.swing.JComboBox();
         cboElective = new javax.swing.JComboBox();
@@ -237,7 +239,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         tblAorticProcedure = new javax.swing.JTable();
         jPanel21 = new javax.swing.JPanel();
         jScrollPane16 = new javax.swing.JScrollPane();
-        txtOperationSIte2 = new javax.swing.JTextArea();
+        txtAortic = new javax.swing.JTextArea();
         jButton3 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
@@ -515,11 +517,11 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
             }
         });
 
-        cboPriorityStatus1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        cboPriorityStatus1.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"Role of Robot","Harvesting of LIMA","CABG","Valve Repair","Valve Replacement", "NA"}));
-        cboPriorityStatus1.addActionListener(new java.awt.event.ActionListener() {
+        cboRoleofRobo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cboRoleofRobo.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"Role of Robot","Harvesting of LIMA","CABG","Valve Repair","Valve Replacement", "NA"}));
+        cboRoleofRobo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboPriorityStatus1ActionPerformed(evt);
+                cboRoleofRoboActionPerformed(evt);
             }
         });
 
@@ -544,7 +546,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboPriorityStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboPriorityStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cboRoleofRobo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(5, 5, 5))
         );
         jPanel1Layout.setVerticalGroup(
@@ -555,18 +557,19 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                     .addComponent(txtOTPlanDate, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cboPriorityStatus)
-                        .addComponent(cboPriorityStatus1))
+                        .addComponent(cboRoleofRobo))
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtReasonForRedo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAddDateOperation, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(76, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cbofirstRedo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
-                        .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtReasonForRedo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnAddDateOperation, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(5, 5, 5))
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
         );
 
         jPanel2.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
@@ -673,8 +676,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                     .addComponent(txtIfnotElective, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAddAccess, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel4.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
@@ -1153,11 +1155,9 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(89, 89, 89)
@@ -1731,10 +1731,10 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         jPanel21.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Remarks", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12), new java.awt.Color(102, 0, 0))); // NOI18N
 
-        txtOperationSIte2.setColumns(20);
-        txtOperationSIte2.setLineWrap(true);
-        txtOperationSIte2.setRows(5);
-        jScrollPane16.setViewportView(txtOperationSIte2);
+        txtAortic.setColumns(20);
+        txtAortic.setLineWrap(true);
+        txtAortic.setRows(5);
+        jScrollPane16.setViewportView(txtAortic);
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -2162,12 +2162,12 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     private void tblSiteOfOperationMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSiteOfOperationMouseReleased
 
-        CardiacSurgery objDlt = listPathology.get(tblSiteOfOperation.getSelectedRow());
-        txtPathRemarks.setText(objDlt.getRemarks().trim());
+        CardiacSurgery objDlt = listSiteofOperation.get(tblSiteOfOperation.getSelectedRow());
+        txtOperationSIte.setText(objDlt.getRemarks().trim());
         if (evt.getClickCount() == 2) {
             if (ctlOtCardiac.deleteOtDetail(objDlt.getId())) {
                 JOptionPane.showMessageDialog(null, "Record Deleted");
-                selectPathologyDetail(DefinitionTypes.cardiacSiteOfOperation);
+                selectSiteOfOperation();
             } else {
                 JOptionPane.showMessageDialog(null, "unable to Deleted");
             }
@@ -2287,103 +2287,13 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cboEndartActionPerformed
 
     private void btnAddDateOperationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDateOperationActionPerformed
-//        if (cboPriorityStatus.getSelectedIndex() == 0) {
-//            JOptionPane.showMessageDialog(null, "Kindly Select Priority Status");
-//            return;
-//        }
-//        if (cbofirstRedo.getSelectedIndex() == 0) {
-//            JOptionPane.showMessageDialog(null, "Kindly Select First Redo");
-//            return;
-//        }
-//
-//        if (cbofirstRedo.getSelectedIndex() > 1) {
-//            if (typeDetailId.equalsIgnoreCase("") || typeDetailId == null) {
-//                JOptionPane.showMessageDialog(null, "Kinly Select Reason");
-//                return;
-//            }
-//        }
-//
-//        List<CardiacSurgery> lis = new ArrayList<>();
-//        String cboindex = "";
-//        cboindex = cboStatus[cboPriorityStatus.getSelectedIndex()];
-//        CardiacSurgery obj1 = new CardiacSurgery();
-//        obj1.setTypeDetailId(cboindex);
-//        obj1.setCompleteOrderNo(con);
-//        obj1.setOrderDetailId(odi);
-//        obj1.setDefTypeId(DefinitionTypes.priorityStatus);
-//        obj1.setType("cbo");
-//        lis.add(obj1);
-//
-//        cboindex = cboRedo[cbofirstRedo.getSelectedIndex()];
-//        CardiacSurgery obj2 = new CardiacSurgery();
-//        obj2.setCompleteOrderNo(con);
-//        obj2.setOrderDetailId(odi);
-//        obj2.setTypeDetailId(cboindex);
-//        obj2.setDefTypeId(DefinitionTypes.firstRedo);
-//        obj2.setType("cbo");
-//        lis.add(obj2);
-//
-//        CardiacSurgery obj3 = new CardiacSurgery();
-//        obj3.setCompleteOrderNo(con);
-//        obj3.setOrderDetailId(odi);
-//        obj3.setTypeDetailId(typeDetailId);
-//        obj3.setDefTypeId(DefinitionTypes.reasonForRedo);
-//        obj3.setType("LOV");
-//        lis.add(obj3);
-//
-//        if (ctlOtCardiac.insertOperDetail(lis)) {
-//            selectOperationDetail(con, odi, typeDetailId, typeDetailId);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Unable to Add, Kindly Contact Administrator");
-//        }
 
+        saveSurgeryInfo();
     }//GEN-LAST:event_btnAddDateOperationActionPerformed
 
     private void btnAddAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccessActionPerformed
-//        if (cboAccess.getSelectedIndex() == 0) {
-//            JOptionPane.showMessageDialog(null, "Kindly Select Access");
-//            return;
-//        }
-//
-//        if (cboElective.getSelectedIndex() > 0) {
-//            if (IfnotElectiveId.equalsIgnoreCase("") || IfnotElectiveId == null) {
-//                JOptionPane.showMessageDialog(null, "Kinly Select If Not Elective");
-//                return;
-//            }
-//        }
-//        List<CardiacSurgery> lis = new ArrayList<>();
-//        String cboindex = "";
-//        cboindex = cboAcs[cboAccess.getSelectedIndex()];
-//        CardiacSurgery obj1 = new CardiacSurgery();
-//        obj1.setTypeDetailId(cboindex);
-//        obj1.setCompleteOrderNo(con);
-//        obj1.setOrderDetailId(odi);
-//        obj1.setType("cbo");
-//        obj1.setDefTypeId(DefinitionTypes.otAccess);
-//        lis.add(obj1);
-//
-//        cboindex = cboEle[cboElective.getSelectedIndex()];
-//        CardiacSurgery obj2 = new CardiacSurgery();
-//        obj2.setCompleteOrderNo(con);
-//        obj2.setOrderDetailId(odi);
-//        obj2.setTypeDetailId(cboindex);
-//        obj2.setType("cbo");
-//        obj2.setDefTypeId(DefinitionTypes.otValveSurg);
-//        lis.add(obj2);
-//
-//        CardiacSurgery obj3 = new CardiacSurgery();
-//        obj3.setCompleteOrderNo(con);
-//        obj3.setOrderDetailId(odi);
-//        obj3.setTypeDetailId(IfnotElectiveId);
-//        obj3.setType("LOV");
-//        obj3.setDefTypeId(DefinitionTypes.otreasonIfnotElective);
-//        lis.add(obj3);
-//
-//        if (ctlOtCardiac.insertOperDetail(lis)) {
-//            selectAccessDetail(con, odi, typeDetailId, deftypeid);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Unable to Add, Kindly Contact Administrator");
-//        }
+        // TODO add your handling code here:
+        saveAccessInformation();
     }//GEN-LAST:event_btnAddAccessActionPerformed
 
     private void btnValSurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValSurActionPerformed
@@ -2640,9 +2550,9 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         surgeryDate = date;
     }//GEN-LAST:event_txtOTPlanDateActionPerformed
 
-    private void cboPriorityStatus1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPriorityStatus1ActionPerformed
+    private void cboRoleofRoboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboRoleofRoboActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cboPriorityStatus1ActionPerformed
+    }//GEN-LAST:event_cboRoleofRoboActionPerformed
 
     private void txtPl1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPl1MouseReleased
         // TODO add your handling code here:
@@ -2692,18 +2602,19 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     private void tblpathologyMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblpathologyMouseReleased
         // TODO add your handling code here:
-        CardiacSurgery objDlt = listPathology.get(tblpathology.getSelectedRow());
-        System.err.println(".remarks: " + objDlt.getRemarks().trim());
-        txtPathRemarks.setText(objDlt.getRemarks().trim());
-        if (evt.getClickCount() == 2) {
-            if (ctlOtCardiac.deleteOtDetail(objDlt.getId())) {
-                JOptionPane.showMessageDialog(null, "Record Deleted");
-                selectPathologyDetail(DefinitionTypes.cardiacPathology);
-            } else {
-                JOptionPane.showMessageDialog(null, "unable to Deleted");
+        if (!listPathology.isEmpty()) {
+            CardiacSurgery objDlt = listPathology.get(tblpathology.getSelectedRow());
+            System.err.println(".remarks: " + objDlt.getRemarks().trim());
+            txtPathRemarks.setText(objDlt.getRemarks().trim());
+            if (evt.getClickCount() == 2) {
+                if (ctlOtCardiac.deleteOtDetail(objDlt.getId())) {
+                    JOptionPane.showMessageDialog(null, "Record Deleted");
+                    selectPathologyDetail();
+                } else {
+                    JOptionPane.showMessageDialog(null, "unable to Deleted");
+                }
             }
         }
-
     }//GEN-LAST:event_tblpathologyMouseReleased
 
     private void tblpathologyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblpathologyKeyReleased
@@ -2729,12 +2640,12 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     private void tblAorticProcedureMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAorticProcedureMouseReleased
         // TODO add your handling code here:
-        CardiacSurgery objDlt = listPathology.get(tblAorticProcedure.getSelectedRow());
-        txtPathRemarks.setText(objDlt.getRemarks().trim());
+        CardiacSurgery objDlt = listAorticProcedure.get(tblAorticProcedure.getSelectedRow());
+        txtAortic.setText(objDlt.getRemarks().trim());
         if (evt.getClickCount() == 2) {
             if (ctlOtCardiac.deleteOtDetail(objDlt.getId())) {
                 JOptionPane.showMessageDialog(null, "Record Deleted");
-                selectPathologyDetail(DefinitionTypes.cardiacAorticProcedure);
+                selectPathologyDetail();
             } else {
                 JOptionPane.showMessageDialog(null, "unable to Deleted");
             }
@@ -2802,7 +2713,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox cboElective;
     private javax.swing.JComboBox cboEndart;
     private javax.swing.JComboBox cboPriorityStatus;
-    private javax.swing.JComboBox cboPriorityStatus1;
+    private javax.swing.JComboBox cboRoleofRobo;
     private javax.swing.JComboBox cbofirstRedo;
     private javax.swing.JCheckBox chkShuntNo;
     private javax.swing.JCheckBox chkShuntYes;
@@ -2882,6 +2793,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblValSurg;
     private javax.swing.JTable tblpathology;
     private javax.swing.JTextField txtAdmissionNo;
+    private javax.swing.JTextArea txtAortic;
     private javax.swing.JTextArea txtAorticClampTime;
     private javax.swing.JTextField txtAorticProcedure;
     private javax.swing.JTextField txtClosure;
@@ -2897,7 +2809,6 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea txtLALine;
     private org.jdesktop.swingx.JXDatePicker txtOTPlanDate;
     private javax.swing.JTextArea txtOperationSIte;
-    private javax.swing.JTextArea txtOperationSIte2;
     private javax.swing.JTextArea txtOtherProcedureInfo;
     private javax.swing.JTextField txtPaceWire;
     private javax.swing.JTextArea txtPathRemarks;
@@ -3122,7 +3033,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
     }
-    
+
     private void cardiacPathology() {
         String query = " SELECT ID ID, DESCRIPTION  FROM            \n"
                 + Database.DCMS.definitionTypeDetail + " DT         \n"
@@ -3143,17 +3054,13 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         operate.setTypeDetailId(deftypeid);
         operate.setActionId(DefinitionTypes.cardiacPathology);
         operate.setRemarks(txtPathRemarks.getText().trim());
-        saveOTSetupDetail(operate, DefinitionTypes.cardiacPathology);
-        txtPathology.requestFocus();
-    }
-
-    private void saveOTSetupDetail(CardiacSurgery operate, String actionId) {
 
         if (ctlOtCardiac.insertInOTDetail(operate)) {
-            selectPathologyDetail(actionId);
+            selectPathologyDetail();
         } else {
             JOptionPane.showMessageDialog(null, "Unable to Add, Kindly Contact Administrator");
         }
+        txtPathology.requestFocus();
     }
 
     private void setPathologyColumnsWidths() {
@@ -3170,16 +3077,19 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         }
     }
 
-    private void selectPathologyDetail(String actionId) {
-        listPathology = ctlOtCardiac.selectOtDetail(con, odi, actionId);
+    private void selectPathologyDetail() {
+        listPathology = ctlOtCardiac.selectOtDetail(con, odi,
+                DefinitionTypes.cardiacPathology);
         tblpathology.setModel(new OtDateOfOperationTableModel(listPathology));
         ListSelectionModel selectionModel = tblpathology.getSelectionModel();
         tblpathology.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setPathologyColumnsWidths();
         selectionModel.setSelectionInterval(0, 0);
         Constants.tablelook.setJTableEnvironment(tblpathology);
-        CardiacSurgery setRemarks = listPathology.get(0);
-        txtPathRemarks.setText(setRemarks.getRemarks().trim());
+        if (!listPathology.isEmpty()) {
+            CardiacSurgery setRemarks = listPathology.get(0);
+            txtPathRemarks.setText(setRemarks.getRemarks().trim());
+        }
     }
 
     private void cardiacSiteOfOperation() {
@@ -3202,12 +3112,15 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         operate.setTypeDetailId(deftypeid);
         operate.setActionId(DefinitionTypes.cardiacSiteOfOperation);
         operate.setRemarks(txtOperationSIte.getText().trim());
-        saveOTSetupDetail(operate, DefinitionTypes.cardiacSiteOfOperation);
+        if (ctlOtCardiac.insertInOTDetail(operate)) {
+            selectSiteOfOperation();
+        } else {
+            JOptionPane.showMessageDialog(null, "Unable to Add, Kindly Contact Administrator");
+        }
         txtSiteOfOperation.requestFocus();
     }
-    
-    
-    private void setcardiacSiteOfOperationColumnsWidths() {
+
+    private void setCardiacSiteOfOperationColumnsWidths() {
         TableColumn column = null;
         for (int i = 0; i < tblpathology.getColumnCount(); i++) {
             column = tblpathology.getColumnModel().getColumn(i);
@@ -3221,65 +3134,187 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         }
     }
 
-    private void selectSiteOfOperation(String actionId) {
-        listPathology = ctlOtCardiac.selectOtDetail(con, odi, actionId);
-        tblpathology.setModel(new OtDateOfOperationTableModel(listPathology));
-        ListSelectionModel selectionModel = tblpathology.getSelectionModel();
-        tblpathology.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        setcardiacSiteOfOperationColumnsWidths();
+    private void selectSiteOfOperation() {
+        listSiteofOperation = ctlOtCardiac.selectOtDetail(con, odi,
+                DefinitionTypes.cardiacSiteOfOperation);
+        tblSiteOfOperation.setModel(new OtDateOfOperationTableModel(listSiteofOperation));
+        ListSelectionModel selectionModel = tblSiteOfOperation.getSelectionModel();
+        tblSiteOfOperation.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setCardiacSiteOfOperationColumnsWidths();
         selectionModel.setSelectionInterval(0, 0);
-        Constants.tablelook.setJTableEnvironment(tblpathology);
-        CardiacSurgery setRemarks = listPathology.get(0);
-        txtPathRemarks.setText(setRemarks.getRemarks().trim());
+        Constants.tablelook.setJTableEnvironment(tblSiteOfOperation);
+        if (!listSiteofOperation.isEmpty()) {
+            CardiacSurgery setRemarks = listSiteofOperation.get(0);
+            txtSiteOfOperation.setText(setRemarks.getRemarks().trim());
+        }
+
     }
 
-//    private void cardiacAorticProcedure() {
-//        String query = " SELECT ID ID, DESCRIPTION  FROM            \n"
-//                + Database.DCMS.definitionTypeDetail + " DT         \n"
-//                + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.cardiacAorticProcedure + "'"
-//                + " AND ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
-//                + Database.DCMS.otSetupDetail
-//                + " WHERE ACTION_ID = " + DefinitionTypes.cardiacAorticProcedure + " )"
-//                + " ORDER BY ID";
-//        lov.LOVSelection(query, this);
-//
-//        if (Constants.lovID.equalsIgnoreCase("ID")) {
-//            return;
-//        }
-//        deftypeid = Constants.lovID;
-//        CardiacSurgery operate = new CardiacSurgery();
-//        operate.setOrderDetailId(odi);
-//        operate.setCompleteOrderNo(con);
-//        operate.setTypeDetailId(deftypeid);
-//        operate.setActionId(DefinitionTypes.cardiacAorticProcedure);
-//        operate.setRemarks(txtOperationSIte.getText().trim());
-//        saveOTSetupDetail(operate, DefinitionTypes.cardiacAorticProcedure);
-//        txtAorticProcedure.requestFocus();
-//    }
-//    
-//    private void setcardiacAorticProcedureColumnsWidths() {
-//        TableColumn column = null;
-//        for (int i = 0; i < tblAorticProcedure.getColumnCount(); i++) {
-//            column = tblAorticProcedure.getColumnModel().getColumn(i);
-//            if (i == 0) {
-//                column.setPreferredWidth(10);
-//            } else if (i == 1) {
-//                column.setPreferredWidth(15);
-//            } else if (i == 2) {
-//                column.setPreferredWidth(120);
-//            }
-//        }
-//    }
-//
-//    private void selectAorticProcedure(String actionId) {
-//        listPathology = ctlOtCardiac.selectOtDetail(con, odi, actionId);
-//        tblAorticProcedure.setModel(new OtDateOfOperationTableModel(listPathology));
-//        ListSelectionModel selectionModel = tblAorticProcedure.getSelectionModel();
-//        tblAorticProcedure.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        setcardiacAorticProcedureColumnsWidths();
-//        selectionModel.setSelectionInterval(0, 0);
-//        Constants.tablelook.setJTableEnvironment(tblAorticProcedure);
-//        CardiacSurgery setRemarks = listPathology.get(0);
-//        txtPathRemarks.setText(setRemarks.getRemarks().trim());
-//    }
+    private void cardiacAorticProcedure() {
+        String query = " SELECT ID ID, DESCRIPTION  FROM            \n"
+                + Database.DCMS.definitionTypeDetail + " DT         \n"
+                + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.cardiacAorticProcedure + "'"
+                + " AND ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
+                + Database.DCMS.otSetupDetail
+                + " WHERE ACTION_ID = " + DefinitionTypes.cardiacAorticProcedure + " )"
+                + " ORDER BY ID";
+        lov.LOVSelection(query, this);
+
+        if (Constants.lovID.equalsIgnoreCase("ID")) {
+            return;
+        }
+        deftypeid = Constants.lovID;
+        CardiacSurgery operate = new CardiacSurgery();
+        operate.setOrderDetailId(odi);
+        operate.setCompleteOrderNo(con);
+        operate.setTypeDetailId(deftypeid);
+        operate.setActionId(DefinitionTypes.cardiacAorticProcedure);
+        operate.setRemarks(txtOperationSIte.getText().trim());
+        if (ctlOtCardiac.insertInOTDetail(operate)) {
+            selectAorticProcedure();
+        } else {
+            JOptionPane.showMessageDialog(null, "Unable to Add, Kindly Contact Administrator");
+        }
+        txtAorticProcedure.requestFocus();
+    }
+
+    private void setcardiacAorticProcedureColumnsWidths() {
+        TableColumn column = null;
+        for (int i = 0; i < tblAorticProcedure.getColumnCount(); i++) {
+            column = tblAorticProcedure.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(10);
+            } else if (i == 1) {
+                column.setPreferredWidth(15);
+            } else if (i == 2) {
+                column.setPreferredWidth(120);
+            }
+        }
+    }
+
+    private void selectAorticProcedure() {
+        listAorticProcedure = ctlOtCardiac.selectOtDetail(con, odi,
+                DefinitionTypes.cardiacAorticProcedure);
+        tblAorticProcedure.setModel(new OtDateOfOperationTableModel(listAorticProcedure));
+        ListSelectionModel selectionModel = tblAorticProcedure.getSelectionModel();
+        tblAorticProcedure.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setcardiacAorticProcedureColumnsWidths();
+        selectionModel.setSelectionInterval(0, 0);
+        Constants.tablelook.setJTableEnvironment(tblAorticProcedure);
+        if (!listAorticProcedure.isEmpty()) {
+            CardiacSurgery setRemarks = listAorticProcedure.get(0);
+            txtAortic.setText(setRemarks.getRemarks().trim());
+        }
+    }
+
+    private void selectSurgeryInfo() {
+        listSurgeryInfo = ctlOtCardiac.selectSurgeryInfo(con, odi);
+        tblReasonForRedo.setModel(new SurgeryInfoTableModel(listSurgeryInfo));
+        ListSelectionModel selectionModel = tblReasonForRedo.getSelectionModel();
+        tblReasonForRedo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setSurgeryInfoColumnsWidths();
+        selectionModel.setSelectionInterval(0, 0);
+        Constants.tablelook.setJTableEnvironment(tblReasonForRedo);
+    }
+
+    private void setSurgeryInfoColumnsWidths() {
+        TableColumn column = null;
+        for (int i = 0; i < tblReasonForRedo.getColumnCount(); i++) {
+            column = tblReasonForRedo.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(10);
+            } else if (i == 1) {
+                column.setPreferredWidth(40);
+            } else if (i == 2) {
+                column.setPreferredWidth(40);
+            } else if (i == 3) {
+                column.setPreferredWidth(80);
+            }
+        }
+    }
+
+    private void saveSurgeryInfo() {
+        if (cboPriorityStatus.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Kindly Select Priority Status");
+            return;
+        }
+        if (cboRoleofRobo.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Kindly Select First Redo");
+            return;
+        }
+
+        if (cbofirstRedo.getSelectedIndex() >= 1) {
+            if (typeDetailId.equalsIgnoreCase("") || typeDetailId == null) {
+                JOptionPane.showMessageDialog(null, "Kinly Select Reason");
+                return;
+            }
+        }
+        objSave = new CardiacSurgery();
+        objSave.setCompleteOrderNo(con);
+        objSave.setOrderDetailId(odi);
+        objSave.setPriority(cboPriorityStatus.getSelectedItem().toString());
+        objSave.setRoleofRobot(cboRoleofRobo.getSelectedItem().toString());
+        objSave.setFirstRedo(cbofirstRedo.getSelectedItem().toString());
+        objSave.setSurgeryRemarks(txtReasonForRedo.getText());
+
+        if (ctlOtCardiac.insertSurgeryInfo(objSave)) {
+            selectSurgeryInfo();
+        } else {
+            JOptionPane.showMessageDialog(null, "Unable to Add, Kindly Contact Administrator");
+        }
+    }
+
+    private void saveAccessInformation() {
+        if (cboAccess.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Kindly Select Access");
+            return;
+        }
+
+        if (cboElective.getSelectedIndex() > 0) {
+            if (IfnotElectiveId.equalsIgnoreCase("") || IfnotElectiveId == null) {
+                JOptionPane.showMessageDialog(null, "Kinly Select If Not Elective");
+                return;
+            }
+        }
+        
+        objSave = new CardiacSurgery();
+        objSave.setCompleteOrderNo(con);
+        objSave.setOrderDetailId(odi);
+        objSave.setPriority(cboPriorityStatus.getSelectedItem().toString());
+        objSave.setRoleofRobot(cboRoleofRobo.getSelectedItem().toString());
+        objSave.setFirstRedo(cbofirstRedo.getSelectedItem().toString());
+        objSave.setSurgeryRemarks(txtReasonForRedo.getText());
+
+        if (ctlOtCardiac.insertAccessInfo(objSave)) {
+            selectAccessInformation();
+        } else {
+            JOptionPane.showMessageDialog(null, "Unable to Add, Kindly Contact Administrator");
+        }
+    }
+
+    private void selectAccessInformation() {
+        listAccess = ctlOtCardiac.selectAccessInfo(con, odi);
+        tblAccess.setModel(new SurgeryInfoTableModel(listAccess));
+        ListSelectionModel selectionModel = tblAccess.getSelectionModel();
+        tblAccess.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setAccessInformationColumnsWidths();
+        selectionModel.setSelectionInterval(0, 0);
+        Constants.tablelook.setJTableEnvironment(tblAccess);
+    }
+    
+    private void setAccessInformationColumnsWidths() {
+        TableColumn column = null;
+        for (int i = 0; i < tblAccess.getColumnCount(); i++) {
+            column = tblAccess.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(10);
+            } else if (i == 1) {
+                column.setPreferredWidth(40);
+            } else if (i == 2) {
+                column.setPreferredWidth(40);
+            } else if (i == 3) {
+                column.setPreferredWidth(80);
+            }
+        }
+    }
 }

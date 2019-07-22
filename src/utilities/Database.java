@@ -615,6 +615,8 @@ public class Database {
         public static final String otClosurePacingWire = DAO.username + ".OT_CLOSURE_PACE_WIRE   ";
         public static final String otCabg = DAO.username + ".OT_CABG   ";
         public static final String otSetupDetail = DAO.username + ".OT_SETUP_DETAIL   ";
+        public static final String surgeryInformation = DAO.username + ".SURGERY_INFORMATION   ";
+        public static final String accessInformation = DAO.username + ".ACCESS_INFORMATION   ";
         public static final String ipdMedicinePlanMaster = DAO.username + ".IPD_MEDICINE_PLAN_MASTER   ";
         public static final String ipdMedicinePlanDetail = DAO.username + ".IPD_MEDICINE_PLAN_DETAIL   ";
 
