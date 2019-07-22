@@ -102,7 +102,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         selectCabgProcedure(con, odi);
         selectValSurgery();
         selectCabgSurgery();
-        saveOTSetupDetail(DefinitionTypes.pathology);
+        saveOTSetupDetail(operate);
     }
 
     @SuppressWarnings("unchecked")
@@ -2215,7 +2215,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtFlowActionPerformed
 
     private void tblAccessMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAccessMouseClicked
-        
+
     }//GEN-LAST:event_tblAccessMouseClicked
 
     private void tblAccessMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAccessMousePressed
@@ -2672,7 +2672,25 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     private void txtPathologyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPathologyActionPerformed
         // TODO add your handling code here:
-        saveOTSetupDetail(DefinitionTypes.pathology);
+        String query = " SELECT ID ID, DESCRIPTION  FROM            \n"
+                + Database.DCMS.definitionTypeDetail + " DT         \n"
+                + " WHERE DT.DEF_TYPE_ID = '" + actionId + "'"
+                + " AND ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
+                + Database.DCMS.otSetupDetail
+                + " WHERE ACTION_ID = " + actionId + " )"
+                + " ORDER BY ID";
+        lov.LOVSelection(query, this);
+
+        if (Constants.lovID.equalsIgnoreCase("ID")) {
+            return;
+        }
+        deftypeid = Constants.lovID;
+        CardiacSurgery operate = new CardiacSurgery();
+        operate.setOrderDetailId(odi);
+        operate.setCompleteOrderNo(con);
+        operate.setTypeDetailId(deftypeid);
+        operate.setActionId(actionId);
+        saveOTSetupDetail(operate);
         txtPathology.requestFocus();
     }//GEN-LAST:event_txtPathologyActionPerformed
 
@@ -2905,7 +2923,6 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 //        selectionModel.setSelectionInterval(0, 0);
 //        Constants.tablelook.setJTableEnvironment(tblReasonForRedo);
 //    }
-
     private void selectPatientQuestionaire() {
 
         lstQues = ctlOtCardiac.selectQuestionaireMaster(con, odi, Status.inOT);
@@ -3002,7 +3019,6 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 //        selectionModel.setSelectionInterval(0, 0);
 //        Constants.tablelook.setJTableEnvironment(tblAccess);
 //    }
-
     public void setColumnsWidthsAccess() {
 
         TableColumn column = null;
@@ -3096,40 +3112,15 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         }
     }
 
-    private void saveOTSetupDetail(String actionId) {
-        String query = " SELECT ID ID, DESCRIPTION  FROM            \n"
-                + Database.DCMS.definitionTypeDetail + " DT         \n"
-                + " WHERE DT.DEF_TYPE_ID = '" + actionId + "'"
-                + " AND ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
-                + Database.DCMS.otSetupDetail
-                + " WHERE ACTION_ID = " + actionId + " )"
-                + " ORDER BY ID";
-        lov.LOVSelection(query, this);
-
-        if (Constants.lovID.equalsIgnoreCase("ID")) {
-            return;
-        }
-        deftypeid = Constants.lovID;
-        CardiacSurgery operate = new CardiacSurgery();
-        operate.setOrderDetailId(odi);
-        operate.setCompleteOrderNo(con);
-        operate.setTypeDetailId(deftypeid);
-        operate.setActionId(actionId);
+    private void saveOTSetupDetail(CardiacSurgery operate) {
 
         if (ctlOtCardiac.insertInOTDetail(operate)) {
-            listOtOperation = ctlOtCardiac.selectOtDetail(con, odi, actionId);
-            System.err.println("Listttt" + listOtOperation.size());
-            tblpathology.setModel(new OtDateOfOperationTableModel(listOtOperation));
-            ListSelectionModel selectionModel = tblpathology.getSelectionModel();
-            tblpathology.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            setPathologyColumnsWidths();
-            selectionModel.setSelectionInterval(0, 0);
-            Constants.tablelook.setJTableEnvironment(tblpathology);
+            selectOTDetail();
         } else {
             JOptionPane.showMessageDialog(null, "Unable to Add, Kindly Contact Administrator");
         }
     }
-    
+
     private void setPathologyColumnsWidths() {
         TableColumn column = null;
         for (int i = 0; i < tblpathology.getColumnCount(); i++) {
@@ -3140,7 +3131,17 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                 column.setPreferredWidth(15);
             } else if (i == 2) {
                 column.setPreferredWidth(80);
-            } 
+            }
         }
+    }
+
+    private void selectOTDetail(String actionId) {
+        listOtOperation = ctlOtCardiac.selectOtDetail(con, odi, actionId);
+        tblpathology.setModel(new OtDateOfOperationTableModel(listOtOperation));
+        ListSelectionModel selectionModel = tblpathology.getSelectionModel();
+        tblpathology.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setPathologyColumnsWidths();
+        selectionModel.setSelectionInterval(0, 0);
+        Constants.tablelook.setJTableEnvironment(tblpathology);
     }
 }
