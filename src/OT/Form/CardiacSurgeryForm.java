@@ -102,7 +102,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         selectCabgProcedure(con, odi);
         selectValSurgery();
         selectCabgSurgery();
-        selectOTDetail(DefinitionTypes.pathology);
+        selectOTDetail(DefinitionTypes.cardiacPathology);
     }
 
     @SuppressWarnings("unchecked")
@@ -208,9 +208,9 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         txtComments = new javax.swing.JTextField();
         btnSaveQuestionaire = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
-        txtValSur1 = new javax.swing.JTextField();
+        txtSiteOfOperation = new javax.swing.JTextField();
         jScrollPane9 = new javax.swing.JScrollPane();
-        tblAorticQuestionaire = new javax.swing.JTable();
+        tblSiteOfOperation = new javax.swing.JTable();
         jPanel16 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtOperationSIte = new javax.swing.JTextArea();
@@ -1433,21 +1433,21 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         jPanel15.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Site of Operation", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 13), new java.awt.Color(102, 0, 0))); // NOI18N
 
-        txtValSur1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        txtValSur1.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtSiteOfOperation.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtSiteOfOperation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                txtValSur1MouseReleased(evt);
+                txtSiteOfOperationMouseReleased(evt);
             }
         });
-        txtValSur1.addActionListener(new java.awt.event.ActionListener() {
+        txtSiteOfOperation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValSur1ActionPerformed(evt);
+                txtSiteOfOperationActionPerformed(evt);
             }
         });
 
-        tblAorticQuestionaire.setBackground(java.awt.SystemColor.activeCaption);
-        tblAorticQuestionaire.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        tblAorticQuestionaire.setModel(new javax.swing.table.DefaultTableModel(
+        tblSiteOfOperation.setBackground(java.awt.SystemColor.activeCaption);
+        tblSiteOfOperation.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tblSiteOfOperation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"", "", "", "" },
             },
@@ -1455,23 +1455,23 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                 "ID", "DESCRIPTION"
             }
         ));
-        tblAorticQuestionaire.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblSiteOfOperation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAorticQuestionaireMouseClicked(evt);
+                tblSiteOfOperationMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tblAorticQuestionaireMousePressed(evt);
+                tblSiteOfOperationMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblAorticQuestionaireMouseReleased(evt);
+                tblSiteOfOperationMouseReleased(evt);
             }
         });
-        tblAorticQuestionaire.addKeyListener(new java.awt.event.KeyAdapter() {
+        tblSiteOfOperation.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblAorticQuestionaireKeyReleased(evt);
+                tblSiteOfOperationKeyReleased(evt);
             }
         });
-        jScrollPane9.setViewportView(tblAorticQuestionaire);
+        jScrollPane9.setViewportView(tblSiteOfOperation);
 
         jPanel16.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
         jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Remarks", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12), new java.awt.Color(102, 0, 0))); // NOI18N
@@ -1548,7 +1548,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                     .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(txtValSur1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSiteOfOperation, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
@@ -1571,7 +1571,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtValSur1)
+                    .addComponent(txtSiteOfOperation)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2150,31 +2150,31 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_tblOTPaceWireKeyReleased
 
-    private void tblAorticQuestionaireMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAorticQuestionaireMouseClicked
+    private void tblSiteOfOperationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSiteOfOperationMouseClicked
 
-    }//GEN-LAST:event_tblAorticQuestionaireMouseClicked
+    }//GEN-LAST:event_tblSiteOfOperationMouseClicked
 
-    private void tblAorticQuestionaireMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAorticQuestionaireMousePressed
+    private void tblSiteOfOperationMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSiteOfOperationMousePressed
 
-    }//GEN-LAST:event_tblAorticQuestionaireMousePressed
+    }//GEN-LAST:event_tblSiteOfOperationMousePressed
 
-    private void tblAorticQuestionaireMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAorticQuestionaireMouseReleased
+    private void tblSiteOfOperationMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSiteOfOperationMouseReleased
 
-        if (tblAorticQuestionaire.getSelectedRow() < 0 || lstQues.isEmpty()) {
+        if (tblSiteOfOperation.getSelectedRow() < 0 || lstQues.isEmpty()) {
             return;
         }
 
-        objQuesMaster = lstQues.get(tblAorticQuestionaire.getSelectedRow());
+        objQuesMaster = lstQues.get(tblSiteOfOperation.getSelectedRow());
         objQuesMaster.setCompleteOrderNo(con);
         objQuesMaster.setOrderDetailId(odi);
         questionId = objQuesMaster.getQuestionaireTypeId();
 
 
-    }//GEN-LAST:event_tblAorticQuestionaireMouseReleased
+    }//GEN-LAST:event_tblSiteOfOperationMouseReleased
 
-    private void tblAorticQuestionaireKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblAorticQuestionaireKeyReleased
+    private void tblSiteOfOperationKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblSiteOfOperationKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblAorticQuestionaireKeyReleased
+    }//GEN-LAST:event_tblSiteOfOperationKeyReleased
 
     private void tblReasonForRedoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReasonForRedoMouseClicked
 
@@ -2662,26 +2662,18 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrimaryPhysicianActionPerformed
 
-    private void txtValSur1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtValSur1MouseReleased
+    private void txtSiteOfOperationMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSiteOfOperationMouseReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtValSur1MouseReleased
+    }//GEN-LAST:event_txtSiteOfOperationMouseReleased
 
-    private void txtValSur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValSur1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtValSur1ActionPerformed
-
-    private void txtPathologyMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPathologyMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPathologyMouseReleased
-
-    private void txtPathologyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPathologyActionPerformed
+    private void txtSiteOfOperationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSiteOfOperationActionPerformed
         // TODO add your handling code here:
         String query = " SELECT ID ID, DESCRIPTION  FROM            \n"
                 + Database.DCMS.definitionTypeDetail + " DT         \n"
-                + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.pathology + "'"
+                + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.cardiacSiteOfOperation + "'"
                 + " AND ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
                 + Database.DCMS.otSetupDetail
-                + " WHERE ACTION_ID = " + DefinitionTypes.pathology + " )"
+                + " WHERE ACTION_ID = " + DefinitionTypes.cardiacSiteOfOperation + " )"
                 + " ORDER BY ID";
         lov.LOVSelection(query, this);
 
@@ -2693,7 +2685,35 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         operate.setOrderDetailId(odi);
         operate.setCompleteOrderNo(con);
         operate.setTypeDetailId(deftypeid);
-        operate.setActionId(DefinitionTypes.pathology);
+        operate.setActionId(DefinitionTypes.cardiacSiteOfOperation);
+        saveOTSetupDetail(operate);
+        txtSiteOfOperation.requestFocus();
+    }//GEN-LAST:event_txtSiteOfOperationActionPerformed
+
+    private void txtPathologyMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPathologyMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPathologyMouseReleased
+
+    private void txtPathologyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPathologyActionPerformed
+        // TODO add your handling code here:
+        String query = " SELECT ID ID, DESCRIPTION  FROM            \n"
+                + Database.DCMS.definitionTypeDetail + " DT         \n"
+                + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.cardiacPathology + "'"
+                + " AND ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
+                + Database.DCMS.otSetupDetail
+                + " WHERE ACTION_ID = " + DefinitionTypes.cardiacPathology + " )"
+                + " ORDER BY ID";
+        lov.LOVSelection(query, this);
+
+        if (Constants.lovID.equalsIgnoreCase("ID")) {
+            return;
+        }
+        deftypeid = Constants.lovID;
+        CardiacSurgery operate = new CardiacSurgery();
+        operate.setOrderDetailId(odi);
+        operate.setCompleteOrderNo(con);
+        operate.setTypeDetailId(deftypeid);
+        operate.setActionId(DefinitionTypes.cardiacPathology);
         saveOTSetupDetail(operate);
         txtPathology.requestFocus();
     }//GEN-LAST:event_txtPathologyActionPerformed
@@ -2714,7 +2734,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         if (evt.getClickCount() == 2) {
             if (ctlOtCardiac.deleteOtDetail(objDlt.getId())) {
                 JOptionPane.showMessageDialog(null, "Record Deleted");
-                selectOTDetail(DefinitionTypes.pathology);
+                selectOTDetail(DefinitionTypes.cardiacPathology);
             } else {
                 JOptionPane.showMessageDialog(null, "unable to Deleted");
             }
@@ -2792,10 +2812,10 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         String query = " SELECT ID ID, DESCRIPTION  FROM            \n"
                 + Database.DCMS.definitionTypeDetail + " DT         \n"
-                + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.pathology + "'"
+                + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.cardiacPathology + "'"
                 + " AND ID NOT IN (SELECT TYPE_DETAIL_ID FROM "
                 + Database.DCMS.otSetupDetail
-                + " WHERE ACTION_ID = " + DefinitionTypes.pathology + " )"
+                + " WHERE ACTION_ID = " + DefinitionTypes.cardiacPathology + " )"
                 + " ORDER BY ID";
         lov.LOVSelection(query, this);
 
@@ -2807,7 +2827,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         operate.setOrderDetailId(odi);
         operate.setCompleteOrderNo(con);
         operate.setTypeDetailId(deftypeid);
-        operate.setActionId(DefinitionTypes.pathology);
+        operate.setActionId(DefinitionTypes.cardiacPathology);
         operate.setRemarks(txtPathRemarks.getText().trim());
         saveOTSetupDetail(operate);
         txtPathology.requestFocus();
@@ -2899,12 +2919,12 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel pnlPL;
     private javax.swing.JTable tblAccess;
-    private javax.swing.JTable tblAorticQuestionaire;
     private javax.swing.JTable tblAorticQuestionaire2;
     private javax.swing.JTable tblCabgProc;
     private javax.swing.JTable tblOTClosure;
     private javax.swing.JTable tblOTPaceWire;
     private javax.swing.JTable tblReasonForRedo;
+    private javax.swing.JTable tblSiteOfOperation;
     private javax.swing.JTable tblValSurg;
     private javax.swing.JTable tblpathology;
     private javax.swing.JTextField txtAdmissionNo;
@@ -2935,12 +2955,12 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtReasonForRedo;
     private javax.swing.JTextField txtSelectedPatientId;
     private javax.swing.JTextField txtSelectedPatientName;
+    private javax.swing.JTextField txtSiteOfOperation;
     private javax.swing.JTextField txtSize;
     private javax.swing.JTextField txtSrNo;
     private javax.swing.JTextField txtStatus;
     private javax.swing.JTextField txtType;
     private javax.swing.JTextField txtValSur;
-    private javax.swing.JTextField txtValSur1;
     private javax.swing.JTextField txtValSur3;
     private javax.swing.JTextField txtWard;
     // End of variables declaration//GEN-END:variables
@@ -2968,16 +2988,16 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
             List li = new ArrayList();
             CPTQuestionaire obj = new CPTQuestionaire();
             li.add(obj);
-            tblAorticQuestionaire.setModel(new OtQuestionaireTableModel(li));
+            tblSiteOfOperation.setModel(new OtQuestionaireTableModel(li));
         } else {
-            tblAorticQuestionaire.setModel(new OtQuestionaireTableModel(lstQues));
+            tblSiteOfOperation.setModel(new OtQuestionaireTableModel(lstQues));
         }
 
-        ListSelectionModel selectionModel = tblAorticQuestionaire.getSelectionModel();
-        tblAorticQuestionaire.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel selectionModel = tblSiteOfOperation.getSelectionModel();
+        tblSiteOfOperation.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setColumnsWidthsQuestionaire();
         selectionModel.setSelectionInterval(0, 0);
-        Constants.tablelook.setJTableEnvironment(tblAorticQuestionaire);
+        Constants.tablelook.setJTableEnvironment(tblSiteOfOperation);
 
     }
 
@@ -3031,8 +3051,8 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     public void setColumnsWidthsQuestionaire() {
 
         TableColumn column = null;
-        for (int i = 0; i < tblAorticQuestionaire.getColumnCount(); i++) {
-            column = tblAorticQuestionaire.getColumnModel().getColumn(i);
+        for (int i = 0; i < tblSiteOfOperation.getColumnCount(); i++) {
+            column = tblSiteOfOperation.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(20);
             } else if (i == 1) {
@@ -3152,7 +3172,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private void saveOTSetupDetail(CardiacSurgery operate) {
 
         if (ctlOtCardiac.insertInOTDetail(operate)) {
-            selectOTDetail(DefinitionTypes.pathology);
+            selectOTDetail(DefinitionTypes.cardiacSiteOfOperation);
         } else {
             JOptionPane.showMessageDialog(null, "Unable to Add, Kindly Contact Administrator");
         }
@@ -3174,12 +3194,12 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
 
     private void selectOTDetail(String actionId) {
         listOtOperation = ctlOtCardiac.selectOtDetail(con, odi, actionId);
-        tblpathology.setModel(new OtDateOfOperationTableModel(listOtOperation));
-        ListSelectionModel selectionModel = tblpathology.getSelectionModel();
-        tblpathology.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tblSiteOfOperation.setModel(new OtDateOfOperationTableModel(listOtOperation));
+        ListSelectionModel selectionModel = tblSiteOfOperation.getSelectionModel();
+        tblSiteOfOperation.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setPathologyColumnsWidths();
         selectionModel.setSelectionInterval(0, 0);
-        Constants.tablelook.setJTableEnvironment(tblpathology);
+        Constants.tablelook.setJTableEnvironment(tblSiteOfOperation);
         CardiacSurgery setRemarks = listOtOperation.get(0);
         txtPathRemarks.setText(setRemarks.getRemarks().trim());
     }
