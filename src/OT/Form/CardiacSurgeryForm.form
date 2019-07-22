@@ -2076,6 +2076,7 @@
                                 <Component class="javax.swing.JTextArea" name="txtOperationSIte">
                                   <Properties>
                                     <Property name="columns" type="int" value="20"/>
+                                    <Property name="lineWrap" type="boolean" value="true"/>
                                     <Property name="rows" type="int" value="5"/>
                                   </Properties>
                                 </Component>
@@ -2126,6 +2127,7 @@
                                 <Component class="javax.swing.JTextArea" name="txtAorticClampTime">
                                   <Properties>
                                     <Property name="columns" type="int" value="20"/>
+                                    <Property name="lineWrap" type="boolean" value="true"/>
                                     <Property name="rows" type="int" value="5"/>
                                   </Properties>
                                 </Component>
@@ -2204,9 +2206,9 @@
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jPanel19" alignment="0" max="32767" attributes="0"/>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="txtPathology" max="32767" attributes="3"/>
+                                          <Component id="txtPathology" min="-2" pref="163" max="-2" attributes="3"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButton2" min="-2" pref="59" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jScrollPane14" alignment="0" pref="0" max="32767" attributes="1"/>
                                   </Group>
@@ -2223,9 +2225,9 @@
                                       <Component id="jButton2" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane14" pref="0" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane14" min="-2" pref="212" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel19" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jPanel19" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -2296,7 +2298,7 @@
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane7" alignment="0" pref="42" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane7" alignment="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -2308,9 +2310,10 @@
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JTextArea" name="txtOperationSIte1">
+                                <Component class="javax.swing.JTextArea" name="txtPathRemarks">
                                   <Properties>
                                     <Property name="columns" type="int" value="20"/>
+                                    <Property name="lineWrap" type="boolean" value="true"/>
                                     <Property name="rows" type="int" value="5"/>
                                   </Properties>
                                 </Component>
@@ -2458,6 +2461,7 @@
                                 <Component class="javax.swing.JTextArea" name="txtOperationSIte2">
                                   <Properties>
                                     <Property name="columns" type="int" value="20"/>
+                                    <Property name="lineWrap" type="boolean" value="true"/>
                                     <Property name="rows" type="int" value="5"/>
                                   </Properties>
                                 </Component>

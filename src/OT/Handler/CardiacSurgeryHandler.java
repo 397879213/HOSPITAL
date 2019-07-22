@@ -141,7 +141,7 @@ public class CardiacSurgeryHandler {
         mapUsers.put("ODI", "'" + operate.getOrderDetailId() + "'");
         mapUsers.put("TYPE_DETAIL_ID", "'" + operate.getTypeDetailId() + "'");
         mapUsers.put("ACTION_ID", "'" + operate.getActionId()+ "'");
-        mapUsers.put("REMARKS", "'" + operate.getType() + "'");
+        mapUsers.put("REMARKS", "'" + operate.getRemarks().replaceAll("'", "''")+ "'");
         mapUsers.put("CRTD_BY", "'" + Constants.userId + "'");
         mapUsers.put("CRTD_DATE",  Constants.today );
         mapUsers.put("CRTD_TERMINAL", "'" + Constants.terminalId + "'");
