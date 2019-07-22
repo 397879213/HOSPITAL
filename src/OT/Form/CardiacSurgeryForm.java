@@ -214,9 +214,6 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         jLabel27 = new javax.swing.JLabel();
         txtValSur = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
-        txtComments = new javax.swing.JTextField();
-        btnSaveQuestionaire = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
         txtSiteOfOperation = new javax.swing.JTextField();
         jScrollPane9 = new javax.swing.JScrollPane();
@@ -1414,30 +1411,6 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         jPanel8.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thoracic Aortic Surgery Data:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14), new java.awt.Color(102, 0, 0))); // NOI18N
 
-        jLabel29.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(102, 0, 0));
-        jLabel29.setText("Comments :");
-
-        txtComments.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        txtComments.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                txtCommentsMouseReleased(evt);
-            }
-        });
-        txtComments.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCommentsActionPerformed(evt);
-            }
-        });
-
-        btnSaveQuestionaire.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnSaveQuestionaire.setText("Save");
-        btnSaveQuestionaire.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveQuestionaireActionPerformed(evt);
-            }
-        });
-
         jPanel15.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Site of Operation", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 13), new java.awt.Color(102, 0, 0))); // NOI18N
 
@@ -1518,7 +1491,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         jLabel33.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -1750,7 +1723,7 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+            .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
         );
 
         jButton3.setText("Add");
@@ -1778,9 +1751,9 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                     .addComponent(txtAorticProcedure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -1793,26 +1766,12 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtComments)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSaveQuestionaire, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtComments, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel29)
-                    .addComponent(btnSaveQuestionaire, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5))
+            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -2348,9 +2307,6 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
         obj1.setPi(txtPl.getText());
         obj1.setFlow(txtFlow.getText());
 
-        System.out.println("cbo = " + cabgProc[cboCabgProc.getSelectedIndex()]
-                + " - " + cboCabgProc.getSelectedItem());
-
         if (ctlOtCardiac.insertCabgProcedure(obj1)) {
             //JOptionPane.showMessageDialog(null, "Saved Successfully");
             selectCabgProcedure(con, odi);
@@ -2454,41 +2410,6 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private void tblOTClosureKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblOTClosureKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_tblOTClosureKeyReleased
-
-    private void txtCommentsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCommentsMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCommentsMouseReleased
-
-    private void txtCommentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCommentsActionPerformed
-
-    }//GEN-LAST:event_txtCommentsActionPerformed
-
-    private void btnSaveQuestionaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveQuestionaireActionPerformed
-
-        boolean ret = false;
-        List<CPTQuestionaire> lstQuesUpdate = new ArrayList();
-
-//        for (int i = 0; i < tblAorticQestions.getRowCount(); i++) {
-//            ret = Boolean.parseBoolean(tblAorticQestions.getValueAt(i, 1).toString());
-//            if (ret) {
-//                objQues = lstQuesDetail.get(i);
-//                objQues.setQuestionResult("Y");
-//                lstQuesUpdate.add(objQues);
-//            }
-//        }
-        if (lstQuesUpdate.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No Question selected");
-            return;
-        }
-
-        if (ctlOtCardiac.updateQuestionaire(lstQuesUpdate, objQuesMaster)) {
-            JOptionPane.showMessageDialog(null, "Questionaire Updated Successfully");
-        } else {
-            JOptionPane.showMessageDialog(null, "Unable To Update Questionaire. "
-                    + "Kindly Contact Administrator.");
-        }
-
-    }//GEN-LAST:event_btnSaveQuestionaireActionPerformed
 
     private void cboCabgProcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboCabgProcActionPerformed
         // TODO add your handling code here:
@@ -2669,7 +2590,6 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnQuestionaire;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnSaveQuestionaire;
     private javax.swing.JButton btnValSur;
     private javax.swing.JComboBox cboAccess;
     private javax.swing.JComboBox cboCabgProc;
@@ -2698,7 +2618,6 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -2760,7 +2679,6 @@ public class CardiacSurgeryForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea txtAorticClampTime;
     private javax.swing.JTextField txtAorticProcedure;
     private javax.swing.JTextField txtClosure;
-    private javax.swing.JTextField txtComments;
     private javax.swing.JTextField txtConduit;
     private javax.swing.JTextField txtCronArt;
     private javax.swing.JTextField txtDV;
