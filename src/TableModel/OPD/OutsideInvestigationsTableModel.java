@@ -24,7 +24,7 @@ public class OutsideInvestigationsTableModel extends AbstractTableModel {
             OutsideInvestigation investigation = li.get(i);
             data[i][0] = investigation.getTestName();
             data[i][1] = investigation.getReportDate();
-            data[i][2] = investigation.getHealthCareFacilityId();
+            data[i][2] = investigation.getHealthCareFacilityDescription();
         }
     }
 

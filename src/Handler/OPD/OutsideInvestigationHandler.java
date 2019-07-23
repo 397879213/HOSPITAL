@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Handler;
+package Handler.OPD;
 
 import BO.OutsideInvestigation;
 import java.io.File;
@@ -42,7 +42,8 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
         mapInvestigation.put("ODI", "'" + investigation.getOrderDetailId() + "'");
         mapInvestigation.put("HEALTHCARE_FACILITY_ID", "'" + investigation.getHealthCareFacilityId() + "'");
         mapInvestigation.put("TEST_NAME", "'" + investigation.getTestName() + "'");
-        mapInvestigation.put("ID", "(SELECT NVL(MAX(ID), 0) ID FROM " + Database.DCMS.outsideInvestigations + ")");
+        mapInvestigation.put("ID", "(SELECT NVL(MAX(ID) + 1, 0) ID FROM " + 
+                Database.DCMS.outsideInvestigations + ")");
         mapInvestigation.put("REPORT_DATE", "'" + investigation.getReportDate() + "'");
         mapInvestigation.put("CRTD_BY", "'" + Constants.userId + "'");
         mapInvestigation.put("CRTD_DATE", "" + "SYSDATE" + "");
@@ -57,7 +58,7 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
             String orderDetailId, String patientId) {
         String[] columns = {Database.DCMS.outsideInvestigations, "PATIENT_ID",
             "CPT_ID", "CON", "ODI", "HEALTHCARE_FACILITY_DES",  "IS_REPORT_ATTACHED", 
-            "HEALTHCARE_FACILITY", "TEST_NAME", "REPORT_DATE", "ID", "REPORT_REMARKS"};
+            "HEALTHCARE_FACILITY_ID", "TEST_NAME", "REPORT_DATE", "ID", "REPORT_REMARKS"};
 
         String query = " SELECT OSI.PATIENT_ID ,  NVL(OSI.CPT_ID,' ') CPT_ID,   \n"
                 + " OSI.CON, OSI.ODI, TEST_NAME,                                \n"
@@ -80,12 +81,12 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
             HashMap map = (HashMap) vec.get(i);
             OutsideInvestigation investigation = new OutsideInvestigation();
             investigation.setPatientId((String) map.get("PATIENT_ID"));
-            investigation.setCompleteOrderNo((String) map.get("COMPLETE_ORDER_NO"));
-            investigation.setOrderDetailId((String) map.get("ORDER_DETAIL_ID"));
+            investigation.setCompleteOrderNo((String) map.get("CON"));
+            investigation.setOrderDetailId((String) map.get("ODI"));
             investigation.setCptId((String) map.get("CPT_ID"));
             investigation.setTestName((String) map.get("TEST_NAME"));
             investigation.setHealthCareFacilityDescription((String) map.get(
-                    "HEALTHCARE_FACILITY_DESCRIPTION"));
+                    "HEALTHCARE_FACILITY_DES"));
             investigation.setHealthCareFacilityId((String) map.get("HEALTHCARE_FACILITY_ID"));
             investigation.setReportDate((String) map.get("REPORT_DATE"));
             investigation.setId((String) map.get("ID"));

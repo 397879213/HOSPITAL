@@ -1,7 +1,7 @@
 package Form.OPD;
 
 import BO.OutsideInvestigation;
-import Controller.OutsideInvestigationController;
+import Controller.OPD.OutsideInvestigationController;
 import TableModel.OutsideInvestigationsTableModel;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
@@ -19,6 +19,7 @@ import utilities.DisplayLOV;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Calendar;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -62,6 +63,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 //        txtConsultantDate.setText(Constants.opd.getConsultancyDate());
 //        txtTestName.setBackground(new Color(204, 255, 204));
         searchOutsideInvestigations();
+        setDate(0);
 //        searchPreviousOutsideInvestigations();
 
     }
@@ -635,7 +637,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                 tblOutSideTest.getSelectedRow());
         txtReport.setText(selectedInvestigation.getReportRermarks());
         txtTestName.setText(selectedInvestigation.getTestName());
-        txtHealthFacility.setText(selectedInvestigation.getHealthCareFacilityId());
+        txtHealthFacility.setText(selectedInvestigation.getHealthCareFacilityDescription());
 //        txtPerformDate.setText(selectedInvestigation.getReportDate());
 
 
@@ -792,6 +794,10 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                     + "From Table First!");
             return;
         }
+        
+        OutsideInvestigation investigation = listInvestigations.get(
+                tblOutSideTest.getSelectedRow());
+        
         String mess = "";
         boolean check = true;
         if (txtTestName.getText().trim().isEmpty()) {
@@ -816,17 +822,15 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, mess);
             return;
         }
-        OutsideInvestigation investigation = new OutsideInvestigation();
+        
+        
         investigation.setCptId(cptId);
         investigation.setTestName(txtTestName.getText().toUpperCase());
         investigation.setHealthCareFacilityId(txtHealthFacility.getText()
                 .toUpperCase());
         investigation.setReportDate(performDate);
 
-        if (ctlInvestigation.updateOutsideInvestigation(
-                selectedInvestigation.getRowId(),
-                investigation)) {
-
+        if (ctlInvestigation.updateOutsideInvestigation(investigation)) {
             //JOptionPane.showMessageDialog(null, "Successfully Updated!");
             searchOutsideInvestigations();
             // clear();
@@ -845,13 +849,12 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
             return;
         }
         if (txtReport.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please Write Report First!");
+            JOptionPane.showMessageDialog(null, "Please Write Remarks.");
             txtReport.requestFocus();
             return;
         }
-        if (ctlInvestigation.updateReport(
-                selectedInvestigation.getRowId(),
-                txtReport.getText())) {
+        OutsideInvestigation ObjId = listInvestigations.get(tblOutSideTest.getSelectedRow());
+        if (ctlInvestigation.updateReport(ObjId.getId(), txtReport.getText().trim())) {
             JOptionPane.showMessageDialog(null, "Report Saved Successfully!");
             selectedInvestigation.setReportRermarks(txtReport.getText());
         } else {
@@ -868,13 +871,14 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                     + "From Table First!");
             return;
         }
-        if (!ctlInvestigation.deleteOutsideInvestigation(
-                selectedInvestigation.getRowId())) {
+        if (ctlInvestigation.deleteOutsideInvestigation(
+                selectedInvestigation.getId())) {
+            searchOutsideInvestigations();
+        }else{
             JOptionPane.showMessageDialog(null, "Unable to Delete Record\n"
                     + "Please Contact Administrator");
-            return;
         }
-        searchOutsideInvestigations();
+        
     }//GEN-LAST:event_btnDeleteInvestigationActionPerformed
 
     private void txtHealthFacilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHealthFacilityActionPerformed
@@ -1052,4 +1056,18 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtTestName;
     // End of variables declaration//GEN-END:variables
 
+    
+    private void setDate(int day) {
+        try {
+            Date date = new Date();
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DATE, day);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
+            Date date2 = dateFormat.parse(dateFormat.format(c.getTime()));
+            txtPerformDate.setDate(date2);
+            performDate = dateFormat.format(date2);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }

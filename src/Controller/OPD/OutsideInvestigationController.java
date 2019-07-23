@@ -1,8 +1,8 @@
  
-package Controller;
+package Controller.OPD;
 
 import BO.OutsideInvestigation;
-import Handler.OutsideInvestigationHandler;
+import Handler.OPD.OutsideInvestigationHandler;
 import java.util.List;
 import utilities.Constants;
 import utilities.Database;
@@ -37,32 +37,31 @@ public class OutsideInvestigationController implements java.io.Serializable{
         return hdlOutsideInvestigation.selectPreviousOutsideInvestigation(
                 completeOrderNo,patientId,testName);
     }
-    public boolean updateReport(String rowId, String report) {
+    public boolean updateReport(String id, String reportRemarks) {
         String update = "UPDATE " + Database.DCMS.outsideInvestigations + " SET \n"
-                + " REPORT = '" + report + "'                                 \n"
-                + " WHERE ROWID = '" + rowId + "'                             \n";
+                + " REPORT_REMARKS = '" + reportRemarks + "'            \n"
+                + " WHERE ID = '" + id + "'                             \n";
 
         return Constants.dao.executeUpdate(update, true);
     }
     
     public boolean updateOutsideInvestigation(
-                            String rowId,
                             OutsideInvestigation investigation) {
         
         String update = "UPDATE " + Database.DCMS.outsideInvestigations + " SET \n"
-                + " TEST_NAME  = '" + investigation.getTestName() + "'         ,\n"
-                + " CPT_ID = '"+investigation.getCptId()+"'                    ,\n"
-                + " HEALTHCARE_FACILITY = '"
-                        +investigation.getHealthCareFacilityId()+"'              ,\n"
-                + " REPORT_DATE = '"+investigation.getReportDate()+"'           \n"
-                + " WHERE ROWID = '" + rowId + "'                               \n";
+                + " TEST_NAME  = '" + investigation.getTestName() + "',         \n"
+                + " CPT_ID = '"+ investigation.getCptId() +"',                  \n"
+                + " HEALTHCARE_FACILITY_ID = '"
+                        + investigation.getHealthCareFacilityId() +"',          \n"
+                + " REPORT_DATE = '"+ investigation.getReportDate() +"'         \n"
+                + " WHERE ID = '" + investigation.getId() + "'                  \n";
 
         return Constants.dao.executeUpdate(update, true);
     }
     
-    public boolean deleteOutsideInvestigation(String rowId) {
+    public boolean deleteOutsideInvestigation(String id) {
         String delete = "DELETE FROM "+ Database.DCMS.outsideInvestigations
-                + " WHERE ROWID = '" + rowId + "'                           \n";
+                + " WHERE ID = '" + id + "'                           \n";
         return Constants.dao.executeUpdate(delete, true);
     }
 }
