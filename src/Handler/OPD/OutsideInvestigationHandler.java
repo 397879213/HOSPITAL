@@ -32,19 +32,19 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
     public boolean insertOutsideInvestigation(OutsideInvestigation investigation) {
 
         String[] columns = {Database.DCMS.outsideInvestigations, "PATIENT_ID",
-            "CPT_ID", "COMPLETE_ORDER_NO", "ORDER_DETAIL_ID",
-            "HEALTHCARE_FACILITY", "TEST_NAME", "REPORT", "REPORT_DATE",
-            "CRTD_DATE", "CRTD_BY", "CRTD_TERMINAL_ID"};
+            "CPT_ID", "CON", "ODI", "HEALTHCARE_FACILITY_ID", "TEST_NAME", "ID", 
+            "REPORT_DATE", "IS_REPORT_ATTACHED", "CRTD_DATE", "CRTD_BY", "CRTD_TERMINAL_ID"};
 
         HashMap mapInvestigation = new HashMap();
         mapInvestigation.put("CPT_ID", "'" + investigation.getCptId() + "'");
         mapInvestigation.put("PATIENT_ID", "'" + investigation.getPatientId() + "'");
-        mapInvestigation.put("COMPLETE_ORDER_NO", "'" + investigation.getCompleteOrderNo() + "'");
-        mapInvestigation.put("ORDER_DETAIL_ID", "'" + investigation.getOrderDetailId() + "'");
-        mapInvestigation.put("HEALTHCARE_FACILITY", "'" + investigation.getHealthCareFacility() + "'");
+        mapInvestigation.put("CON", "'" + investigation.getCompleteOrderNo() + "'");
+        mapInvestigation.put("ODI", "'" + investigation.getOrderDetailId() + "'");
+        mapInvestigation.put("HEALTHCARE_FACILITY_ID", "'" + investigation.getHealthCareFacilityId() + "'");
         mapInvestigation.put("TEST_NAME", "'" + investigation.getTestName() + "'");
-        mapInvestigation.put("REPORT", "'" + investigation.getReport() + "'");
+        mapInvestigation.put("ID", "'" + investigation.getReport() + "'");
         mapInvestigation.put("REPORT_DATE", "'" + investigation.getReportDate() + "'");
+        mapInvestigation.put("IS_REPORT_ATTACHED", "'" + investigation.getReportDate() + "'");
         mapInvestigation.put("CRTD_BY", "'" + Constants.userId + "'");
         mapInvestigation.put("CRTD_DATE", "" + "SYSDATE" + "");
         mapInvestigation.put("CRTD_TERMINAL_ID", "'" + Constants.terminalId + "'");
@@ -83,7 +83,7 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
             investigation.setTestName((String) map.get("TEST_NAME"));
             investigation.setReportDate((String) map.get("REPORT_DATE"));
             investigation.setReport((String) map.get("REPORT"));
-            investigation.setHealthCareFacility((String) map.get("HEALTHCARE_FACILITY"));
+            investigation.setHealthCareFacilityId((String) map.get("HEALTHCARE_FACILITY"));
             investigation.setRowId((String) map.get("ROWID"));
 
             listInvestigations.add(investigation);
@@ -124,7 +124,7 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
             investigation.setTestName((String) map.get("TEST_NAME"));
             investigation.setReportDate((String) map.get("REPORT_DATE"));
             investigation.setReport((String) map.get("REPORT"));
-            investigation.setHealthCareFacility((String) map.get("HEALTHCARE_FACILITY"));
+            investigation.setHealthCareFacilityId((String) map.get("HEALTHCARE_FACILITY"));
             investigation.setRowId((String) map.get("ROWID"));
 
             listInvestigations.add(investigation);

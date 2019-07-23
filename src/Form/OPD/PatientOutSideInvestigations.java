@@ -622,7 +622,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                 tblOutSideTest.getSelectedRow());
         txtReport.setText(selectedInvestigation.getReport());
         txtTestName.setText(selectedInvestigation.getTestName());
-        txtHealthFacility.setText(selectedInvestigation.getHealthCareFacility());
+        txtHealthFacility.setText(selectedInvestigation.getHealthCareFacilityId());
 //        txtPerformDate.setText(selectedInvestigation.getReportDate());
 
 
@@ -673,7 +673,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
             investigation.setPatientId(patientId);
             investigation.setCptId(cptId);
             investigation.setTestName(txtTestName.getText().toUpperCase());
-            investigation.setHealthCareFacility(txtHealthFacility.getText()
+            investigation.setHealthCareFacilityId(txtHealthFacility.getText()
                     .toUpperCase());
             investigation.setReportDate(performDate);
 
@@ -805,7 +805,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         OutsideInvestigation investigation = new OutsideInvestigation();
         investigation.setCptId(cptId);
         investigation.setTestName(txtTestName.getText().toUpperCase());
-        investigation.setHealthCareFacility(txtHealthFacility.getText()
+        investigation.setHealthCareFacilityId(txtHealthFacility.getText()
                 .toUpperCase());
         investigation.setReportDate(performDate);
 

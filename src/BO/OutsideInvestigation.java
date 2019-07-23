@@ -10,13 +10,22 @@ public class OutsideInvestigation implements java.io.Serializable{
     private String orderDetailId = "";
     private String cptId = "";
     private String cptDescription = "";
-    private String healthCareFacility = "";
+    private String healthCareFacilityId = "";
+    private String healthCareFacilityDescription = "";
     private String testName = "";
     private String report = "";
     private String reportDate = "";
     private String rowId = "";
     private int rowIndex;
 
+    public String getHealthCareFacilityDescription() {
+        return healthCareFacilityDescription;
+    }
+
+    public void setHealthCareFacilityDescription(String healthCareFacilityDescription) {
+        this.healthCareFacilityDescription = healthCareFacilityDescription;
+    }
+    
     public int getRowIndex() {
         return rowIndex;
     }
@@ -72,12 +81,12 @@ public class OutsideInvestigation implements java.io.Serializable{
         this.cptDescription = cptDescription;
     }
 
-    public String getHealthCareFacility() {
-        return healthCareFacility;
+    public String getHealthCareFacilityId() {
+        return healthCareFacilityId;
     }
 
-    public void setHealthCareFacility(String healthCareFacility) {
-        this.healthCareFacility = healthCareFacility;
+    public void setHealthCareFacilityId(String healthCareFacilityId) {
+        this.healthCareFacilityId = healthCareFacilityId;
     }
 
     public String getTestName() {
@@ -112,7 +121,7 @@ public class OutsideInvestigation implements java.io.Serializable{
         hash = 79 * hash + Objects.hashCode(this.orderDetailId);
         hash = 79 * hash + Objects.hashCode(this.cptId);
         hash = 79 * hash + Objects.hashCode(this.cptDescription);
-        hash = 79 * hash + Objects.hashCode(this.healthCareFacility);
+        hash = 79 * hash + Objects.hashCode(this.healthCareFacilityId);
         hash = 79 * hash + Objects.hashCode(this.testName);
         hash = 79 * hash + Objects.hashCode(this.report);
         hash = 79 * hash + Objects.hashCode(this.reportDate);
@@ -143,7 +152,7 @@ public class OutsideInvestigation implements java.io.Serializable{
         if (!Objects.equals(this.cptDescription, other.cptDescription)) {
             return false;
         }
-        if (!Objects.equals(this.healthCareFacility, other.healthCareFacility)) {
+        if (!Objects.equals(this.healthCareFacilityId, other.healthCareFacilityId)) {
             return false;
         }
         if (!Objects.equals(this.testName, other.testName)) {

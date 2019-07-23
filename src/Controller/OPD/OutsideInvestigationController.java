@@ -53,7 +53,7 @@ public class OutsideInvestigationController implements java.io.Serializable{
                 + " TEST_NAME  = '" + investigation.getTestName() + "'         ,\n"
                 + " CPT_ID = '"+investigation.getCptId()+"'                    ,\n"
                 + " HEALTHCARE_FACILITY = '"
-                        +investigation.getHealthCareFacility()+"'              ,\n"
+                        +investigation.getHealthCareFacilityId()+"'              ,\n"
                 + " REPORT_DATE = '"+investigation.getReportDate()+"'           \n"
                 + " WHERE ROWID = '" + rowId + "'                               \n";
 
