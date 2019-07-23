@@ -15,11 +15,20 @@ public class OutsideInvestigation implements java.io.Serializable{
     private String testName = "";
     private String reportRermarks = "";
     private String reportDate = "";
+    private String reportDay = "";
     private String isReportAttached = "";
     private String id = "";
     private String rowId = "";
     private int rowIndex;
 
+    public String getReportDay() {
+        return reportDay;
+    }
+
+    public void setReportDay(String reportDay) {
+        this.reportDay = reportDay;
+    }
+    
     public String getId() {
         return id;
     }

@@ -716,7 +716,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
     private void searchOutsideInvestigations() {
 
         listInvestigations = ctlInvestigation.selectOutsideInvestigation(
-                con, odi, patientId);
+                con, odi, patientId, txtPreviousTestName.getText());
 
         if (listInvestigations.isEmpty()) {
             OutsideInvestigation cp = new OutsideInvestigation();
@@ -798,16 +798,17 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         OutsideInvestigation investigation = listInvestigations.get(
                 tblOutSideTest.getSelectedRow());
         
+        cptId = investigation.getCptId();
+        healthFacilityId = investigation.getHealthCareFacilityId();
         investigation.setCptId(cptId);
         investigation.setTestName(txtTestName.getText().toUpperCase());
-        investigation.setHealthCareFacilityId(txtHealthFacility.getText()
-                .toUpperCase());
+        investigation.setHealthCareFacilityId(healthFacilityId);
+        setDate(Integer.parseInt(investigation.getReportDay()));
         investigation.setReportDate(performDate);
 
         if (ctlInvestigation.updateOutsideInvestigation(investigation)) {
             //JOptionPane.showMessageDialog(null, "Successfully Updated!");
             searchOutsideInvestigations();
-            // clear();
         } else {
             JOptionPane.showMessageDialog(null, "Unable to Save Investigation\n"
                     + "Please Contact Administrator");
@@ -878,7 +879,8 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 
     private void txtPreviousTestNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPreviousTestNameActionPerformed
         // TODO add your handling code here:
-        searchPreviousOutsideInvestigations();
+        searchOutsideInvestigations();
+//        searchPreviousOutsideInvestigations();
     }//GEN-LAST:event_txtPreviousTestNameActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -960,15 +962,15 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         chooser.showOpenDialog(null);
         if (chooser.getSelectedFile() != null) {
             String path = chooser.getSelectedFile().getAbsolutePath();
-//                if (ctlAtttachDoc.insertEmployeeDoc(empAsPatient.getPatientId(),
-//                    empAsPatient.getId(), docTypeId, path, txtRemarks.getText(),
-//                    empAsPatient.getVerificationStatus())) {
-//                selectDocumentInfo(empAsPatient.getPatientId());
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Unable to save picture Kindly Contact Administrator");
-//                webcam.close();
-//                return;
-//            }
+            OutsideInvestigation investigation = listInvestigations.get(
+                tblOutSideTest.getSelectedRow());
+                if (ctlInvestigation.updateReportImage(path, Integer.parseInt(investigation.getId()))){
+                        searchOutsideInvestigations();
+            } else {
+                JOptionPane.showMessageDialog(null, "Unable to save picture Kindly Contact Administrator");
+                webcam.close();
+                return;
+            }
 
         }
     }//GEN-LAST:event_btnShowWebcam1ActionPerformed

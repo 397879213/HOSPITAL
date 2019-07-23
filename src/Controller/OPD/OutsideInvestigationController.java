@@ -25,10 +25,10 @@ public class OutsideInvestigationController implements java.io.Serializable{
         return ret;
     }
 
-    public List<OutsideInvestigation> selectOutsideInvestigation(
-            String completeOrderNo, String orderDetailId, String patientId) {
+    public List<OutsideInvestigation> selectOutsideInvestigation( String con, 
+            String odi, String patientId, String testName) {
         return hdlOutsideInvestigation.selectOutsideInvestigation(
-                completeOrderNo,orderDetailId,patientId);
+                con,odi,patientId, testName);
     }
 
     public List<OutsideInvestigation> selectPreviousOutsideInvestigation(
@@ -63,5 +63,16 @@ public class OutsideInvestigationController implements java.io.Serializable{
         String delete = "DELETE FROM "+ Database.DCMS.outsideInvestigations
                 + " WHERE ID = '" + id + "'                           \n";
         return Constants.dao.executeUpdate(delete, true);
+    }
+    
+    public boolean updateReportImage(String filePath, int id) {
+        boolean ret = hdlOutsideInvestigation.updateReportImage(filePath, id);
+        if(ret){
+            Constants.dao.commitTransaction();
+        }
+        if(!ret){
+            Constants.dao.rollBack();
+        }
+        return ret;
     }
 }

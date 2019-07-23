@@ -54,11 +54,12 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
     }
 
     public List<OutsideInvestigation> selectOutsideInvestigation(
-            String completeOrderNo,
-            String orderDetailId, String patientId) {
+            String completeOrderNo, String orderDetailId, String patientId,
+            String testName) {
         String[] columns = {Database.DCMS.outsideInvestigations, "PATIENT_ID",
             "CPT_ID", "CON", "ODI", "HEALTHCARE_FACILITY_DES",  "IS_REPORT_ATTACHED", 
-            "HEALTHCARE_FACILITY_ID", "TEST_NAME", "REPORT_DATE", "ID", "REPORT_REMARKS"};
+            "HEALTHCARE_FACILITY_ID", "TEST_NAME", "REPORT_DATE", "ID", 
+            "REPORT_REMARKS", "REPORT_DATE_DAY"};
 
         String query = " SELECT OSI.PATIENT_ID ,  NVL(OSI.CPT_ID,' ') CPT_ID,   \n"
                 + " OSI.CON, OSI.ODI, TEST_NAME,                                \n"
@@ -66,16 +67,21 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
                 + " HFS.DESCRIPTION     HEALTHCARE_FACILITY_DES,                \n"
                 + " NVL(OSI.TEST_NAME,' ') TEST_NAME,                           \n"
                 + " TO_CHAR(OSI.REPORT_DATE,'DD-MON-YY')  REPORT_DATE,          \n"
+                + " ROUND(OSI.REPORT_DATE - SYSDATE  )+1 REPORT_DATE_DAY,       \n"
                 + " OSI.ID, OSI.IS_REPORT_ATTACHED,                             \n"
                 + " NVL(OSI.REPORT_REMARKS,' ') REPORT_REMARKS                  \n"
                 + " FROM " + Database.DCMS.outsideInvestigations + " OSI,       \n"
-                + "   " + Database.DCMS.definitionTypeDetail + " HFS,            \n"
-                + "   " + Database.DCMS.CPT + " CPT            \n"
+                + "   " + Database.DCMS.definitionTypeDetail + " HFS,           \n"
+                + "   " + Database.DCMS.CPT + " CPT                             \n"
                 + " WHERE OSI.PATIENT_ID = '" + patientId + "'                  \n"
                 + " AND OSI.CON  = '" + completeOrderNo + "'                    \n"
-                + " AND OSI.ODI = " + orderDetailId + "                         \n"
-                + " AND OSI.HEALTHCARE_FACILITY_ID = HFS.ID                     \n"
-                + " AND NVL(OSI.CPT_ID,' ') = CPT.CPT_ID                        \n";
+                + " AND OSI.ODI = " + orderDetailId + "                         \n";
+                if(testName.length() != 0){
+                    query += " AND UPPER(OSI.TEST_NAME) LIKE '%" 
+                            + testName.toUpperCase() + "%'                      \n";
+                }
+                query += " AND OSI.HEALTHCARE_FACILITY_ID = HFS.ID              \n"
+                + " AND NVL(OSI.CPT_ID,'GENERAL') = NVL(CPT.CPT_ID,'GENERAL')   \n";
 
         List vec = Constants.dao.selectData(query, columns);
         List<OutsideInvestigation> listInvestigations = new ArrayList();
@@ -90,6 +96,7 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
             investigation.setHealthCareFacilityDescription((String) map.get(
                     "HEALTHCARE_FACILITY_DES"));
             investigation.setHealthCareFacilityId((String) map.get("HEALTHCARE_FACILITY_ID"));
+            investigation.setReportDay((String) map.get("REPORT_DATE_DAY"));
             investigation.setReportDate((String) map.get("REPORT_DATE"));
             investigation.setId((String) map.get("ID"));
             investigation.setIsReportAttached((String) map.get("IS_REPORT_ATTACHED"));
@@ -104,18 +111,17 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
             String completeOrderNo, String patientId,
             String testName) {
         String[] columns = {Database.DCMS.outsideInvestigations, "PATIENT_ID",
-            "CPT_ID", "COMPLETE_ORDER_NO", "ORDER_DETAIL_ID", "ROWID",
-            "HEALTHCARE_FACILITY", "TEST_NAME", "REPORT", "REPORT_DATE"};
+            "CPT_ID", "CON", "ODI", "REPORT_REMARKS",
+            "HEALTHCARE_FACILITY", "TEST_NAME", "IS_REPORT_ATTACHED", "REPORT_DATE"};
 
         String query = " SELECT PATIENT_ID ,  NVL(CPT_ID,' ') CPT_ID         ,\n"
-                + " COMPLETE_ORDER_NO, ORDER_DETAIL_ID, TEST_NAME            ,\n"
-                + " NVL(HEALTHCARE_FACILITY,' ') HEALTHCARE_FACILITY         ,\n"
-                + " NVL(REPORT,' ') REPORT                                   ,\n"
-                + " TO_CHAR(REPORT_DATE,'DD-MON-YY')  REPORT_DATE            ,\n"
-                + " ROWID "
+                + " CON, ODI, TEST_NAME            ,\n"
+                + " NVL(HEALTHCARE_FACILITY_ID,' ') HEALTHCARE_FACILITY         ,\n"
+                + " IS_REPORT_ATTACHED, REPORT_REMARKS,\n"
+                + " TO_CHAR(REPORT_DATE,'DD-MON-YY')  REPORT_DATE            \n"
                 + " FROM " + Database.DCMS.outsideInvestigations
                 + " WHERE PATIENT_ID = '" + patientId + "'  \n"
-                + " AND COMPLETE_ORDER_NO  NOT IN('" + completeOrderNo + "')\n";
+                + " AND CON  NOT IN('" + completeOrderNo + "')\n";
 
         if (!testName.isEmpty()) {
             query += " AND TEST_NAME LIKE '%" + testName.toUpperCase() + "%'    \n";
@@ -127,12 +133,13 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
             HashMap map = (HashMap) vec.get(i);
             OutsideInvestigation investigation = new OutsideInvestigation();
             investigation.setPatientId((String) map.get("PATIENT_ID"));
-            investigation.setCompleteOrderNo((String) map.get("COMPLETE_ORDER_NO"));
-            investigation.setOrderDetailId((String) map.get("ORDER_DETAIL_ID"));
+            investigation.setCompleteOrderNo((String) map.get("CON"));
+            investigation.setOrderDetailId((String) map.get("ODI"));
             investigation.setCptId((String) map.get("CPT_ID"));
             investigation.setTestName((String) map.get("TEST_NAME"));
             investigation.setReportDate((String) map.get("REPORT_DATE"));
-            investigation.setReportRermarks((String) map.get("REPORT"));
+            investigation.setReportRermarks((String) map.get("REPORT_REMARKS"));
+            investigation.setIsReportAttached((String) map.get("IS_REPORT_ATTACHED"));
             investigation.setHealthCareFacilityId((String) map.get("HEALTHCARE_FACILITY"));
             investigation.setRowId((String) map.get("ROWID"));
 
