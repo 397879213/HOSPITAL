@@ -254,6 +254,7 @@ public class DefinitionTypes {
     public static final String reasonForRedo = "358";
     public static final String otreasonIfnotElective = "359";
     public static final String otClosure = "360";
+    public static final String healthFacility = "420";
     public static final String otPacingWire = "361";
     public static final String otConduit = "362";
     public static final String otDistalVessel = "363";
