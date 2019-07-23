@@ -3,6 +3,7 @@ package Controller.OPD;
 
 import BO.OutsideInvestigation;
 import Handler.OPD.OutsideInvestigationHandler;
+import java.awt.Image;
 import java.util.List;
 import utilities.Constants;
 import utilities.Database;
@@ -74,5 +75,9 @@ public class OutsideInvestigationController implements java.io.Serializable{
             Constants.dao.rollBack();
         }
         return ret;
+    }
+    
+    public Image selectReportImage(String id) {
+        return hdlOutsideInvestigation.selectReportImage(id);
     }
 }

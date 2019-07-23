@@ -6,11 +6,15 @@
 package Handler.OPD;
 
 import BO.OutsideInvestigation;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Blob;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -227,6 +231,50 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
         }
 
         return ret;
+    }
+    
+    public Image selectReportImage(String id) {
+
+        String query = "SELECT REPORT_IMAGE FROM "
+                + Database.DCMS.outsideInvestigations + " WHERE ID = " + id;
+        System.out.println(query);
+        Image image = null;
+        Connection conn = null;
+        try {
+            if (DAO.conn == null || DAO.conn.isClosed()) {
+                conn = Constants.dao.getConnection();
+            }
+
+            // Prepare a Statement:
+            PreparedStatement stmnt = DAO.conn.prepareStatement(query);
+            // Execute
+            ResultSet rs = stmnt.executeQuery();
+            if (rs.next()) {
+                try {
+                    // Get as a BLOB
+                    Blob aBlob = rs.getBlob(1);
+                    byte[] allBytesInBlob = aBlob.getBytes(1, (int) aBlob.length());
+
+                    image = Toolkit.getDefaultToolkit().createImage(allBytesInBlob);
+
+                } catch (Exception ex) {
+                    byte[] bytes;
+                    bytes = rs.getBytes(1);
+                    System.out.print("Image is not Find");
+
+                }
+            }
+
+            // Close resources
+            rs.close();
+            stmnt.close();
+            //conn.close();
+            // Constants.dao.conn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Error when trying to read BLOB: " + ex);
+        }
+        return image;
     }
 
 }

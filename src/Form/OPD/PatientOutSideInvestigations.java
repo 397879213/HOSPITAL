@@ -1,6 +1,7 @@
 package Form.OPD;
 
 import BO.OutsideInvestigation;
+import BO.Patient;
 import Controller.OPD.OutsideInvestigationController;
 import TableModel.OutsideInvestigationsTableModel;
 import com.github.sarxos.webcam.Webcam;
@@ -17,10 +18,12 @@ import utilities.Constants;
 import utilities.Database;
 import utilities.DisplayLOV;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Calendar;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -628,7 +631,6 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 
     private void tblOutSideTestMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOutSideTestMouseReleased
         // TODO add your handling code here:
-
         if (listInvestigations.isEmpty() || tblOutSideTest.getSelectedRow() < 0) {
             return;
         }
@@ -638,7 +640,19 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         txtReport.setText(selectedInvestigation.getReportRermarks());
         txtTestName.setText(selectedInvestigation.getTestName());
         txtHealthFacility.setText(selectedInvestigation.getHealthCareFacilityDescription());
-//        txtPerformDate.setText(selectedInvestigation.getReportDate());
+        setDate(Integer.parseInt(selectedInvestigation.getReportDay()));
+        
+        
+        try {
+            Image procImage = ctlInvestigation.selectReportImage(selectedInvestigation.getId());
+            //Image resizedImage
+            //        = procImage.getScaledInstance(lblPicture.getWidth(),
+            //                lblPicture.getHeight() - 0, 0);
+            ImageIcon icon = new ImageIcon(procImage);
+            lblPicture.setIcon(icon);
+        } catch (NullPointerException ex) {
+            lblPicture.setIcon(null);
+        }
 
 
     }//GEN-LAST:event_tblOutSideTestMouseReleased
