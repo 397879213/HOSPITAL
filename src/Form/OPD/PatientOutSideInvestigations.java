@@ -798,32 +798,6 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         OutsideInvestigation investigation = listInvestigations.get(
                 tblOutSideTest.getSelectedRow());
         
-        String mess = "";
-        boolean check = true;
-        if (txtTestName.getText().trim().isEmpty()) {
-            cptId = "";
-        }
-        if (cptId.isEmpty()) {
-            check = false;
-            mess = "Please Select Test Name First";
-            txtTestName.requestFocus();
-        }
-        if (txtHealthFacility.getText().trim().isEmpty()) {
-            check = false;
-            mess = "Please Write Health Facility First";
-            txtHealthFacility.requestFocus();
-        }
-        if (performDate.length() == 0) {
-            check = false;
-            mess = "Please Selct Perform Date.";
-            txtPerformDate.requestFocus();
-        }
-        if (!check) {
-            JOptionPane.showMessageDialog(null, mess);
-            return;
-        }
-        
-        
         investigation.setCptId(cptId);
         investigation.setTestName(txtTestName.getText().toUpperCase());
         investigation.setHealthCareFacilityId(txtHealthFacility.getText()

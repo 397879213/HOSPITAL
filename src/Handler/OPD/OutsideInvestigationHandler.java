@@ -69,11 +69,13 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
                 + " OSI.ID, OSI.IS_REPORT_ATTACHED,                             \n"
                 + " NVL(OSI.REPORT_REMARKS,' ') REPORT_REMARKS                  \n"
                 + " FROM " + Database.DCMS.outsideInvestigations + " OSI,       \n"
-                + "   " + Database.DCMS.definitionTypeDetail + " HFS            \n"
+                + "   " + Database.DCMS.definitionTypeDetail + " HFS,            \n"
+                + "   " + Database.DCMS.CPT + " CPT            \n"
                 + " WHERE OSI.PATIENT_ID = '" + patientId + "'                  \n"
                 + " AND OSI.CON  = '" + completeOrderNo + "'                    \n"
                 + " AND OSI.ODI = " + orderDetailId + "                         \n"
-                + " AND OSI.HEALTHCARE_FACILITY_ID = HFS.ID                     \n";
+                + " AND OSI.HEALTHCARE_FACILITY_ID = HFS.ID                     \n"
+                + " AND NVL(OSI.CPT_ID,' ') = CPT.CPT_ID                        \n";
 
         List vec = Constants.dao.selectData(query, columns);
         List<OutsideInvestigation> listInvestigations = new ArrayList();
