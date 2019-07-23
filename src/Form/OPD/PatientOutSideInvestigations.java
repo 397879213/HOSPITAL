@@ -637,17 +637,17 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 
         selectedInvestigation = listInvestigations.get(
                 tblOutSideTest.getSelectedRow());
-        txtReport.setText(selectedInvestigation.getReportRermarks());
+//        txtReport.setText(selectedInvestigation.getReportRermarks());
         txtTestName.setText(selectedInvestigation.getTestName());
         txtHealthFacility.setText(selectedInvestigation.getHealthCareFacilityDescription());
         setDate(Integer.parseInt(selectedInvestigation.getReportDay()));
-        
+        txtPreviousReport.setText(selectedInvestigation.getReportRermarks());
         
         try {
             Image procImage = ctlInvestigation.selectReportImage(selectedInvestigation.getId());
-            //Image resizedImage
-            //        = procImage.getScaledInstance(lblPicture.getWidth(),
-            //                lblPicture.getHeight() - 0, 0);
+            Image resizedImage
+                    = procImage.getScaledInstance(lblPicture.getWidth() + 500,
+                            lblPicture.getHeight() + 500, 0);
             ImageIcon icon = new ImageIcon(procImage);
             lblPicture.setIcon(icon);
         } catch (NullPointerException ex) {
