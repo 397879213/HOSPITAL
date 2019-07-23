@@ -65,7 +65,7 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
                 + " NVL(OSI.TEST_NAME,' ') TEST_NAME,                           \n"
                 + " TO_CHAR(OSI.REPORT_DATE,'DD-MON-YY')  REPORT_DATE,          \n"
                 + " OSI.ID, OSI.IS_REPORT_ATTACHED,                             \n"
-                + " NVL(OSI.REPORT_REMARKS,' ') REPORT_REMARKS,                 \n"
+                + " NVL(OSI.REPORT_REMARKS,' ') REPORT_REMARKS                  \n"
                 + " FROM " + Database.DCMS.outsideInvestigations + " OSI        \n"
                 + " WHERE PATIENT_ID = '" + patientId + "'                      \n"
                 + " AND COMPLETE_ORDER_NO  = '" + completeOrderNo + "'          \n"
