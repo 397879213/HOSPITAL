@@ -23,7 +23,7 @@ import utilities.DAO;
 import static utilities.DAO.conn;
 import utilities.Database;
 import utilities.GenerateKeys;
- 
+
 public class OutsideInvestigationHandler implements java.io.Serializable {
 
     DAO dao = new DAO();
@@ -32,8 +32,8 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
     public boolean insertOutsideInvestigation(OutsideInvestigation investigation) {
 
         String[] columns = {Database.DCMS.outsideInvestigations, "PATIENT_ID",
-            "CPT_ID", "CON", "ODI", "HEALTHCARE_FACILITY_ID", "TEST_NAME", "ID", 
-            "REPORT_DATE", "IS_REPORT_ATTACHED", "CRTD_DATE", "CRTD_BY", "CRTD_TERMINAL_ID"};
+            "CPT_ID", "CON", "ODI", "HEALTHCARE_FACILITY_ID", "TEST_NAME", "ID",
+            "REPORT_DATE", "CRTD_DATE", "CRTD_BY", "CRTD_TERMINAL_ID"};
 
         HashMap mapInvestigation = new HashMap();
         mapInvestigation.put("CPT_ID", "'" + investigation.getCptId() + "'");
@@ -42,9 +42,8 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
         mapInvestigation.put("ODI", "'" + investigation.getOrderDetailId() + "'");
         mapInvestigation.put("HEALTHCARE_FACILITY_ID", "'" + investigation.getHealthCareFacilityId() + "'");
         mapInvestigation.put("TEST_NAME", "'" + investigation.getTestName() + "'");
-        mapInvestigation.put("ID", "'" + investigation.getReport() + "'");
+        mapInvestigation.put("ID", "(SELECT NVL(MAX(ID), 0) ID FROM " + Database.DCMS.outsideInvestigations + ")");
         mapInvestigation.put("REPORT_DATE", "'" + investigation.getReportDate() + "'");
-        mapInvestigation.put("IS_REPORT_ATTACHED", "'" + investigation.getReportDate() + "'");
         mapInvestigation.put("CRTD_BY", "'" + Constants.userId + "'");
         mapInvestigation.put("CRTD_DATE", "" + "SYSDATE" + "");
         mapInvestigation.put("CRTD_TERMINAL_ID", "'" + Constants.terminalId + "'");
@@ -58,17 +57,18 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
             String orderDetailId, String patientId) {
         String[] columns = {Database.DCMS.outsideInvestigations, "PATIENT_ID",
             "CPT_ID", "COMPLETE_ORDER_NO", "ORDER_DETAIL_ID", "ROWID",
-            "HEALTHCARE_FACILITY", "TEST_NAME", "REPORT", "REPORT_DATE"};
+            "HEALTHCARE_FACILITY", "TEST_NAME", "REPORT_DATE", "ID"};
 
-        String query = " SELECT PATIENT_ID ,  NVL(CPT_ID,' ') CPT_ID         ,\n"
-                + " COMPLETE_ORDER_NO, ORDER_DETAIL_ID, TEST_NAME            ,\n"
-                + " NVL(HEALTHCARE_FACILITY,' ') HEALTHCARE_FACILITY         ,\n"
-                + " NVL(REPORT,' ') REPORT                                   ,\n"
-                + " TO_CHAR(REPORT_DATE,'DD-MON-YY')  REPORT_DATE            ,\n"
-                + " ROWID "
-                + " FROM " + Database.DCMS.outsideInvestigations
-                + " WHERE PATIENT_ID = '" + patientId + "'            \n"
-                + " AND COMPLETE_ORDER_NO  = '" + completeOrderNo + "'      \n"
+        String query = " SELECT OSI.PATIENT_ID ,  NVL(OSI.CPT_ID,' ') CPT_ID,   \n"
+                + " OSI.CON, OSI.ODI, TEST_NAME,                                \n"
+                + " OSI.HEALTHCARE_FACILITY_ID,                                 \n"
+                + " NVL(OSI.TEST_NAME,' ') TEST_NAME,                           \n"
+                + " TO_CHAR(OSI.REPORT_DATE,'DD-MON-YY')  REPORT_DATE,          \n"
+                + " OSI.ID, OSI.IS_REPORT_ATTACHED,                             \n"
+                + " NVL(OSI.REPORT_REMARKS,' ') REPORT_REMARKS,                 \n"
+                + " FROM " + Database.DCMS.outsideInvestigations + " OSI        \n"
+                + " WHERE PATIENT_ID = '" + patientId + "'                      \n"
+                + " AND COMPLETE_ORDER_NO  = '" + completeOrderNo + "'          \n"
                 + " AND ORDER_DETAIL_ID = " + orderDetailId + "                \n";
 
         List vec = Constants.dao.selectData(query, columns);
@@ -186,10 +186,10 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
             String sql = " SELECT REPORT_IMAGE FROM "
                     + Database.DCMS.outsideInvestigations + " \n"
                     + " WHERE ID = " + id + "  \n";
-            
+
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) { 
+            if (resultSet.next()) {
                 ret = System.getProperty("java.io.tmpdir") + id + ".jpg";
                 File picture = new File(ret);
                 FileOutputStream fos = new FileOutputStream(picture);
@@ -200,7 +200,7 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
                 }
                 fos.close();
             } else {
-                ret = ""; 
+                ret = "";
             }
             stmt.close();
             resultSet.close();

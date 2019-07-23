@@ -31,7 +31,20 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
     String performDate = "";
     Webcam webcam = null;
     WebcamPanel panel;
-    private String healthFacilityId;
+    private String healthFacilityId = "";
+
+    DisplayLOV lov = new DisplayLOV();
+
+    private String patientId = "001000001957";
+    private String con = "001001140002044";
+    private String odi = "1";
+    private String cptId = "";
+
+    private List<OutsideInvestigation> listInvestigations = new ArrayList();
+    private List<OutsideInvestigation> listPreviousInvestigations = new ArrayList();
+    
+    OutsideInvestigation selectedInvestigation = new OutsideInvestigation();
+    OutsideInvestigationController ctlInvestigation = new OutsideInvestigationController();
 
     public PatientOutSideInvestigations() {
 
@@ -660,36 +673,37 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
             check = false;
             mess = "Please Select Perform Date.";
             txtPerformDate.requestFocus();
-//        }
+        }
 
-            if (!check) {
-                JOptionPane.showMessageDialog(null, mess);
-                return;
-            }
+        if (healthFacilityId.length() == 0) {
+            check = false;
+            mess = "Please Select Health Facility.";
+            txtHealthFacility.requestFocus();
+        }
 
-            OutsideInvestigation investigation = new OutsideInvestigation();
-            investigation.setCompleteOrderNo(con);
-            investigation.setOrderDetailId(odi);
-            investigation.setPatientId(patientId);
-            investigation.setCptId(cptId);
-            investigation.setTestName(txtTestName.getText().toUpperCase());
-            investigation.setHealthCareFacilityId(txtHealthFacility.getText()
-                    .toUpperCase());
-            investigation.setReportDate(performDate);
+        if (!check) {
+            JOptionPane.showMessageDialog(null, mess);
+            return;
+        }
 
-            if (ctlInvestigation.insertOutsideInvestigation(investigation)) {
-                //JOptionPane.showMessageDialog(null, "Successfully Saved!");
-                searchOutsideInvestigations();
-                clear();
-            } else {
-                JOptionPane.showMessageDialog(null, "Unable to Save Investigation\n"
-                        + "Please Contact Administrator");
-            }
+        OutsideInvestigation investigation = new OutsideInvestigation();
+        investigation.setCompleteOrderNo(con);
+        investigation.setOrderDetailId(odi);
+        investigation.setPatientId(patientId);
+        investigation.setCptId(cptId);
+        investigation.setTestName(txtTestName.getText().toUpperCase());
+        investigation.setHealthCareFacilityId(healthFacilityId);
+        investigation.setReportDate(performDate);
+
+        if (ctlInvestigation.insertOutsideInvestigation(investigation)) {
+            //JOptionPane.showMessageDialog(null, "Successfully Saved!");
+            searchOutsideInvestigations();
+            clear();
+        } else {
+            JOptionPane.showMessageDialog(null, "Unable to Save Investigation\n"
+                    + "Please Contact Administrator");
         }
     }
-    
-
-    
 
     private void clear() {
         txtTestName.setText("");
@@ -1037,16 +1051,5 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea txtReport;
     private javax.swing.JTextField txtTestName;
     // End of variables declaration//GEN-END:variables
-
-    OutsideInvestigationController ctlInvestigation = new OutsideInvestigationController();
-
-    DisplayLOV lov = new DisplayLOV();
-    OutsideInvestigation selectedInvestigation = new OutsideInvestigation();
-    private String patientId = "";
-    private String con = "";
-    private String odi = "";
-    private String cptId = "";
-    private List<OutsideInvestigation> listInvestigations = new ArrayList();
-    private List<OutsideInvestigation> listPreviousInvestigations = new ArrayList();
 
 }
