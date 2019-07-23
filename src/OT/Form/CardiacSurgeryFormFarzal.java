@@ -2196,18 +2196,18 @@ public class CardiacSurgeryFormFarzal extends javax.swing.JInternalFrame {
 
     private void selectOperationDetail(String con, String odi, String typeDetailId,
             String deftypeid) {
-        listOtOperation = ctlOtCardiac.selectOTPendingAll(con, odi, typeDetailId, deftypeid);
-
-        if (listOtOperation.isEmpty()) {
-            tblReasonForRedo.setModel(new OtDateOfOperationTableModel(listOtOperation));
-        } else {
-            tblReasonForRedo.setModel(new OtDateOfOperationTableModel(listOtOperation));
-        }
-        ListSelectionModel selectionModel = tblReasonForRedo.getSelectionModel();
-        tblReasonForRedo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        setColumnsWidthsOperation();
-        selectionModel.setSelectionInterval(0, 0);
-        Constants.tablelook.setJTableEnvironment(tblReasonForRedo);
+//        listOtOperation = ctlOtCardiac.selectOTPendingAll(con, odi, typeDetailId, deftypeid);
+//
+//        if (listOtOperation.isEmpty()) {
+//            tblReasonForRedo.setModel(new OtDateOfOperationTableModel(listOtOperation));
+//        } else {
+//            tblReasonForRedo.setModel(new OtDateOfOperationTableModel(listOtOperation));
+//        }
+//        ListSelectionModel selectionModel = tblReasonForRedo.getSelectionModel();
+//        tblReasonForRedo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        setColumnsWidthsOperation();
+//        selectionModel.setSelectionInterval(0, 0);
+//        Constants.tablelook.setJTableEnvironment(tblReasonForRedo);
     }
 
     private void selectPatientQuestionaire() {
@@ -2295,18 +2295,18 @@ public class CardiacSurgeryFormFarzal extends javax.swing.JInternalFrame {
 
     private void selectAccessDetail(String con, String odi, String typeDetailId,
             String deftypeid) {
-        listAccessSelect = ctlOtCardiac.selectOTPendingAll(con, odi, typeDetailId, deftypeid);
-
-        if (listAccessSelect.isEmpty()) {
-            tblAccess.setModel(new OtAccessTableModel(listAccessSelect));
-        } else {
-            tblAccess.setModel(new OtAccessTableModel(listAccessSelect));
-        }
-        ListSelectionModel selectionModel = tblAccess.getSelectionModel();
-        tblAccess.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        setColumnsWidthsAccess();
-        selectionModel.setSelectionInterval(0, 0);
-        Constants.tablelook.setJTableEnvironment(tblAccess);
+//        listAccessSelect = ctlOtCardiac.selectOTPendingAll(con, odi, typeDetailId, deftypeid);
+//
+//        if (listAccessSelect.isEmpty()) {
+//            tblAccess.setModel(new OtAccessTableModel(listAccessSelect));
+//        } else {
+//            tblAccess.setModel(new OtAccessTableModel(listAccessSelect));
+//        }
+//        ListSelectionModel selectionModel = tblAccess.getSelectionModel();
+//        tblAccess.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        setColumnsWidthsAccess();
+//        selectionModel.setSelectionInterval(0, 0);
+//        Constants.tablelook.setJTableEnvironment(tblAccess);
     }
 
     public void setColumnsWidthsAccess() {

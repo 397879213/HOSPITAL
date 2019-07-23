@@ -199,72 +199,6 @@ public class CardiacSurgeryHandler {
         return Constants.dao.executeUpdate(query, false);
     }
 
-//    String[] selectTypes = {"-", "ID", "CON", "ODI", "TYPE_DETAIL_ID",
-//        "DESCRIPTION", "ACTION_ID", "CRTD_BY", "REMARKS", "CRTD_DATE", "CRTD_TERMINAL"};
-//
-//    String pendingGeneralQuery = " SELECT                                \n"
-//            + "  OSD.ID                       ID,                        \n"
-//            + "  OSD.CON                      CON,                       \n"
-//            + "  OSD.ODI                      ODI,                       \n"
-//            + "  DT.DESCRIPTION               DESCRIPTION,               \n"
-//            + "  OSD.TYPE_DETAIL_ID           TYPE_DETAIL_ID,            \n"
-//            + "  NVL(OSD.ACTION_ID, 0)      ACTION_ID,                 \n"
-//            + "  NVL(OSD.REMARKS, ' ')        REMARKS,                   \n"
-//            + "  OSD.CRTD_BY                  CRTD_BY,                   \n"
-//            + "  OSD.CRTD_DATE                CRTD_DATE,                 \n"
-//            + "  OSD.CRTD_TERMINAL            CRTD_TERMINAL              \n"
-//            + "  FROM                                                    \n"
-//            + Database.DCMS.otSetupDetail + "        OSD,                \n"
-//            + Database.DCMS.definitionTypeDetail + " DT                  \n";
-//
-//    String pendingGeneralJoin = "  AND OSD.TYPE_DETAIL_ID = DT.ID        \n"
-//            + "ORDER BY ID                                               \n";
-//
-//    public List selectData(List list) {
-//
-//        List listOTProcedure = new ArrayList();
-//        for (int i = 0; i < list.size(); i++) {
-//            HashMap map = (HashMap) list.get(i);
-//            CardiacSurgery otPro = new CardiacSurgery();
-//            otPro.setId(map.get("ID").toString());
-//            otPro.setTypeDetailId(map.get("TYPE_DETAIL_ID").toString());
-//            otPro.setCompleteOrderNo(map.get("CON").toString());
-//            otPro.setOrderDetailId(map.get("ODI").toString());
-//            otPro.setDescription(map.get("DESCRIPTION").toString());
-//            otPro.setTypeDetailId(map.get("TYPE_DETAIL_ID").toString());
-//            otPro.setActionId(map.get("ACTION_ID").toString());
-//            otPro.setRemarks(map.get("REMARKS").toString());
-//            otPro.setCrtdBy(map.get("CRTD_BY").toString());
-//            otPro.setCrtdDate(map.get("CRTD_DATE").toString());
-//            otPro.setCrtdTerminalId(map.get("CRTD_TERMINAL").toString());
-//
-//            if (otPro.getType().equalsIgnoreCase("LOV")) {
-//                listOTProcedure.add(otPro);
-//            }
-//        }
-//        return listOTProcedure;
-//    }
-//
-//    public List selectDetails(String con, String odi, String typeDetailId, 
-//            String actionId) {
-//
-//        String query = pendingGeneralQuery
-//                + " WHERE 1=1";
-//        if (con.length() != 0) {
-//            query += "  AND OSD.CON = '" + con + "' \n";
-//        }
-//        if (odi.length() != 0) {
-//            query += "  AND OSD.ODI = '" + odi + "' \n";
-//        }
-//        if (actionId.length() != 0) {
-//            query += "  AND ACTION_ID = "+ actionId +"\n";
-//        }
-//        query += pendingGeneralJoin;
-//
-//        return selectData(Constants.dao.selectDatainList(query, selectTypes));
-//
-//    }
-
     public boolean insertOperDetail(CardiacSurgery operate) {
 
         String[] columns = {Database.DCMS.otSetupDetail, "ID", "CON",
@@ -519,26 +453,26 @@ public class CardiacSurgeryHandler {
         return Constants.dao.executeUpdate(query, false);
     }
 
-    public boolean insertClosurePaceWire(CardiacSurgery operate) {
-
-        String[] columns = {Database.DCMS.otClosurePacingWire, "ID", "CON", "ODI",
-            "DEF_TYPE", "CLOSURE_ID", "PACING_WIRE_ID", "CRTD_BY", "CRTD_TERMINAL"};
-
-        HashMap mapUsers = new HashMap();
-
-        mapUsers.put("ID", this.getId(Database.DCMS.otClosurePacingWire));
-        mapUsers.put("CON", "'" + operate.getCompleteOrderNo() + "'");
-        mapUsers.put("ODI", "'" + operate.getOrderDetailId() + "'");
-        mapUsers.put("DEF_TYPE", "'" + operate.getDefTypeId() + "'");
-        mapUsers.put("CLOSURE_ID", "'" + operate.getClosureId() + "'");
-        mapUsers.put("PACING_WIRE_ID", "'" + operate.getPaceWireId() + "'");
-        mapUsers.put("CRTD_BY", "'" + Constants.userId + "'");
-        mapUsers.put("CRTD_TERMINAL", "'" + Constants.terminalId + "'");
-        List listUsers = new ArrayList();
-        listUsers.add(mapUsers);
-        return Constants.dao.insertData(listUsers, columns);
-
-    }
+//    public boolean insertClosurePaceWire(CardiacSurgery operate) {
+//
+//        String[] columns = {Database.DCMS.otClosurePacingWire, "ID", "CON", "ODI",
+//            "DEF_TYPE", "CLOSURE_ID", "PACING_WIRE_ID", "CRTD_BY", "CRTD_TERMINAL"};
+//
+//        HashMap mapUsers = new HashMap();
+//
+//        mapUsers.put("ID", this.getId(Database.DCMS.otClosurePacingWire));
+//        mapUsers.put("CON", "'" + operate.getCompleteOrderNo() + "'");
+//        mapUsers.put("ODI", "'" + operate.getOrderDetailId() + "'");
+//        mapUsers.put("DEF_TYPE", "'" + operate.getDefTypeId() + "'");
+//        mapUsers.put("CLOSURE_ID", "'" + operate.getClosureId() + "'");
+//        mapUsers.put("PACING_WIRE_ID", "'" + operate.getPaceWireId() + "'");
+//        mapUsers.put("CRTD_BY", "'" + Constants.userId + "'");
+//        mapUsers.put("CRTD_TERMINAL", "'" + Constants.terminalId + "'");
+//        List listUsers = new ArrayList();
+//        listUsers.add(mapUsers);
+//        return Constants.dao.insertData(listUsers, columns);
+//
+//    }
     
     public boolean insertCabgsurgery(CardiacSurgery operate) {
 

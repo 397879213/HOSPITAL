@@ -227,7 +227,8 @@ public class CardiacController {
 
     public boolean insertClosurePaceWire(CardiacSurgery operate) {
 
-        boolean ret = hdlCardiacSurg.insertClosurePaceWire(operate);
+        boolean ret = true;
+                //hdlCardiacSurg.insertClosurePaceWire(operate);
 
         if (ret) {
             Constants.dao.commitTransaction();
