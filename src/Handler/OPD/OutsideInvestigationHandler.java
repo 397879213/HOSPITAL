@@ -56,20 +56,23 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
             String completeOrderNo,
             String orderDetailId, String patientId) {
         String[] columns = {Database.DCMS.outsideInvestigations, "PATIENT_ID",
-            "CPT_ID", "COMPLETE_ORDER_NO", "ORDER_DETAIL_ID", "ROWID",
-            "HEALTHCARE_FACILITY", "TEST_NAME", "REPORT_DATE", "ID"};
+            "CPT_ID", "CON", "ODI", "HEALTHCARE_FACILITY_DES",  "IS_REPORT_ATTACHED", 
+            "HEALTHCARE_FACILITY", "TEST_NAME", "REPORT_DATE", "ID", "REPORT_REMARKS"};
 
         String query = " SELECT OSI.PATIENT_ID ,  NVL(OSI.CPT_ID,' ') CPT_ID,   \n"
                 + " OSI.CON, OSI.ODI, TEST_NAME,                                \n"
                 + " OSI.HEALTHCARE_FACILITY_ID,                                 \n"
+                + " HFS.DESCRIPTION     HEALTHCARE_FACILITY_DES,                \n"
                 + " NVL(OSI.TEST_NAME,' ') TEST_NAME,                           \n"
                 + " TO_CHAR(OSI.REPORT_DATE,'DD-MON-YY')  REPORT_DATE,          \n"
                 + " OSI.ID, OSI.IS_REPORT_ATTACHED,                             \n"
                 + " NVL(OSI.REPORT_REMARKS,' ') REPORT_REMARKS                  \n"
-                + " FROM " + Database.DCMS.outsideInvestigations + " OSI        \n"
-                + " WHERE PATIENT_ID = '" + patientId + "'                      \n"
-                + " AND COMPLETE_ORDER_NO  = '" + completeOrderNo + "'          \n"
-                + " AND ORDER_DETAIL_ID = " + orderDetailId + "                \n";
+                + " FROM " + Database.DCMS.outsideInvestigations + " OSI,       \n"
+                + "   " + Database.DCMS.definitionTypeDetail + " HFS            \n"
+                + " WHERE OSI.PATIENT_ID = '" + patientId + "'                  \n"
+                + " AND OSI.CON  = '" + completeOrderNo + "'                    \n"
+                + " AND OSI.ODI = " + orderDetailId + "                         \n"
+                + " AND OSI.HEALTHCARE_FACILITY_ID = HFS.ID                     \n";
 
         List vec = Constants.dao.selectData(query, columns);
         List<OutsideInvestigation> listInvestigations = new ArrayList();
@@ -81,10 +84,13 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
             investigation.setOrderDetailId((String) map.get("ORDER_DETAIL_ID"));
             investigation.setCptId((String) map.get("CPT_ID"));
             investigation.setTestName((String) map.get("TEST_NAME"));
+            investigation.setHealthCareFacilityDescription((String) map.get(
+                    "HEALTHCARE_FACILITY_DESCRIPTION"));
+            investigation.setHealthCareFacilityId((String) map.get("HEALTHCARE_FACILITY_ID"));
             investigation.setReportDate((String) map.get("REPORT_DATE"));
-            investigation.setReport((String) map.get("REPORT"));
-            investigation.setHealthCareFacilityId((String) map.get("HEALTHCARE_FACILITY"));
-            investigation.setRowId((String) map.get("ROWID"));
+            investigation.setId((String) map.get("ID"));
+            investigation.setIsReportAttached((String) map.get("IS_REPORT_ATTACHED"));
+            investigation.setReportRermarks((String) map.get("REPORT_REMARKS"));
 
             listInvestigations.add(investigation);
         }
@@ -123,7 +129,7 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
             investigation.setCptId((String) map.get("CPT_ID"));
             investigation.setTestName((String) map.get("TEST_NAME"));
             investigation.setReportDate((String) map.get("REPORT_DATE"));
-            investigation.setReport((String) map.get("REPORT"));
+            investigation.setReportRermarks((String) map.get("REPORT"));
             investigation.setHealthCareFacilityId((String) map.get("HEALTHCARE_FACILITY"));
             investigation.setRowId((String) map.get("ROWID"));
 

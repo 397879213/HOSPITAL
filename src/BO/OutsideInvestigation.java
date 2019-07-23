@@ -13,10 +13,28 @@ public class OutsideInvestigation implements java.io.Serializable{
     private String healthCareFacilityId = "";
     private String healthCareFacilityDescription = "";
     private String testName = "";
-    private String report = "";
+    private String reportRermarks = "";
     private String reportDate = "";
+    private String isReportAttached = "";
+    private String id = "";
     private String rowId = "";
     private int rowIndex;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    public String getIsReportAttached() {
+        return isReportAttached;
+    }
+
+    public void setIsReportAttached(String isReportAttached) {
+        this.isReportAttached = isReportAttached;
+    }
 
     public String getHealthCareFacilityDescription() {
         return healthCareFacilityDescription;
@@ -97,12 +115,12 @@ public class OutsideInvestigation implements java.io.Serializable{
         this.testName = testName;
     }
 
-    public String getReport() {
-        return report;
+    public String getReportRermarks() {
+        return reportRermarks;
     }
 
-    public void setReport(String report) {
-        this.report = report;
+    public void setReportRermarks(String reportRermarks) {
+        this.reportRermarks = reportRermarks;
     }
 
     public String getReportDate() {
@@ -123,7 +141,7 @@ public class OutsideInvestigation implements java.io.Serializable{
         hash = 79 * hash + Objects.hashCode(this.cptDescription);
         hash = 79 * hash + Objects.hashCode(this.healthCareFacilityId);
         hash = 79 * hash + Objects.hashCode(this.testName);
-        hash = 79 * hash + Objects.hashCode(this.report);
+        hash = 79 * hash + Objects.hashCode(this.reportRermarks);
         hash = 79 * hash + Objects.hashCode(this.reportDate);
         return hash;
     }
@@ -158,7 +176,7 @@ public class OutsideInvestigation implements java.io.Serializable{
         if (!Objects.equals(this.testName, other.testName)) {
             return false;
         }
-        if (!Objects.equals(this.report, other.report)) {
+        if (!Objects.equals(this.reportRermarks, other.reportRermarks)) {
             return false;
         }
         return true;

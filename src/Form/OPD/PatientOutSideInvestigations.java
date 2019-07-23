@@ -61,7 +61,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 //        txtConsultantName.setText(Constants.opd.getConsultantName());
 //        txtConsultantDate.setText(Constants.opd.getConsultancyDate());
 //        txtTestName.setBackground(new Color(204, 255, 204));
-//        searchOutsideInvestigations();
+        searchOutsideInvestigations();
 //        searchPreviousOutsideInvestigations();
 
     }
@@ -633,7 +633,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 
         selectedInvestigation = listInvestigations.get(
                 tblOutSideTest.getSelectedRow());
-        txtReport.setText(selectedInvestigation.getReport());
+        txtReport.setText(selectedInvestigation.getReportRermarks());
         txtTestName.setText(selectedInvestigation.getTestName());
         txtHealthFacility.setText(selectedInvestigation.getHealthCareFacilityId());
 //        txtPerformDate.setText(selectedInvestigation.getReportDate());
@@ -853,7 +853,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                 selectedInvestigation.getRowId(),
                 txtReport.getText())) {
             JOptionPane.showMessageDialog(null, "Report Saved Successfully!");
-            selectedInvestigation.setReport(txtReport.getText());
+            selectedInvestigation.setReportRermarks(txtReport.getText());
         } else {
             JOptionPane.showMessageDialog(null, "Unable to Save Report\n"
                     + "Please Contact Administrator");
