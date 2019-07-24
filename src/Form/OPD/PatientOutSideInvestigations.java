@@ -846,8 +846,9 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         }
         OutsideInvestigation ObjId = listInvestigations.get(tblOutSideTest.getSelectedRow());
         if (ctlInvestigation.updateReport(ObjId.getId(), txtReport.getText().trim())) {
-            JOptionPane.showMessageDialog(null, "Report Saved Successfully!");
+            JOptionPane.showMessageDialog(null, "Saved Successfully!");
             selectedInvestigation.setReportRermarks(txtReport.getText());
+            txtReport.setText("");
         } else {
             JOptionPane.showMessageDialog(null, "Unable to Save Report\n"
                     + "Please Contact Administrator");
@@ -865,6 +866,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         if (ctlInvestigation.deleteOutsideInvestigation(
                 selectedInvestigation.getId())) {
             searchOutsideInvestigations();
+            
         } else {
             JOptionPane.showMessageDialog(null, "Unable to Delete Record\n"
                     + "Please Contact Administrator");
