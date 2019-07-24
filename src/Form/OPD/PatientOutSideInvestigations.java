@@ -57,7 +57,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 //        patientId = Constants.opd.getPatientId();
 //        con = Constants.opd.getCON();
 //        odi = Constants.opd.getODI();
-        setDemography();
+//        setDemography();
         searchOutsideInvestigations();
         setDate(0);
 //        searchPreviousOutsideInvestigations();
@@ -103,7 +103,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         tblOutSideTest = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         txtPreviousTestName = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        btnFilterSearch = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         lblPicture = new javax.swing.JLabel();
@@ -460,11 +460,11 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jButton4.setText("Search");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnFilterSearch.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnFilterSearch.setText("Search");
+        btnFilterSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnFilterSearchActionPerformed(evt);
             }
         });
 
@@ -479,7 +479,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtPreviousTestName, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnFilterSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -489,7 +489,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPreviousTestName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                    .addComponent(btnFilterSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
         );
@@ -870,7 +870,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                 + Database.DCMS.definitionTypeDetail + " DT                     \n"
                 + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.healthFacility + "'"
                 + " AND upper(DT.DESCRIPTION) LIKE '%"
-                + txtHealthFacility.getText().trim().toUpperCase() + "%' \n"
+                + txtHealthFacility.getText().trim().toUpperCase() + "%'        \n"
                 + " AND DT.ID NOT IN (SELECT HEALTHCARE_FACILITY_ID FROM        \n"
                 + Database.DCMS.outsideInvestigations
                 + " WHERE CON = '" + con + "' AND ODI = '" + odi + "')          \n"
@@ -891,10 +891,10 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 //        searchPreviousOutsideInvestigations();
     }//GEN-LAST:event_txtPreviousTestNameActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnFilterSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterSearchActionPerformed
         // TODO add your handling code here:
         searchPreviousOutsideInvestigations();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnFilterSearchActionPerformed
 
     private void btnDeleteInvestigation1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteInvestigation1ActionPerformed
         // TODO add your handling code here:
@@ -1011,10 +1011,10 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnDeleteInvestigation1;
     private javax.swing.JButton btnEditInvestigation;
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnFilterSearch;
     private javax.swing.JButton btnSaveReport;
     private javax.swing.JButton btnShowWebcam;
     private javax.swing.JButton btnShowWebcam1;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
