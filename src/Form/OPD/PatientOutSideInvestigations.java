@@ -57,14 +57,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 //        patientId = Constants.opd.getPatientId();
 //        con = Constants.opd.getCON();
 //        odi = Constants.opd.getODI();
-//        DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
-//        Date date = new Date();
-//        txtPerformDate.setText(dateFormat.format(date).toUpperCase());
-//        txtPatientId.setText(patientId);
-//        txtPatientName.setText(Constants.opd.getPatientName());
-//        txtConsultantName.setText(Constants.opd.getConsultantName());
-//        txtConsultantDate.setText(Constants.opd.getConsultancyDate());
-//        txtTestName.setBackground(new Color(204, 255, 204));
+        setDemography();
         searchOutsideInvestigations();
         setDate(0);
 //        searchPreviousOutsideInvestigations();
@@ -396,12 +389,13 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                         .addComponent(btnDeleteInvestigation1))
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddInvestigation)
-                    .addComponent(btnEditInvestigation)
-                    .addComponent(btnDeleteInvestigation)
-                    .addComponent(txtPerformDate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPerformDate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAddInvestigation)
+                        .addComponent(btnEditInvestigation)
+                        .addComponent(btnDeleteInvestigation)))
                 .addContainerGap())
         );
 
@@ -1059,5 +1053,13 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    private void setDemography() {
+        txtPatientId.setText(patientId);
+        txtPatientName.setText(Constants.opd.getPatientName());
+        txtConsultantName.setText(Constants.opd.getConsultantName());
+        txtConsultantDate.setText(Constants.opd.getConsultancyDate());
+        txtTestName.setBackground(new Color(204, 255, 204));
     }
 }

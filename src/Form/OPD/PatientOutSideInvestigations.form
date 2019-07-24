@@ -447,12 +447,14 @@
                           <Component id="jLabel4" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel5" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
-                          <Component id="btnAddInvestigation" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnEditInvestigation" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnDeleteInvestigation" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtPerformDate" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel5" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
+                              <Component id="btnAddInvestigation" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnEditInvestigation" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnDeleteInvestigation" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
