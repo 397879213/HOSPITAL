@@ -60,10 +60,6 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 //        setDemography();
         searchOutsideInvestigations();
         setDate(0);
-        
-        
-        
-
     }
 
     @SuppressWarnings("unchecked")
@@ -635,7 +631,6 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                 tblOutSideTest.getSelectedRow());
         cptId = selectedInvestigation.getCptId();
         healthFacilityId = selectedInvestigation.getHealthCareFacilityId();
-//        txtReport.setText(selectedInvestigation.getReportRermarks());
         txtTestName.setText(selectedInvestigation.getTestName());
         txtHealthFacility.setText(selectedInvestigation.getHealthCareFacilityDescription());
         setDate(Integer.parseInt(selectedInvestigation.getReportDay()));
@@ -769,26 +764,6 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                 column.setPreferredWidth(60);
             }
         }
-    }
-
-    private void searchPreviousOutsideInvestigations() {
-
-        listPreviousInvestigations = ctlInvestigation.selectPreviousOutsideInvestigation(
-                con, patientId, txtPreviousTestName.getText());
-
-        if (listPreviousInvestigations.isEmpty()) {
-            OutsideInvestigation cp = new OutsideInvestigation();
-            List li = new ArrayList();
-            li.add(cp);
-//          tblPatientOutSideInvestigation.setModel(new OutsideInvestigationsTableModel(li));
-        } else {
-//          tblPatientOutSideInvestigation.setModel(new OutsideInvestigationsTableModel(listPreviousInvestigations));
-        }
-//          ListSelectionModel selectionModel = tblPatientOutSideInvestigation.getSelectionModel();
-//          tblPatientOutSideInvestigation.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//          setPreviousInvestigationsColumnsWidths();
-//          selectionModel.setSelectionInterval(0, 0);
-//          Constants.tablelook.setJTableEnvironment(tblPatientOutSideInvestigation);
     }
 
     private void txtTestNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTestNameActionPerformed
