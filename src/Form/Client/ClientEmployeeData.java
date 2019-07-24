@@ -1323,7 +1323,6 @@ tblEmpDocInfo.addMouseListener(new java.awt.event.MouseAdapter() {
         //Jb attachment delete ho to verification Y or N krna hai.....
         // TODO add your handling code here:
 
-        
         if (ChkNotCnic.isSelected()) {
             updateEmpInfo();
         }
@@ -1937,7 +1936,7 @@ tblEmpDocInfo.addMouseListener(new java.awt.event.MouseAdapter() {
 
     private void ChkNotCnicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkNotCnicActionPerformed
         if (ChkNotCnic.isSelected()) {
-            
+
         }
     }//GEN-LAST:event_ChkNotCnicActionPerformed
 
