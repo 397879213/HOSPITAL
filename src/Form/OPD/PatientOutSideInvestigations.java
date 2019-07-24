@@ -631,16 +631,18 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 
         selectedInvestigation = listInvestigations.get(
                 tblOutSideTest.getSelectedRow());
+        cptId = selectedInvestigation.getCptId();
+        healthFacilityId = selectedInvestigation.getHealthCareFacilityId();
 //        txtReport.setText(selectedInvestigation.getReportRermarks());
         txtTestName.setText(selectedInvestigation.getTestName());
         txtHealthFacility.setText(selectedInvestigation.getHealthCareFacilityDescription());
         setDate(Integer.parseInt(selectedInvestigation.getReportDay()));
         txtPreviousReport.setText(selectedInvestigation.getReportRermarks());
-        if(selectedInvestigation.getIsReportAttached().equalsIgnoreCase("Y")){
+        if (selectedInvestigation.getIsReportAttached().equalsIgnoreCase("Y")) {
             btnShowWebcam.setEnabled(false);
             btnBrowseWebcam.setEnabled(false);
             btnAttachEmployeeDoc.setEnabled(false);
-        }else{
+        } else {
             btnShowWebcam.setEnabled(true);
             btnBrowseWebcam.setEnabled(true);
             btnAttachEmployeeDoc.setEnabled(true);
@@ -814,9 +816,6 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 
         OutsideInvestigation investigation = listInvestigations.get(
                 tblOutSideTest.getSelectedRow());
-
-        cptId = investigation.getCptId();
-        healthFacilityId = investigation.getHealthCareFacilityId();
         investigation.setCptId(cptId);
         investigation.setTestName(txtTestName.getText().toUpperCase());
         investigation.setHealthCareFacilityId(healthFacilityId);
@@ -880,9 +879,9 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                 + " WHERE DT.DEF_TYPE_ID = '" + DefinitionTypes.healthFacility + "'"
                 + " AND upper(DT.DESCRIPTION) LIKE '%"
                 + txtHealthFacility.getText().trim().toUpperCase() + "%'        \n"
-                + " AND DT.ID NOT IN (SELECT HEALTHCARE_FACILITY_ID FROM        \n"
-                + Database.DCMS.outsideInvestigations
-                + " WHERE CON = '" + con + "' AND ODI = '" + odi + "')          \n"
+                //                + " AND DT.ID NOT IN (SELECT HEALTHCARE_FACILITY_ID FROM        \n"
+                //                + Database.DCMS.outsideInvestigations
+                //                + " WHERE CON = '" + con + "' AND ODI = '" + odi + "')          \n"
                 + " ORDER BY ID";
 
         lov.LOVSelection(query, this);
@@ -902,7 +901,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 
     private void btnFilterSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterSearchActionPerformed
         // TODO add your handling code here:
-        searchPreviousOutsideInvestigations();
+        searchOutsideInvestigations();
     }//GEN-LAST:event_btnFilterSearchActionPerformed
 
     private void btnDeleteInvestigation1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteInvestigation1ActionPerformed
