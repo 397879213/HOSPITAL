@@ -301,7 +301,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnAttachEmployeeDoc" min="-2" pref="73" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnShowWebcam1" min="-2" max="-2" attributes="1"/>
+                      <Component id="btnBrowseWebcam" min="-2" max="-2" attributes="1"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -310,7 +310,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="btnAttachEmployeeDoc" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnShowWebcam1" alignment="3" max="32767" attributes="1"/>
+                      <Component id="btnBrowseWebcam" alignment="3" max="32767" attributes="1"/>
                       <Component id="btnShowWebcam" alignment="3" max="32767" attributes="1"/>
                   </Group>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -371,7 +371,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAttachEmployeeDocActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnShowWebcam1">
+            <Component class="javax.swing.JButton" name="btnBrowseWebcam">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="12" style="1"/>
@@ -379,7 +379,7 @@
                 <Property name="text" type="java.lang.String" value="Browse"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnShowWebcam1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBrowseWebcamActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

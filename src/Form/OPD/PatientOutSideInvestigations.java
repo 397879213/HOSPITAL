@@ -83,7 +83,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         btnSaveReport = new javax.swing.JButton();
         btnShowWebcam = new javax.swing.JButton();
         btnAttachEmployeeDoc = new javax.swing.JButton();
-        btnShowWebcam1 = new javax.swing.JButton();
+        btnBrowseWebcam = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -243,11 +243,11 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
             }
         });
 
-        btnShowWebcam1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnShowWebcam1.setText("Browse");
-        btnShowWebcam1.addActionListener(new java.awt.event.ActionListener() {
+        btnBrowseWebcam.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnBrowseWebcam.setText("Browse");
+        btnBrowseWebcam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShowWebcam1ActionPerformed(evt);
+                btnBrowseWebcamActionPerformed(evt);
             }
         });
 
@@ -265,14 +265,14 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAttachEmployeeDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnShowWebcam1)
+                .addComponent(btnBrowseWebcam)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(btnAttachEmployeeDoc)
-                .addComponent(btnShowWebcam1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBrowseWebcam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnShowWebcam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -636,11 +636,20 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         txtHealthFacility.setText(selectedInvestigation.getHealthCareFacilityDescription());
         setDate(Integer.parseInt(selectedInvestigation.getReportDay()));
         txtPreviousReport.setText(selectedInvestigation.getReportRermarks());
+        if(selectedInvestigation.getIsReportAttached().equalsIgnoreCase("Y")){
+            btnShowWebcam.setEnabled(false);
+            btnBrowseWebcam.setEnabled(false);
+            btnAttachEmployeeDoc.setEnabled(false);
+        }else{
+            btnShowWebcam.setEnabled(true);
+            btnBrowseWebcam.setEnabled(true);
+            btnAttachEmployeeDoc.setEnabled(true);
+        }
 
         try {
             Image procImage = ctlInvestigation.selectReportImage(selectedInvestigation.getId());
             Image resizedImage
-                    = procImage.getScaledInstance(lblPicture.getWidth() -500,
+                    = procImage.getScaledInstance(lblPicture.getWidth(),
                             lblPicture.getHeight(), 0);
             ImageIcon icon = new ImageIcon(procImage);
             lblPicture.setIcon(icon);
@@ -943,31 +952,11 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
             webcam.close();
             return;
         }
-//        if (picturePath.trim().length() != 0) {
-//            try {
-//                Image img = ImageIO.read(new File(picturePath));
-//                Image resizedImage
-//                        = img.getScaledInstance(lblPicture.getWidth(), lblPicture.getHeight() - 10, 0);
-//                lblPatientPicture.setIcon(new ImageIcon(resizedImage)); // NOI18N
-//                btnShowWebcam.setEnabled(false);
-//                btnAttachPicture.setEnabled(false);
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//            }
-//        } else {
-//            btnShowWebcam.setEnabled(true);
-//            btnAttachPicture.setEnabled(true);//1
-//            if (Constants.userRightsMap.get(Rights.attachPatientPicture) == null) {//1
-//                btnAttachPicture.setEnabled(false);
-//            }
-//            lblPatientPicture.setIcon(null);
-//        }
-
         webcam.close();
 
     }//GEN-LAST:event_btnAttachEmployeeDocActionPerformed
 
-    private void btnShowWebcam1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowWebcam1ActionPerformed
+    private void btnBrowseWebcamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseWebcamActionPerformed
         // TODO add your handling code here:
 
         JFileChooser chooser = new JFileChooser();
@@ -990,7 +979,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
             }
 
         }
-    }//GEN-LAST:event_btnShowWebcam1ActionPerformed
+    }//GEN-LAST:event_btnBrowseWebcamActionPerformed
 
     private void txtPerformDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPerformDateActionPerformed
         // TODO add your handling code here:
@@ -1007,6 +996,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddInvestigation;
     private javax.swing.JButton btnAttachEmployeeDoc;
+    private javax.swing.JButton btnBrowseWebcam;
     private javax.swing.JButton btnDeleteInvestigation;
     private javax.swing.JButton btnDeleteInvestigation1;
     private javax.swing.JButton btnEditInvestigation;
@@ -1014,7 +1004,6 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnFilterSearch;
     private javax.swing.JButton btnSaveReport;
     private javax.swing.JButton btnShowWebcam;
-    private javax.swing.JButton btnShowWebcam1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

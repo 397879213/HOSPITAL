@@ -195,43 +195,6 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
         }
         return ret;
     }
-
-    public String getReportImages(String id) {
-
-        String ret = "";
-        try {
-            if (conn == null || conn.isClosed()) {
-                conn = Constants.dao.getConnection();
-            }
-            String sql = " SELECT REPORT_IMAGE FROM "
-                    + Database.DCMS.outsideInvestigations + " \n"
-                    + " WHERE ID = " + id + "  \n";
-
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) {
-                ret = System.getProperty("java.io.tmpdir") + id + ".jpg";
-                File picture = new File(ret);
-                FileOutputStream fos = new FileOutputStream(picture);
-                byte[] buffer = new byte[256];
-                InputStream is = resultSet.getBinaryStream(1);
-                while (is.read(buffer) > 0) {
-                    fos.write(buffer);
-                }
-                fos.close();
-            } else {
-                ret = "";
-            }
-            stmt.close();
-            resultSet.close();
-
-        } catch (Exception ex) {
-            ret = "";
-            ex.printStackTrace();
-        }
-
-        return ret;
-    }
     
     public Image selectReportImage(String id) {
 
@@ -277,4 +240,41 @@ public class OutsideInvestigationHandler implements java.io.Serializable {
         return image;
     }
 
+//    public String getReportImages(String id) {
+//
+//        String ret = "";
+//        try {
+//            if (conn == null || conn.isClosed()) {
+//                conn = Constants.dao.getConnection();
+//            }
+//            String sql = " SELECT REPORT_IMAGE FROM "
+//                    + Database.DCMS.outsideInvestigations + " \n"
+//                    + " WHERE ID = " + id + "  \n";
+//
+//            PreparedStatement stmt = conn.prepareStatement(sql);
+//            ResultSet resultSet = stmt.executeQuery();
+//            if (resultSet.next()) {
+//                ret = System.getProperty("java.io.tmpdir") + id + ".jpg";
+//                File picture = new File(ret);
+//                FileOutputStream fos = new FileOutputStream(picture);
+//                byte[] buffer = new byte[256];
+//                InputStream is = resultSet.getBinaryStream(1);
+//                while (is.read(buffer) > 0) {
+//                    fos.write(buffer);
+//                }
+//                fos.close();
+//            } else {
+//                ret = "";
+//            }
+//            stmt.close();
+//            resultSet.close();
+//
+//        } catch (Exception ex) {
+//            ret = "";
+//            ex.printStackTrace();
+//        }
+//
+//        return ret;
+//    }
+    
 }
