@@ -46,7 +46,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 
     private List<OutsideInvestigation> listInvestigations = new ArrayList();
     private List<OutsideInvestigation> listPreviousInvestigations = new ArrayList();
-    
+
     OutsideInvestigation selectedInvestigation = new OutsideInvestigation();
     OutsideInvestigationController ctlInvestigation = new OutsideInvestigationController();
 
@@ -636,7 +636,7 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         txtHealthFacility.setText(selectedInvestigation.getHealthCareFacilityDescription());
         setDate(Integer.parseInt(selectedInvestigation.getReportDay()));
         txtPreviousReport.setText(selectedInvestigation.getReportRermarks());
-        
+
         try {
             Image procImage = ctlInvestigation.selectReportImage(selectedInvestigation.getId());
             Image resizedImage
@@ -802,10 +802,10 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
                     + "From Table First!");
             return;
         }
-        
+
         OutsideInvestigation investigation = listInvestigations.get(
                 tblOutSideTest.getSelectedRow());
-        
+
         cptId = investigation.getCptId();
         healthFacilityId = investigation.getHealthCareFacilityId();
         investigation.setCptId(cptId);
@@ -857,11 +857,11 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         if (ctlInvestigation.deleteOutsideInvestigation(
                 selectedInvestigation.getId())) {
             searchOutsideInvestigations();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Unable to Delete Record\n"
                     + "Please Contact Administrator");
         }
-        
+
     }//GEN-LAST:event_btnDeleteInvestigationActionPerformed
 
     private void txtHealthFacilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHealthFacilityActionPerformed
@@ -926,12 +926,21 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         String path = "";
 
         try {
-            path = System.getProperty("java.io.tmpdir") + conodiid + ".jpg";
+            path = System.getProperty("java.io.tmpdir") + con + odi + ".jpg";
             ImageIO.write(image, "JPG", new File(path));
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Unable to Capture Picture!\n"
                     + "Please Contact Administrator");
+            return;
+        }
+        OutsideInvestigation investigation = listInvestigations.get(
+                tblOutSideTest.getSelectedRow());
+        if (ctlInvestigation.updateReportImage(path, Integer.parseInt(investigation.getId()))) {
+            searchOutsideInvestigations();
+        } else {
+            JOptionPane.showMessageDialog(null, "Unable to save picture Kindly Contact Administrator");
+            webcam.close();
             return;
         }
 //        if (picturePath.trim().length() != 0) {
@@ -971,9 +980,9 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         if (chooser.getSelectedFile() != null) {
             String path = chooser.getSelectedFile().getAbsolutePath();
             OutsideInvestigation investigation = listInvestigations.get(
-                tblOutSideTest.getSelectedRow());
-                if (ctlInvestigation.updateReportImage(path, Integer.parseInt(investigation.getId()))){
-                        searchOutsideInvestigations();
+                    tblOutSideTest.getSelectedRow());
+            if (ctlInvestigation.updateReportImage(path, Integer.parseInt(investigation.getId()))) {
+                searchOutsideInvestigations();
             } else {
                 JOptionPane.showMessageDialog(null, "Unable to save picture Kindly Contact Administrator");
                 webcam.close();
@@ -1040,7 +1049,6 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtTestName;
     // End of variables declaration//GEN-END:variables
 
-    
     private void setDate(int day) {
         try {
             Date date = new Date();
