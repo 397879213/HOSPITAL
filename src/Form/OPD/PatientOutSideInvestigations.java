@@ -640,8 +640,8 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
         try {
             Image procImage = ctlInvestigation.selectReportImage(selectedInvestigation.getId());
             Image resizedImage
-                    = procImage.getScaledInstance(lblPicture.getWidth() + 500,
-                            lblPicture.getHeight() + 500, 0);
+                    = procImage.getScaledInstance(lblPicture.getWidth() + 100,
+                            lblPicture.getHeight() + 100, 0);
             ImageIcon icon = new ImageIcon(procImage);
             lblPicture.setIcon(icon);
         } catch (NullPointerException ex) {
