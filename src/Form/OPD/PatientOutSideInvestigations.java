@@ -60,6 +60,9 @@ public class PatientOutSideInvestigations extends javax.swing.JInternalFrame {
 //        setDemography();
         searchOutsideInvestigations();
         setDate(0);
+        
+        
+        
 
     }
 
