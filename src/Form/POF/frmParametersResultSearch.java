@@ -6,11 +6,12 @@ import utilities.DisplayLOV;
 
 public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private String parameterId = "";
+    private String clientId;
 
     public frmParametersResultSearch() {
 
         initComponents();
-        this.setSize(Constants.xSize -80, Constants.ySize - Constants.yExtension + 8);
+        this.setSize(Constants.xSize - 450, Constants.ySize - Constants.yExtension + 8);
 
     }
     private DisplayLOV lov = new DisplayLOV();
@@ -44,6 +45,11 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         txtToResult = new javax.swing.JTextField();
         cboTableResult = new javax.swing.JComboBox();
         btnSearch = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        btnClear = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
+        jLabel84 = new javax.swing.JLabel();
+        txtCount = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102)));
@@ -51,7 +57,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle(Constants.title+"Search Studies");
+        setTitle(Constants.title+"Parameter Result Search");
         setFrameIcon(null);
         setPreferredSize(new java.awt.Dimension(880, 710));
         setRequestFocusEnabled(false);
@@ -71,7 +77,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
             pnlPLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPLLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(lblPacsLink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblPacsLink, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlPLLayout.setVerticalGroup(
@@ -133,6 +139,12 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         jLabel83.setForeground(new java.awt.Color(102, 0, 0));
         jLabel83.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel83.setText("Client  : ");
+
+        txtClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClientActionPerformed(evt);
+            }
+        });
 
         jLabel86.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel86.setForeground(new java.awt.Color(102, 0, 0));
@@ -203,8 +215,8 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel83, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
@@ -284,7 +296,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -299,16 +311,77 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel7.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        btnClear.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        btnExit.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnExit.setForeground(new java.awt.Color(153, 0, 0));
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
+        jLabel84.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel84.setForeground(new java.awt.Color(102, 0, 0));
+        jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel84.setText("Total Count  : ");
+
+        txtCount.setEditable(false);
+        txtCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCountActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(123, 123, 123)
+                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel84)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCount, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClear)
+                    .addComponent(btnExit)
+                    .addComponent(jLabel84, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlPL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(pnlPL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,6 +389,8 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addComponent(pnlPL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -356,9 +431,6 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
             parameterId = Constants.lovID;
         }
         txtParameter.requestFocusInWindow();
-        txtParameter.moveCaretPosition(0);
-        parameterId = "";
-        txtParameter.setText("");
     }//GEN-LAST:event_txtParameterActionPerformed
 
     private void txtSearchBGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchBGMouseClicked
@@ -373,8 +445,44 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtToAgeActionPerformed
 
+    private void txtClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientActionPerformed
+        // TODO add your handling code here:
+        String query = "SELECT ID,DESCRIPTION FROM "
+        + Database.DCMS.client
+        + " WHERE UPPER(DESCRIPTION) LIKE '%"
+        + txtClient.getText().toUpperCase() + "%' AND ACTIVE = 'Y'";
+
+        lov.LOVSelection(query, this);
+        if (Constants.lovDescription.equalsIgnoreCase("DESCRIPTION")) {
+            txtParameter.setText("");
+            return;
+        } else {
+            txtClient.setText(Constants.lovDescription.toUpperCase());
+            clientId = Constants.lovID;
+        }
+    }//GEN-LAST:event_txtClientActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        listParameters.clear();
+        listSelectedParameters.clear();
+        tblParameterList.setModel(new ParameterListTableModel(listParameters));
+        tblSelectedParameter.setModel(new SelectedParameterListTableModel(listSelectedParameters));
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void txtCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCountActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox cboGender;
     private javax.swing.JComboBox cboTableResult;
@@ -384,16 +492,19 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JLabel lblPacsLink;
     private javax.swing.JPanel pnlPL;
     private javax.swing.JTable tblParameterList;
     private javax.swing.JTextField txtClient;
+    private javax.swing.JTextField txtCount;
     private javax.swing.JTextField txtFromAge;
     private javax.swing.JTextField txtFromResult;
     private javax.swing.JTextField txtParameter;
