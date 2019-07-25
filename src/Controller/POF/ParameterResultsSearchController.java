@@ -6,10 +6,13 @@
 
 package Controller.POF;
 
+import Handler.POF.ParameterResultsSearchHandler;
+
 /**
  *
  * @author raheelansari
  */
 public class ParameterResultsSearchController {
     
+    ParameterResultsSearchHandler hdlParameterResults = new ParameterResultsSearchHandler();
 }

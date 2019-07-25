@@ -24,9 +24,9 @@ public class ParameterResultsSearchHandler {
 
         List<ParameterResultsSearchBO> listParameter = new ArrayList<>();
 
-        public boolean patientPerformedParametersPRD(String fromResult,
+        public List<ParameterResultsSearchBO> patientPerformedParametersPRD(String fromResult,
                 String toResult, String parameterId) {
-            boolean ret = true;
+            
             String colums[] = {"-", "PATIENT_ID", "FULL_NAME", "AGE", "GENDER_ID",
                 "GENDER_DESC", "CLIENT_ID", "CPT_ID", "CLIENT_DESC",
                 "COMPLETE_ORDER_NO", "ORDER_DETAIL_ID", "CPT_DESC", "PARAMETER_ID",
@@ -72,8 +72,6 @@ public class ParameterResultsSearchHandler {
 
             List<HashMap> lis = Constants.dao.selectDatainList(query, colums);
             for (HashMap map : lis) {
-
-                
                 ParameterResultsSearchBO objParameter = new ParameterResultsSearchBO();
                 objParameter.setPatientId(map.get("PATIENT_ID").toString());
                 objParameter.setPatientId(map.get("FULL_NAME").toString());
@@ -93,7 +91,7 @@ public class ParameterResultsSearchHandler {
 
                 listParameter.add(objParameter);
             }
-            return ret;
+            return listParameter;
         }
     }
 }
