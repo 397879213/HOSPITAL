@@ -1,17 +1,16 @@
 package Form.POF;
 
-import Form.general.*;
 import utilities.Constants;
 import utilities.Database;
 import utilities.DisplayLOV;
 
 public class frmParametersResultSearch extends javax.swing.JInternalFrame {
-    private String parameterId;
+    private String parameterId = "";
 
     public frmParametersResultSearch() {
 
         initComponents();
-        this.setSize(Constants.xSize + 80, Constants.ySize - Constants.yExtension + 8);
+        this.setSize(Constants.xSize -80, Constants.ySize - Constants.yExtension + 8);
 
     }
     private DisplayLOV lov = new DisplayLOV();
@@ -333,7 +332,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblParameterListMousePressed
 
     private void tblParameterListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblParameterListMouseReleased
-        setSeletedParameters();
+        
     }//GEN-LAST:event_tblParameterListMouseReleased
 
     private void tblParameterListKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblParameterListKeyReleased
