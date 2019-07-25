@@ -1,5 +1,11 @@
 package Form.POF;
 
+import BO.POF.ParameterResultsSearchBO;
+import Controller.POF.ParameterResultsSearchController;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.TableColumn;
 import utilities.Constants;
 import utilities.Database;
 import utilities.DefinitionTypes;
@@ -7,14 +13,15 @@ import utilities.DisplayLOV;
 
 public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private String parameterId = "";
-    private String clientId;
-    private String bgId;
-    private String genderId;
-    private String fromAge;
-    private String toAge;
-    private String fromResult;
-    private String toResult;
+    private String clientId = "";
+    private String bgId = "";
+    private String genderId = "";
+    private String fromAge = "";
+    private String toAge = "";
+    private String fromResult = "";
+    private String toResult = "";
 
+    List<ParameterResultsSearchBO> listParameter = new ArrayList<>();
     public frmParametersResultSearch() {
 
         initComponents();
@@ -22,7 +29,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
 
     }
     private DisplayLOV lov = new DisplayLOV();
-
+    ParameterResultsSearchController ctlParameterResults = new ParameterResultsSearchController();
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -566,6 +573,30 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         toResult = txtToResult.getText().trim();
         fromAge = txtFromAge.getText().trim();
         toAge = txtToAge.getText().trim();
+        
+        listParameter = ctlParameterResults.patientPerformedParametersPRD(
+                fromResult, toResult, parameterId);
+        tblParameterList.setModel(new DeptWiseSectionsTableModel(listParameter));
+        Constants.tablelook.setJTableEnvironment(tblParameterList);
+        ListSelectionModel selectionModel = tbServices.getSelectionModel();
+        tblParameterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        selectionModel.setSelectionInterval(0, 0);
+        Constants.tablelook.setJTableEnvironment(tblParameterList);
+        setSecTableColWidth();
+    }
+    private void setSecTableColWidth() {
+
+        TableColumn column;
+        for (int i = 0; i < tblParameterList.getColumnCount(); i++) {
+            column = tblParameterList.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(10);
+            } else if (i == 1) {
+                column.setPreferredWidth(120);
+            } else if (i == 2) {
+                column.setPreferredWidth(80);
+            }
+        }
     }
 
 }

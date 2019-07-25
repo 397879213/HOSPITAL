@@ -6,7 +6,9 @@
 
 package Controller.POF;
 
+import BO.POF.ParameterResultsSearchBO;
 import Handler.POF.ParameterResultsSearchHandler;
+import java.util.List;
 
 /**
  *
@@ -15,4 +17,10 @@ import Handler.POF.ParameterResultsSearchHandler;
 public class ParameterResultsSearchController {
     
     ParameterResultsSearchHandler hdlParameterResults = new ParameterResultsSearchHandler();
+    
+    public List<ParameterResultsSearchBO> patientPerformedParametersPRD(
+                String fromResult, String toResult, String parameterId) {
+        return hdlParameterResults.patientPerformedParametersPRD(fromResult, 
+                toResult, parameterId);
+    }
 }
