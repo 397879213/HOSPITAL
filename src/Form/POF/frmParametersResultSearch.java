@@ -10,6 +10,10 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private String clientId;
     private String bgId;
     private String genderId;
+    private String fromAge;
+    private String toAge;
+    private String fromResult;
+    private String toResult;
 
     public frmParametersResultSearch() {
 
@@ -262,6 +266,12 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("To Result : ");
 
+        txtToResult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtToResultActionPerformed(evt);
+            }
+        });
+
         cboTableResult.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "rch-hem-sch", "serology", "Text" }));
 
         btnSearch.setText("Search");
@@ -511,6 +521,11 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_cboGenderActionPerformed
 
+    private void txtToResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtToResultActionPerformed
+        // TODO add your handling code here:
+        searchParameterResult();
+    }//GEN-LAST:event_txtToResultActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
@@ -545,5 +560,12 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtToAge;
     private javax.swing.JTextField txtToResult;
     // End of variables declaration//GEN-END:variables
+
+    private void searchParameterResult() {
+        fromResult = txtFromResult.getText().trim();
+        toResult = txtToResult.getText().trim();
+        fromAge = txtFromAge.getText().trim();
+        toAge = txtToAge.getText().trim();
+    }
 
 }
