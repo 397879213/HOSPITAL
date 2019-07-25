@@ -13,13 +13,13 @@ import javax.swing.table.AbstractTableModel;
 import utilities.Constants;
 import utilities.Database;
 
-public class ParameterListTableModel extends AbstractTableModel {
+public class ParameterResultsTableModel extends AbstractTableModel {
 
     private final String[] columnNames
             = {"Sr.", "Patient Id", "Patient Name", "Gender", "Age", "Verified Date", "Result"};
     private final Object[][] data;
 
-    public ParameterListTableModel(List<ParameterResultsSearchBO> listParameter) {
+    public ParameterResultsTableModel(List<ParameterResultsSearchBO> listParameter) {
         data = new Object[listParameter.size()][columnNames.length];
         int row = 0;
 

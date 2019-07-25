@@ -2,6 +2,8 @@ package Form.POF;
 
 import BO.POF.ParameterResultsSearchBO;
 import Controller.POF.ParameterResultsSearchController;
+import TableModel.POF.ParameterResultsTableModel;
+import TreatmentOnDischarge.TableModel.ParameterListTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ListSelectionModel;
@@ -12,6 +14,7 @@ import utilities.DefinitionTypes;
 import utilities.DisplayLOV;
 
 public class frmParametersResultSearch extends javax.swing.JInternalFrame {
+
     private String parameterId = "";
     private String clientId = "";
     private String bgId = "";
@@ -22,14 +25,16 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private String toResult = "";
 
     List<ParameterResultsSearchBO> listParameter = new ArrayList<>();
+
     public frmParametersResultSearch() {
 
         initComponents();
         this.setSize(Constants.xSize - 450, Constants.ySize - Constants.yExtension + 8);
-
+        
     }
     private DisplayLOV lov = new DisplayLOV();
     ParameterResultsSearchController ctlParameterResults = new ParameterResultsSearchController();
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -282,6 +287,11 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         cboTableResult.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "rch-hem-sch", "serology", "Text" }));
 
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -442,7 +452,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblParameterListMousePressed
 
     private void tblParameterListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblParameterListMouseReleased
-        
+
     }//GEN-LAST:event_tblParameterListMouseReleased
 
     private void tblParameterListKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblParameterListKeyReleased
@@ -453,9 +463,9 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         String query = "SELECT ID,DESCRIPTION FROM "
-        + Database.DCMS.CPTParameter
-        + " WHERE UPPER(DESCRIPTION) LIKE '%"
-        + txtParameter.getText().toUpperCase() + "%' AND ACTIVE = 'Y'";
+                + Database.DCMS.CPTParameter
+                + " WHERE UPPER(DESCRIPTION) LIKE '%"
+                + txtParameter.getText().toUpperCase() + "%' AND ACTIVE = 'Y'";
 
         lov.LOVSelection(query, this);
         if (Constants.lovDescription.equalsIgnoreCase("DESCRIPTION")) {
@@ -474,7 +484,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
 
     private void txtSearchBGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchBGActionPerformed
         // TODO add your handling code here:
-        lov.LOVDefinitionSelection(DefinitionTypes.bloodGroup, 
+        lov.LOVDefinitionSelection(DefinitionTypes.bloodGroup,
                 txtSearchBG.getText().trim(), this);
         bgId = Constants.lovID;
         txtSearchBG.setText(Constants.lovDescription);
@@ -487,9 +497,9 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private void txtClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientActionPerformed
         // TODO add your handling code here:
         String query = "SELECT ID,DESCRIPTION FROM "
-        + Database.DCMS.client
-        + " WHERE UPPER(DESCRIPTION) LIKE '%"
-        + txtClient.getText().toUpperCase() + "%' AND ACTIVE = 'Y'";
+                + Database.DCMS.client
+                + " WHERE UPPER(DESCRIPTION) LIKE '%"
+                + txtClient.getText().toUpperCase() + "%' AND ACTIVE = 'Y'";
 
         lov.LOVSelection(query, this);
         if (Constants.lovDescription.equalsIgnoreCase("DESCRIPTION")) {
@@ -503,7 +513,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -517,13 +527,13 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
 
     private void cboGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboGenderActionPerformed
         // TODO add your handling code here:
-        if(cboGender.getSelectedIndex() == 0){
+        if (cboGender.getSelectedIndex() == 0) {
             genderId = "";
         }
-        if(cboGender.getSelectedIndex() == 1){
+        if (cboGender.getSelectedIndex() == 1) {
             genderId = "1";
         }
-        if(cboGender.getSelectedIndex() == 2){
+        if (cboGender.getSelectedIndex() == 2) {
             genderId = "2";
         }
     }//GEN-LAST:event_cboGenderActionPerformed
@@ -532,6 +542,11 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         searchParameterResult();
     }//GEN-LAST:event_txtToResultActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        searchParameterResult();
+    }//GEN-LAST:event_btnSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -573,18 +588,19 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         toResult = txtToResult.getText().trim();
         fromAge = txtFromAge.getText().trim();
         toAge = txtToAge.getText().trim();
-        
+
         listParameter = ctlParameterResults.patientPerformedParametersPRD(
                 fromResult, toResult, parameterId);
-        tblParameterList.setModel(new DeptWiseSectionsTableModel(listParameter));
+        tblParameterList.setModel(new ParameterResultsTableModel(listParameter));
         Constants.tablelook.setJTableEnvironment(tblParameterList);
-        ListSelectionModel selectionModel = tbServices.getSelectionModel();
+        ListSelectionModel selectionModel = tblParameterList.getSelectionModel();
         tblParameterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         selectionModel.setSelectionInterval(0, 0);
         Constants.tablelook.setJTableEnvironment(tblParameterList);
-        setSecTableColWidth();
+        setpatientPerformedParametersTableColWidth();
     }
-    private void setSecTableColWidth() {
+
+    private void setpatientPerformedParametersTableColWidth() {
 
         TableColumn column;
         for (int i = 0; i < tblParameterList.getColumnCount(); i++) {
@@ -592,9 +608,17 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
             if (i == 0) {
                 column.setPreferredWidth(10);
             } else if (i == 1) {
-                column.setPreferredWidth(120);
+                column.setPreferredWidth(50);
             } else if (i == 2) {
-                column.setPreferredWidth(80);
+                column.setPreferredWidth(120);
+            } else if (i == 3) {
+                column.setPreferredWidth(50);
+            } else if (i == 4) {
+                column.setPreferredWidth(30);
+            } else if (i == 5) {
+                column.setPreferredWidth(100);
+            } else if (i == 6) {
+                column.setPreferredWidth(50);
             }
         }
     }
