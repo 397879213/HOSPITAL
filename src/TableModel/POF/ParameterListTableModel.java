@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package TableModel.POF;
+
 import TreatmentOnDischarge.TableModel.*;
 import BO.OPD.PatientHospitalVisit;
 import BO.POF.ParameterResultsSearchBO;
@@ -15,7 +16,7 @@ import utilities.Database;
 public class ParameterListTableModel extends AbstractTableModel {
 
     private final String[] columnNames
-            = {"Sr.","Parameter Name","Verified Date","Result","Select"};
+            = {"Sr.", "Patient Id", "Patient Name", "Gender", "Age", "Verified Date", "Result"};
     private final Object[][] data;
 
     public ParameterListTableModel(List<ParameterResultsSearchBO> listParameter) {
@@ -23,17 +24,16 @@ public class ParameterListTableModel extends AbstractTableModel {
         int row = 0;
 
         for (int i = 0; i < listParameter.size(); i++) {
-           
+
             ParameterResultsSearchBO objParameter = listParameter.get(i);
-            
-//            objParameter.setResultValue(setParameterReult(objParameter.getCON(), 
-//                    objParameter.getODI(), objParameter.getParameterId(), 
-//                    objParameter.getTableName()));
-            data[row][0] = i+1;
-            data[row][1] = objParameter.getParameterDescription();
-            data[row][2] = objParameter.getVerifiedtDate();
-            data[row][3] = objParameter.getResultValue();
-            data[row][4] = new Boolean(false);
+
+            data[row][0] = i + 1;
+            data[row][1] = objParameter.getPatientId().substring(3);
+            data[row][2] = objParameter.getPatientName();
+            data[row][3] = objParameter.getGenderDescription();
+            data[row][4] = objParameter.getAge();
+            data[row][5] = objParameter.getVerifiedtDate();
+            data[row][6] = objParameter.getResultValue();
             row++;
         }
     }
@@ -76,9 +76,9 @@ public class ParameterListTableModel extends AbstractTableModel {
      */
     @Override
     public boolean isCellEditable(int row, int col) {
-        if (col == 4) {
-            return true;
-        }
+//        if (col == 4) {
+//            return true;
+//        }
         return false;
     }
 
@@ -86,7 +86,6 @@ public class ParameterListTableModel extends AbstractTableModel {
      * Don't need to implement this method unless your table's
      * data can change.
      */
-    
     private final boolean DEBUG = false;
 
     @Override
@@ -140,5 +139,4 @@ public class ParameterListTableModel extends AbstractTableModel {
 //        List<HashMap> lis = Constants.dao.selectDatainList(query, colums);
 //        return lis.get(0).get("VERIFIED_VALUE").toString();
 //    }
-
 }
