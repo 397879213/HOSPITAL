@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/E:/Dev/HOSPITAL/src/Form/OPD/PatientOutSideInvestigations.java</file>
-            <file>file:/E:/Dev/HOSPITAL/src/Controller/OPD/OutsideInvestigationController.java</file>
-            <file>file:/E:/Dev/HOSPITAL/src/Handler/OPD/OutsideInvestigationHandler.java</file>
-            <file>file:/E:/Dev/HOSPITAL/src/Form/Client/ClientEmployeeData.java</file>
-            <file>file:/E:/Dev/HOSPITAL/src/Controller/Client/EmployeeDataController.java</file>
-            <file>file:/E:/Dev/HOSPITAL/src/Handler/Client/EmployeeDataAccountHandler.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
