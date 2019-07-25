@@ -30,7 +30,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
 
         initComponents();
         this.setSize(Constants.xSize - 450, Constants.ySize - Constants.yExtension + 8);
-        
+
     }
     private DisplayLOV lov = new DisplayLOV();
     ParameterResultsSearchController ctlParameterResults = new ParameterResultsSearchController();
@@ -213,9 +213,9 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel82)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtToAge, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtToAge, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboGender, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -619,6 +619,8 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
                 column.setPreferredWidth(100);
             } else if (i == 6) {
                 column.setPreferredWidth(50);
+            } else if (i == 6) {
+                column.setPreferredWidth(80);
             }
         }
     }

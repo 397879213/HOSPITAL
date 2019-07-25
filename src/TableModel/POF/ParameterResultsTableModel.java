@@ -16,7 +16,7 @@ import utilities.Database;
 public class ParameterResultsTableModel extends AbstractTableModel {
 
     private final String[] columnNames
-            = {"Sr.", "Patient Id", "Patient Name", "Gender", "Age", "Verified Date", "Result"};
+            = {"Sr.", "Patient Id", "Patient Name", "Gender", "Age", "Verified Date", "Result", "Client"};
     private final Object[][] data;
 
     public ParameterResultsTableModel(List<ParameterResultsSearchBO> listParameter) {
@@ -34,6 +34,7 @@ public class ParameterResultsTableModel extends AbstractTableModel {
             data[row][4] = objParameter.getAge();
             data[row][5] = objParameter.getVerifiedtDate();
             data[row][6] = objParameter.getResultValue();
+            data[row][7] = objParameter.getClientDescription();
             row++;
         }
     }

@@ -196,9 +196,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel82" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtToAge" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Component id="txtToAge" min="-2" pref="42" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel87" min="-2" pref="59" max="-2" attributes="0"/>
+                              <Component id="jLabel87" min="-2" pref="53" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="cboGender" min="-2" pref="64" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
