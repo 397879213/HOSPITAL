@@ -2,8 +2,11 @@ package Form.POF;
 
 import Form.general.*;
 import utilities.Constants;
+import utilities.Database;
+import utilities.DisplayLOV;
 
 public class frmParametersResultSearch extends javax.swing.JInternalFrame {
+    private String parameterId;
 
     public frmParametersResultSearch() {
 
@@ -11,6 +14,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         this.setSize(Constants.xSize + 80, Constants.ySize - Constants.yExtension + 8);
 
     }
+    private DisplayLOV lov = new DisplayLOV();
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -23,24 +27,24 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         tblParameterList = new javax.swing.JTable();
         jLabel81 = new javax.swing.JLabel();
-        txtAgeGender1 = new javax.swing.JTextField();
+        txtFromAge = new javax.swing.JTextField();
         jLabel82 = new javax.swing.JLabel();
-        txtAgeGender2 = new javax.swing.JTextField();
+        txtToAge = new javax.swing.JTextField();
         jLabel83 = new javax.swing.JLabel();
-        txtBloodGroup1 = new javax.swing.JTextField();
+        txtClient = new javax.swing.JTextField();
         jLabel86 = new javax.swing.JLabel();
-        txtPatientId1 = new javax.swing.JTextField();
+        txtSearchBG = new javax.swing.JTextField();
         jLabel87 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        cboGender = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        txtPatientName1 = new javax.swing.JTextField();
+        txtFromResult = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         txtParameter = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        txtPatientName2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        txtToResult = new javax.swing.JTextField();
+        cboTableResult = new javax.swing.JComboBox();
+        btnSearch = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102)));
@@ -120,9 +124,9 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel82.setText("To Age  : ");
 
-        txtAgeGender2.addActionListener(new java.awt.event.ActionListener() {
+        txtToAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAgeGender2ActionPerformed(evt);
+                txtToAgeActionPerformed(evt);
             }
         });
 
@@ -136,14 +140,14 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         jLabel86.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel86.setText("BG : ");
 
-        txtPatientId1.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtSearchBG.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtPatientId1MouseClicked(evt);
+                txtSearchBGMouseClicked(evt);
             }
         });
-        txtPatientId1.addActionListener(new java.awt.event.ActionListener() {
+        txtSearchBG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPatientId1ActionPerformed(evt);
+                txtSearchBGActionPerformed(evt);
             }
         });
 
@@ -152,7 +156,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         jLabel87.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel87.setText("Gender : ");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Male", "Female"}));
+        cboGender.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Male", "Female"}));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -167,20 +171,20 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtAgeGender1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFromAge, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel82)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtAgeGender2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtToAge, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboGender, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel86, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPatientId1))
-                    .addComponent(txtBloodGroup1))
+                        .addComponent(txtSearchBG))
+                    .addComponent(txtClient))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -189,17 +193,17 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel81, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAgeGender1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFromAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel82, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAgeGender2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtToAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel86, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPatientId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearchBG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel83, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBloodGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE))
         );
@@ -229,9 +233,9 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("To Result : ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "rch-hem-sch", "serology", "Text" }));
+        cboTableResult.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "rch-hem-sch", "serology", "Text" }));
 
-        jButton1.setText("Search");
+        btnSearch.setText("Search");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -245,17 +249,17 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(txtPatientName1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFromResult, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPatientName2))
+                        .addComponent(txtToResult))
                     .addComponent(txtParameter, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboTableResult, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnSearch)
                         .addGap(26, 26, 26))))
         );
         jPanel4Layout.setVerticalGroup(
@@ -265,14 +269,14 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtParameter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboTableResult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPatientName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFromResult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPatientName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtToResult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch))
                 .addGap(8, 8, 8))
         );
 
@@ -351,33 +355,30 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         } else {
             txtParameter.setText(Constants.lovDescription.toUpperCase());
             parameterId = Constants.lovID;
-            parameterDescription = Constants.lovDescription.toUpperCase();
         }
         txtParameter.requestFocusInWindow();
         txtParameter.moveCaretPosition(0);
-        listParameters.clear();
-        listOfParameters();
         parameterId = "";
         txtParameter.setText("");
     }//GEN-LAST:event_txtParameterActionPerformed
 
-    private void txtPatientId1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPatientId1MouseClicked
+    private void txtSearchBGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchBGMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPatientId1MouseClicked
+    }//GEN-LAST:event_txtSearchBGMouseClicked
 
-    private void txtPatientId1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPatientId1ActionPerformed
+    private void txtSearchBGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchBGActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPatientId1ActionPerformed
+    }//GEN-LAST:event_txtSearchBGActionPerformed
 
-    private void txtAgeGender2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeGender2ActionPerformed
+    private void txtToAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtToAgeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAgeGender2ActionPerformed
+    }//GEN-LAST:event_txtToAgeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JComboBox cboGender;
+    private javax.swing.JComboBox cboTableResult;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel18;
@@ -393,13 +394,13 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblPacsLink;
     private javax.swing.JPanel pnlPL;
     private javax.swing.JTable tblParameterList;
-    private javax.swing.JTextField txtAgeGender1;
-    private javax.swing.JTextField txtAgeGender2;
-    private javax.swing.JTextField txtBloodGroup1;
+    private javax.swing.JTextField txtClient;
+    private javax.swing.JTextField txtFromAge;
+    private javax.swing.JTextField txtFromResult;
     private javax.swing.JTextField txtParameter;
-    private javax.swing.JTextField txtPatientId1;
-    private javax.swing.JTextField txtPatientName1;
-    private javax.swing.JTextField txtPatientName2;
+    private javax.swing.JTextField txtSearchBG;
+    private javax.swing.JTextField txtToAge;
+    private javax.swing.JTextField txtToResult;
     // End of variables declaration//GEN-END:variables
 
 }

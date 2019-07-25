@@ -187,21 +187,21 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="txtAgeGender1" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Component id="txtFromAge" min="-2" pref="36" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel82" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtAgeGender2" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Component id="txtToAge" min="-2" pref="36" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel87" min="-2" pref="59" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jComboBox2" min="-2" pref="64" max="-2" attributes="0"/>
+                              <Component id="cboGender" min="-2" pref="64" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel86" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtPatientId1" max="32767" attributes="0"/>
+                              <Component id="txtSearchBG" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="txtBloodGroup1" max="32767" attributes="0"/>
+                          <Component id="txtClient" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -213,18 +213,18 @@
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel81" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="txtAgeGender1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFromAge" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel82" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="txtAgeGender2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtToAge" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel86" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="txtPatientId1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtSearchBG" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel87" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cboGender" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel83" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="txtBloodGroup1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtClient" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="jScrollPane7" pref="364" max="32767" attributes="0"/>
@@ -270,7 +270,7 @@
                 <Property name="text" type="java.lang.String" value="From Age  : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtAgeGender1">
+            <Component class="javax.swing.JTextField" name="txtFromAge">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel82">
               <Properties>
@@ -284,9 +284,9 @@
                 <Property name="text" type="java.lang.String" value="To Age  : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtAgeGender2">
+            <Component class="javax.swing.JTextField" name="txtToAge">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAgeGender2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtToAgeActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel83">
@@ -301,7 +301,7 @@
                 <Property name="text" type="java.lang.String" value="Client  : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtBloodGroup1">
+            <Component class="javax.swing.JTextField" name="txtClient">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel86">
               <Properties>
@@ -315,10 +315,10 @@
                 <Property name="text" type="java.lang.String" value="BG : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtPatientId1">
+            <Component class="javax.swing.JTextField" name="txtSearchBG">
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtPatientId1MouseClicked"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPatientId1ActionPerformed"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtSearchBGMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSearchBGActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel87">
@@ -333,7 +333,7 @@
                 <Property name="text" type="java.lang.String" value="Gender : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox2">
+            <Component class="javax.swing.JComboBox" name="cboGender">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;All&quot;, &quot;Male&quot;, &quot;Female&quot;})" type="code"/>
@@ -369,19 +369,19 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="txtPatientName1" min="-2" pref="76" max="-2" attributes="0"/>
+                              <Component id="txtFromResult" min="-2" pref="76" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel11" min="-2" pref="69" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtPatientName2" max="32767" attributes="0"/>
+                              <Component id="txtToResult" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtParameter" min="-2" pref="234" max="-2" attributes="3"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jComboBox1" min="-2" pref="121" max="-2" attributes="0"/>
+                          <Component id="cboTableResult" min="-2" pref="121" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnSearch" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -395,15 +395,15 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel18" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
                           <Component id="txtParameter" alignment="3" min="-2" max="-2" attributes="1"/>
-                          <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cboTableResult" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel10" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="txtPatientName1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFromResult" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel11" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="txtPatientName2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtToResult" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   </Group>
@@ -423,7 +423,7 @@
                 <Property name="text" type="java.lang.String" value="From Result : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtPatientName1">
+            <Component class="javax.swing.JTextField" name="txtFromResult">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel18">
               <Properties>
@@ -459,16 +459,16 @@
                 <Property name="text" type="java.lang.String" value="To Result : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtPatientName2">
+            <Component class="javax.swing.JTextField" name="txtToResult">
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
+            <Component class="javax.swing.JComboBox" name="cboTableResult">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;rch-hem-sch&quot;, &quot;serology&quot;, &quot;Text&quot; })" type="code"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnSearch">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Search"/>
               </Properties>
