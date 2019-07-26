@@ -53,10 +53,14 @@ public class ParameterResultsSearchHandler {
                 + Database.DCMS.CPT + " CPT,                                    \n"
                 + Database.DCMS.CPTParameter + " CP,                            \n"
                 + Database.DCMS.definitionTypeDetail + "  GEN,                  \n"
-                + Database.DCMS.client + " CLI                                  \n"
-                
-                + " WHERE IVM.TRN_DATE BETWEEN '"+ fromDate +"' AND '"+ toDate +"'\n"
-                + "   AND IVD.DEPARTMENT_ID = "+ Departments.pathology +"       \n"
+                + Database.DCMS.client + " CLI                                  \n";
+                if(toDate.length() !=0){
+                    query += " WHERE IVM.TRN_DATE BETWEEN '"+ fromDate +"' AND '"
+                            + toDate +"'                                        \n";
+                }else{
+                    query += " WHERE IVM.TRN_DATE BETWEEN > SYSDATE - 1         \n";
+                }
+                query += "   AND IVD.DEPARTMENT_ID = "+ Departments.pathology +"\n"
                 + "   AND IVM.INVOICE_NO = IVD.INVOICE_NO                       \n"
                 + "   AND IVM.COMPLETE_ORDER_NO = PRM.COMPLETE_ORDER_NO         \n"
                 + "   AND IVD.COMPLETE_ORDER_NO = PRM.COMPLETE_ORDER_NO         \n"
