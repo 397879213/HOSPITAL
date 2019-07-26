@@ -600,7 +600,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private void txtFromDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFromDateActionPerformed
 
         if (txtFromDate.getDate().getDate() == 0) {
-            JOptionPane.showMessageDialog(null, "Enter the From Date 22-DEC-1990",
+            JOptionPane.showMessageDialog(null, "Enter the From Date",
                     "Set  Issue Date", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -611,7 +611,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private void txtToDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtToDateActionPerformed
         // TODO add your handling code here:
         if (txtToDate.getDate().getDate() == 0) {
-            JOptionPane.showMessageDialog(null, "Enter the From Date 22-DEC-1990",
+            JOptionPane.showMessageDialog(null, "Enter the To Date",
                     "Set  Issue Date", JOptionPane.WARNING_MESSAGE);
             return;
         }
