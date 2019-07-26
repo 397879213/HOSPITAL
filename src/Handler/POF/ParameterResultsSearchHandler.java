@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import utilities.Constants;
+import utilities.Database;
+import utilities.Departments;
+import utilities.Status;
 
 /**
  *
@@ -18,12 +21,64 @@ import utilities.Constants;
 public class ParameterResultsSearchHandler {
 
     public List<ParameterResultsSearchBO> patientPerformedParametersPRD(
-            String fromResult, String toResult, String parameterId) {
+            String fromDate, String toDate, String fromResult, String toResult, 
+            String parameterId) {
 
         String colums[] = {"-", "PATIENT_ID", "FULL_NAME", "AGE", "GENDER_ID",
             "GENDER_DESC", "CLIENT_ID", "CPT_ID", "CLIENT_DESC",
             "COMPLETE_ORDER_NO", "ORDER_DETAIL_ID", "CPT_DESC", "PARAMETER_ID",
             "PARAMETER_DESC", "VERIFIED_VALUE", "VERIFIED_DATE"};
+
+        String q
+                = "SELECT PAT.PATIENT_ID,\n"
+                + "       PAT.FULL_NAME,\n"
+                + "       PAT.AGE,\n"
+                + "       PAT.GENDER_ID,\n"
+                + "       GEN.DESCRIPTION GENDER_DESC,\n"
+                + "       PAT.CLIENT_ID,\n"
+                + "       CLI.DESCRIPTION CLIENT_DESC,\n"
+                + "       PRM.COMPLETE_ORDER_NO,\n"
+                + "       PRM.ORDER_DETAIL_ID,\n"
+                + "       PRM.CPT_ID,\n"
+                + "       CPT.DESCRIPTION CPT_DESC,\n"
+                + "       CP.ID PARAMETER_ID,\n"
+                + "       CP.DESCRIPTION PARAMETER_DESC,                        \n"
+                + "       PRD.VERIFIED_VALUE VERIFIED_VALUE,                    \n"
+                + "       TO_CHAR(PRM.VERIFIED_DATE, 'DD-MON-YY HH24:MI:SS') VERIFIED_DATE\n"
+                + "  FROM " + Database.DCMS.patient + "   PAT,                  \n"
+                + Database.DCMS.pathologyResultMaster + " PRM,                  \n"
+                + Database.DCMS.pathologyResultDetail + " PRD,                  \n"
+                + Database.DCMS.invoiceMaster + " IVM,                          \n"
+                + Database.DCMS.invoiceDetail + " IVD,                          \n"
+                + Database.DCMS.CPT + " CPT,                                    \n"
+                + Database.DCMS.CPTParameter + " CP,                            \n"
+                + Database.DCMS.definitionTypeDetail + "  GEN,                  \n"
+                + Database.DCMS.client + " CLI                                  \n"
+                
+                + " WHERE IVM.TRN_DATE BETWEEN '"+ fromDate +"' AND '"+ toDate +"'\n"
+                + "   AND IVD.DEPARTMENT_ID = "+ Departments.pathology +"       \n"
+                + "   AND IVM.INVOICE_NO = IVD.INVOICE_NO                       \n"
+                + "   AND IVM.COMPLETE_ORDER_NO = PRM.COMPLETE_ORDER_NO         \n"
+                + "   AND IVD.COMPLETE_ORDER_NO = PRM.COMPLETE_ORDER_NO         \n"
+                + "   AND IVD.ORDER_DETAIL_ID = PRM.ORDER_DETAIL_ID             \n"
+                + "   AND IVD.COMPLETE_ORDER_NO = PRD.COMPLETE_ORDER_NO         \n"
+                + "   AND IVD.ORDER_DETAIL_ID = PRD.ORDER_DETAIL_ID             \n"
+                + "   AND PRM.COMPLETE_ORDER_NO = PRD.COMPLETE_ORDER_NO         \n"
+                + "   AND PRM.ORDER_DETAIL_ID = PRD.ORDER_DETAIL_ID             \n"
+                + "   AND PRM.PATIENT_ID = PAT.PATIENT_ID                       \n"
+                + "   AND IVM.PATIENT_ID = PAT.PATIENT_ID                       \n"
+                + "   AND PRM.CPT_ID = IVD.CPT_ID                               \n"
+                + "   AND PRM.LOCATION_ID = IVM.LOCATION_ID                     \n"
+                + "   AND PRD.PARAMETER_ID = CP.ID                              \n"
+                + "   AND CP.ID = "+ parameterId +"                             \n"
+                + "   AND PRM.ORDER_STATUS_ID = "+ Status.verified +"           \n"
+                + "   AND PRD.VERIFIED_VALUE >="+ fromResult +" "
+                + "   AND PRD.VERIFIED_VALUE <="+ toResult +"                   \n"
+                + "    AND PRM.CPT_ID = CPT.CPT_ID                              \n"
+                + "   AND PAT.GENDER_ID = GEN.ID                                \n"
+                + "   AND PAT.CLIENT_ID = CLI.ID                                \n"
+                + "   AND PRD.VERIFIED_VALUE IS NOT NULL                        \n"
+                + " ORDER BY CPT.DESCRIPTION;";
 
         String query
                 = "SELECT PAT.PATIENT_ID,\n"
@@ -41,10 +96,12 @@ public class ParameterResultsSearchHandler {
                 + "       CP.DESCRIPTION PARAMETER_DESC,\n"
                 + "       PRD.VERIFIED_VALUE VERIFIED_VALUE,\n"
                 + "       TO_CHAR(PRM.VERIFIED_DATE, 'DD-MON-YY HH24:MI:SS') VERIFIED_DATE\n"
-                + "  FROM EMR.PATIENT                 PAT,\n"
-                + "       EMR.PATHOLOGY_RESULT_MASTER PRM,\n"
-                + "       EMR.PATHOLOGY_RESULT_DETAIL PRD,\n"
-                + "       EMR.CPT                     CPT,\n"
+                + "  FROM " + Database.DCMS.patient + "   PAT,\n"
+                + Database.DCMS.pathologyResultMaster + " PRM,\n"
+                + Database.DCMS.pathologyResultDetail + " PRD,\n"
+                + Database.DCMS.invoiceMaster + " IVM,\n"
+                + Database.DCMS.invoiceDetail + " IVD,\n"
+                + Database.DCMS.CPT + " CPT,\n"
                 + "       EMR.CPT_PARAMETER           CP,\n"
                 + "       EMR.DEFINITION_TYPE_DETAIL  GEN,\n"
                 + "       EMR.CLIENT                  CLI\n"
