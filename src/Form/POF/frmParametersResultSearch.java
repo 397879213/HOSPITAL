@@ -597,7 +597,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         selectionModel.setSelectionInterval(0, 0);
         Constants.tablelook.setJTableEnvironment(tblParameterList);
         setpatientPerformedParametersTableColWidth();
-        txtCount.setText(listParameter.size());
+        txtCount.setText(String.valueOf(listParameter.size()));
     }
 
     private void setpatientPerformedParametersTableColWidth() {
