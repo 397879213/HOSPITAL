@@ -4,8 +4,10 @@ import BO.POF.ParameterResultsSearchBO;
 import Controller.POF.ParameterResultsSearchController;
 import TableModel.POF.ParameterResultsTableModel;
 import TreatmentOnDischarge.TableModel.ParameterListTableModel;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumn;
 import utilities.Constants;
@@ -16,7 +18,8 @@ import utilities.DisplayLOV;
 public class frmParametersResultSearch extends javax.swing.JInternalFrame {
 
     private String parameterId = "";
-    private String fromAge = "";
+    private String fromDate = "";
+    private String toDate = "";
     private String clientId = "";
     private String bgId = "";
     private String genderId = "";
@@ -66,6 +69,10 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         txtToResult = new javax.swing.JTextField();
         cboTableResult = new javax.swing.JComboBox();
         btnSearch = new javax.swing.JButton();
+        txtFromDate = new org.jdesktop.swingx.JXDatePicker();
+        txtToDate = new org.jdesktop.swingx.JXDatePicker();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         btnClear = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
@@ -251,7 +258,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
                     .addComponent(txtClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(Constants.red , Constants.green , Constants.black));
@@ -294,35 +301,75 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
             }
         });
 
+        txtFromDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFromDateActionPerformed(evt);
+            }
+        });
+
+        txtToDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtToDateActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(102, 0, 0));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel12.setText("From Date  : ");
+
+        jLabel13.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(102, 0, 0));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel13.setText("To Date : ");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(txtFromResult, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtToResult))
-                    .addComponent(txtParameter, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboTableResult, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnSearch)
-                        .addGap(26, 26, 26))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(txtFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(txtFromResult, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtToResult))
+                            .addComponent(txtParameter, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboTableResult, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(btnSearch)
+                                .addGap(26, 26, 26))))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtParameter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -548,6 +595,28 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         searchParameterResult();
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    private void txtFromDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFromDateActionPerformed
+
+        if (txtFromDate.getDate().getDate() == 0) {
+            JOptionPane.showMessageDialog(null, "Enter the From Date 22-DEC-1990",
+                "Set  Issue Date", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
+        fromDate = dateFormat.format(txtFromDate.getDate());
+    }//GEN-LAST:event_txtFromDateActionPerformed
+
+    private void txtToDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtToDateActionPerformed
+        // TODO add your handling code here:
+        if (txtToDate.getDate().getDate() == 0) {
+            JOptionPane.showMessageDialog(null, "Enter the From Date 22-DEC-1990",
+                "Set  Issue Date", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
+        toDate = dateFormat.format(txtToDate.getDate());
+    }//GEN-LAST:event_txtToDateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
@@ -558,6 +627,8 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
@@ -576,10 +647,12 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtClient;
     private javax.swing.JTextField txtCount;
     private javax.swing.JTextField txtFromAge;
+    private org.jdesktop.swingx.JXDatePicker txtFromDate;
     private javax.swing.JTextField txtFromResult;
     private javax.swing.JTextField txtParameter;
     private javax.swing.JTextField txtSearchBG;
     private javax.swing.JTextField txtToAge;
+    private org.jdesktop.swingx.JXDatePicker txtToDate;
     private javax.swing.JTextField txtToResult;
     // End of variables declaration//GEN-END:variables
 
@@ -590,7 +663,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         toAge = txtToAge.getText().trim();
 
         listParameter = ctlParameterResults.patientPerformedParametersPRD(
-                fromResult, toResult, parameterId);
+                fromDate, toDate, fromResult, toResult, parameterId);
         tblParameterList.setModel(new ParameterResultsTableModel(listParameter));
         Constants.tablelook.setJTableEnvironment(tblParameterList);
         ListSelectionModel selectionModel = tblParameterList.getSelectionModel();
