@@ -58,7 +58,7 @@ public class ParameterResultsSearchHandler {
                     query += " WHERE IVM.TRN_DATE BETWEEN '"+ fromDate +"' AND '"
                             + toDate +"'                                        \n";
                 }else{
-                    query += " WHERE IVM.TRN_DATE BETWEEN > SYSDATE - 1         \n";
+                    query += " WHERE IVM.TRN_DATE > SYSDATE - 1                 \n";
                 }
                 query += "   AND IVD.DEPARTMENT_ID = "+ Departments.pathology +"\n"
                 + "   AND IVM.INVOICE_NO = IVD.INVOICE_NO                       \n"
@@ -82,7 +82,7 @@ public class ParameterResultsSearchHandler {
                 + "   AND PAT.GENDER_ID = GEN.ID                                \n"
                 + "   AND PAT.CLIENT_ID = CLI.ID                                \n"
                 + "   AND PRD.VERIFIED_VALUE IS NOT NULL                        \n"
-                + " ORDER BY CPT.DESCRIPTION;";
+                + " ORDER BY CPT.DESCRIPTION                                    \n";
 
         List<HashMap> lis = Constants.dao.selectDatainList(query, colums);
         List<ParameterResultsSearchBO> listParameter = new ArrayList<>();
