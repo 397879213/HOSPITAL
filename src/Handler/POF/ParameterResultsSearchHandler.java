@@ -49,7 +49,7 @@ public class ParameterResultsSearchHandler {
                 + "       EMR.DEFINITION_TYPE_DETAIL  GEN,\n"
                 + "       EMR.CLIENT                  CLI\n"
                 + " WHERE PRD.PARAMETER_ID = " + parameterId + "\n"
-                + "   and PRM.CRTD_DATE > SYSDATE - 2\n"
+                + "   and TRUNC(PRM.VERIFIED_DATE) BETWEEN '10-JAN-18' AND '15-JAN-18'\n"
                 + "   AND PRD.VERIFIED_VALUE BETWEEN '" + fromResult + "' AND '"
                 + toResult + "'\n"
                 + "   AND PRM.COMPLETE_ORDER_NO = PRD.COMPLETE_ORDER_NO\n"
