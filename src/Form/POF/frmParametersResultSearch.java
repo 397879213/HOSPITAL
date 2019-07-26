@@ -6,6 +6,8 @@ import TableModel.POF.ParameterResultsTableModel;
 import TreatmentOnDischarge.TableModel.ParameterListTableModel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -599,7 +601,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
 
         if (txtFromDate.getDate().getDate() == 0) {
             JOptionPane.showMessageDialog(null, "Enter the From Date 22-DEC-1990",
-                "Set  Issue Date", JOptionPane.WARNING_MESSAGE);
+                    "Set  Issue Date", JOptionPane.WARNING_MESSAGE);
             return;
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
@@ -610,11 +612,12 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (txtToDate.getDate().getDate() == 0) {
             JOptionPane.showMessageDialog(null, "Enter the From Date 22-DEC-1990",
-                "Set  Issue Date", JOptionPane.WARNING_MESSAGE);
+                    "Set  Issue Date", JOptionPane.WARNING_MESSAGE);
             return;
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
         toDate = dateFormat.format(txtToDate.getDate());
+        searchParameterResult();
     }//GEN-LAST:event_txtToDateActionPerformed
 
 
@@ -696,6 +699,20 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
             } else if (i == 6) {
                 column.setPreferredWidth(80);
             }
+        }
+    }
+
+    private void setDate(int day) {
+        try {
+            Date date = new Date();
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DATE, day);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
+            Date date2 = dateFormat.parse(dateFormat.format(c.getTime()));
+            txtFromDate.setDate(date2);
+            txtToDate.setDate(date2);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
