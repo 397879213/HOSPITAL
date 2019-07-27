@@ -79,9 +79,9 @@ public class ParameterResultsSearchHandler {
                 + "   AND PRD.VERIFIED_VALUE <="+ SearchObj.getToResult() +"    \n";
                 if(SearchObj.getToAge().length() !=0){
                     query += " AND  TRUNC((SYSDATE - PAT.DOB)/ 365.25)  >="
-                            + SearchObj.getToAge() +" "
+                            + SearchObj.getToAge() +"                           \n"
                             + " AND TRUNC((SYSDATE - PAT.DOB)/ 365.25)  <= " 
-                            + SearchObj.getFromAge()+"'              \n";
+                            + SearchObj.getFromAge()+"'                         \n";
                 }        
                 query += "   AND PRM.CPT_ID = CPT.CPT_ID                        \n"
                 + "   AND PAT.GENDER_ID = GEN.ID                                \n"
