@@ -21,8 +21,7 @@ import utilities.Status;
 public class ParameterResultsSearchHandler {
 
     public List<ParameterResultsSearchBO> patientPerformedParametersPRD(
-            String fromDate, String toDate, String fromResult, String toResult, 
-            String parameterId) {
+            ParameterResultsSearchBO SearchObj) {
 
         String colums[] = {"-", "PATIENT_ID", "FULL_NAME", "AGE", "GENDER_ID",
             "GENDER_DESC", "CLIENT_ID", "CPT_ID", "CLIENT_DESC",
@@ -54,9 +53,9 @@ public class ParameterResultsSearchHandler {
                 + Database.DCMS.CPTParameter + " CP,                            \n"
                 + Database.DCMS.definitionTypeDetail + "  GEN,                  \n"
                 + Database.DCMS.client + " CLI                                  \n";
-                if(toDate.length() !=0){
-                    query += " WHERE IVM.TRN_DATE BETWEEN '"+ fromDate +"' AND '"
-                            + toDate +"'                                        \n";
+                if(SearchObj.getToDate().length() !=0){
+                    query += " WHERE IVM.TRN_DATE BETWEEN '"+ SearchObj.getFromDate()
+                            +"' AND '" + SearchObj.getToDate() +"'              \n";
                 }else{
                     query += " WHERE IVM.TRN_DATE > SYSDATE - 1                 \n";
                 }
@@ -74,11 +73,17 @@ public class ParameterResultsSearchHandler {
                 + "   AND PRM.CPT_ID = IVD.CPT_ID                               \n"
                 + "   AND PRM.LOCATION_ID = IVM.LOCATION_ID                     \n"
                 + "   AND PRD.PARAMETER_ID = CP.ID                              \n"
-                + "   AND CP.ID = "+ parameterId +"                             \n"
+                + "   AND CP.ID = "+ SearchObj.getParameterId() +"              \n"
                 + "   AND PRM.ORDER_STATUS_ID = "+ Status.verified +"           \n"
-                + "   AND PRD.VERIFIED_VALUE >="+ fromResult +" "
-                + "   AND PRD.VERIFIED_VALUE <="+ toResult +"                   \n"
-                + "    AND PRM.CPT_ID = CPT.CPT_ID                              \n"
+                + "   AND PRD.VERIFIED_VALUE >="+ SearchObj.getFromResult() 
+                + "   AND PRD.VERIFIED_VALUE <="+ SearchObj.getToResult() +"    \n";
+                if(SearchObj.getToAge().length() !=0){
+                    query += " AND  TRUNC((SYSDATE - PAT.DOB)/ 365.25)  >="
+                            + SearchObj.getToAge() +" "
+                            + " AND TRUNC((SYSDATE - PAT.DOB)/ 365.25)  <= " 
+                            + SearchObj.getFromAge()+"'              \n";
+                }        
+                query += "   AND PRM.CPT_ID = CPT.CPT_ID                        \n"
                 + "   AND PAT.GENDER_ID = GEN.ID                                \n"
                 + "   AND PAT.CLIENT_ID = CLI.ID                                \n"
                 + "   AND PRD.VERIFIED_VALUE IS NOT NULL                        \n"

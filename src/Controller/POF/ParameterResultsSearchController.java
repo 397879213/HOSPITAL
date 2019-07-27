@@ -18,9 +18,7 @@ public class ParameterResultsSearchController {
     ParameterResultsSearchHandler hdlParameterResults = new ParameterResultsSearchHandler();
 
     public List<ParameterResultsSearchBO> patientPerformedParametersPRD(
-            String fromDate, String toDate, String fromResult, String toResult,
-            String parameterId) {
-        return hdlParameterResults.patientPerformedParametersPRD(fromDate, toDate,
-                fromResult, toResult, parameterId);
+            ParameterResultsSearchBO SearchObj) {
+        return hdlParameterResults.patientPerformedParametersPRD(SearchObj);
     }
 }
