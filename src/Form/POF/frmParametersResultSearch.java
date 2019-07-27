@@ -32,6 +32,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
 
     List<ParameterResultsSearchBO> listParameter = new ArrayList<>();
     ParameterResultsSearchBO searchObj = new ParameterResultsSearchBO();
+
     public frmParametersResultSearch() {
 
         initComponents();
@@ -584,7 +585,8 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-
+        listParameter.clear();
+        tblParameterList.setModel(new ParameterResultsTableModel(listParameter));
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -700,6 +702,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void searchParameterResult() {
+        listParameter.clear();
         fromResult = txtFromResult.getText().trim();
         searchObj.setFromResult(fromResult);
         toResult = txtToResult.getText().trim();
@@ -708,10 +711,10 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         searchObj.setFromAge(fromAge);
         toAge = txtToAge.getText().trim();
         searchObj.setToAge(toAge);
-        
+
         listParameter = ctlParameterResults.patientPerformedParametersPRD(
-        searchObj);
-        if(listParameter.isEmpty()){
+                searchObj);
+        if (listParameter.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Sorry, we coudlnt find any data. "
                     + "Kindly contact Administrator.");
             return;
