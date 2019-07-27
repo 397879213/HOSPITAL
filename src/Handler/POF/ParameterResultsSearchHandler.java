@@ -89,8 +89,8 @@ public class ParameterResultsSearchHandler {
         for (HashMap map : lis) {
             ParameterResultsSearchBO objParameter = new ParameterResultsSearchBO();
             objParameter.setPatientId(map.get("PATIENT_ID").toString());
-            objParameter.setPatientId(map.get("FULL_NAME").toString());
-            objParameter.setPatientName(map.get("AGE").toString());
+            objParameter.setPatientName(map.get("FULL_NAME").toString());
+            objParameter.setAge(map.get("AGE").toString());
             objParameter.setGenderId(map.get("GENDER_ID").toString());
             objParameter.setGenderDescription(map.get("GENDER_DESC").toString());
             objParameter.setClientId(map.get("CLIENT_ID").toString());
