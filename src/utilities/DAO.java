@@ -26,14 +26,14 @@ public class DAO implements java.io.Serializable {
     public ResultSet teleRs = null;
     public static Statement teleStmt = null;
  
-    public static String username = "EMR";
+    public static String username = "HMIS";
     public static String usernameEmr = "EMR";
     public static String usernamePerSys = "PERSYS";
     public static String usernamePof = "POF";
 
-    public static String password = "SIBTAINPASHA";
+    public static String password = "PACSSUPPORT";
     public static String sid = "HMSDB";
-    public static String ip = "10.14.10.195";
+    public static String ip = "10.10.12.6";
     public static String organizationName = "";
     public static String port = "1521";
 
