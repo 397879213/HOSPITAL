@@ -36,7 +36,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
 
         initComponents();
         this.setSize(Constants.xSize - 450, Constants.ySize - Constants.yExtension + 8);
-
+        txtParameter.requestFocus();
     }
     private DisplayLOV lov = new DisplayLOV();
     ParameterResultsSearchController ctlParameterResults = new ParameterResultsSearchController();
@@ -281,6 +281,12 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         jLabel10.setForeground(new java.awt.Color(102, 0, 0));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("From Result : ");
+
+        txtFromResult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFromResultActionPerformed(evt);
+            }
+        });
 
         jLabel18.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(102, 0, 0));
@@ -648,6 +654,11 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private void txtFromAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFromAgeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFromAgeActionPerformed
+
+    private void txtFromResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFromResultActionPerformed
+        // TODO add your handling code here:
+        txtToResult.requestFocus();
+    }//GEN-LAST:event_txtFromResultActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
