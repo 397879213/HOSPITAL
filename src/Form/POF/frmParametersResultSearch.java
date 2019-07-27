@@ -707,9 +707,11 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private void searchParameterResult() {
         if (txtSearchBG.getText().trim().length() == 0) {
             bgId = "";
+            searchObj.setBgId(bgId);
         }
         if (txtClient.getText().trim().length() == 0) {
             clientId = "";
+            searchObj.setClientId(clientId);
         }
         fromResult = txtFromResult.getText().trim();
         searchObj.setFromResult(fromResult);
