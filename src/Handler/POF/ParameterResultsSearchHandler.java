@@ -83,6 +83,12 @@ public class ParameterResultsSearchHandler {
                             + " AND TRUNC((SYSDATE - PAT.DOB)/ 365.25)  <= " 
                             + SearchObj.getFromAge()+"'                         \n";
                 }        
+                if(SearchObj.getGenderId().length() !=0){
+                    query += " AND GEN.ID = " + SearchObj.getGenderId()+"       \n";
+                }
+                if(SearchObj.getBgId().length() !=0){
+                    query += " AND PAT.BLOOD_GROUP_ID = " + SearchObj.getBgId()+"\n";
+                }
                 query += "   AND PRM.CPT_ID = CPT.CPT_ID                        \n"
                 + "   AND PAT.GENDER_ID = GEN.ID                                \n"
                 + "   AND PAT.CLIENT_ID = CLI.ID                                \n"
