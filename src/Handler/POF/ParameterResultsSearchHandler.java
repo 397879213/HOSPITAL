@@ -89,6 +89,9 @@ public class ParameterResultsSearchHandler {
                 if(SearchObj.getBgId().length() !=0){
                     query += " AND PAT.BLOOD_GROUP_ID = " + SearchObj.getBgId()+"\n";
                 }
+                if(SearchObj.getClientId().length() !=0){
+                    query += " AND CLI.ID = " + SearchObj.getClientId()+"       \n";
+                }
                 query += "   AND PRM.CPT_ID = CPT.CPT_ID                        \n"
                 + "   AND PAT.GENDER_ID = GEN.ID                                \n"
                 + "   AND PAT.CLIENT_ID = CLI.ID                                \n"
