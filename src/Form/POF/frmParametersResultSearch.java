@@ -36,7 +36,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     public frmParametersResultSearch() {
 
         initComponents();
-        this.setSize(Constants.xSize - 450, Constants.ySize - Constants.yExtension + 8);
+        this.setSize(Constants.xSize - 425, Constants.ySize - Constants.yExtension + 8);
         txtParameter.requestFocus();
     }
     private DisplayLOV lov = new DisplayLOV();
@@ -313,6 +313,11 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         });
 
         cboTableResult.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "rch-hem-sch", "serology", "Text" }));
+        cboTableResult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTableResultActionPerformed(evt);
+            }
+        });
 
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -495,7 +500,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
                     .addComponent(pnlPL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -559,12 +564,12 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         bgId = Constants.lovID;
         txtSearchBG.setText(Constants.lovDescription);
         searchObj.setBgId(bgId);
-
-
+        searchParameterResult();
     }//GEN-LAST:event_txtSearchBGActionPerformed
 
     private void txtToAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtToAgeActionPerformed
         // TODO add your handling code here:
+        searchParameterResult();
     }//GEN-LAST:event_txtToAgeActionPerformed
 
     private void txtClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientActionPerformed
@@ -582,6 +587,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
             txtClient.setText(Constants.lovDescription.toUpperCase());
             clientId = Constants.lovID;
             searchObj.setClientId(clientId);
+            searchParameterResult();
         }
     }//GEN-LAST:event_txtClientActionPerformed
 
@@ -612,6 +618,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
             genderId = "2";
         }
         searchObj.setGenderId(genderId);
+        searchParameterResult();
     }//GEN-LAST:event_cboGenderActionPerformed
 
     private void txtToResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtToResultActionPerformed
@@ -664,6 +671,11 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         txtToResult.requestFocus();
     }//GEN-LAST:event_txtFromResultActionPerformed
+
+    private void cboTableResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTableResultActionPerformed
+        // TODO add your handling code here:
+        searchParameterResult();
+    }//GEN-LAST:event_cboTableResultActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

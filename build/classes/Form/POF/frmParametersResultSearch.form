@@ -52,7 +52,7 @@
                   <Component id="jPanel7" alignment="0" max="32767" attributes="0"/>
                   <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -530,6 +530,9 @@
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;rch-hem-sch&quot;, &quot;serology&quot;, &quot;Text&quot; })" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboTableResultActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnSearch">
               <Properties>
