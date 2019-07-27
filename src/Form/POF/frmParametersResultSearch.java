@@ -31,7 +31,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     private String toResult = "";
 
     List<ParameterResultsSearchBO> listParameter = new ArrayList<>();
-
+    ParameterResultsSearchBO searchObj = new ParameterResultsSearchBO();
     public frmParametersResultSearch() {
 
         initComponents();
@@ -525,8 +525,9 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         } else {
             txtParameter.setText(Constants.lovDescription.toUpperCase());
             parameterId = Constants.lovID;
+            searchObj.setParameterId(parameterId);
         }
-        txtParameter.requestFocusInWindow();
+        txtFromResult.requestFocusInWindow();
     }//GEN-LAST:event_txtParameterActionPerformed
 
     private void txtSearchBGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchBGMouseClicked
@@ -539,6 +540,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
                 txtSearchBG.getText().trim(), this);
         bgId = Constants.lovID;
         txtSearchBG.setText(Constants.lovDescription);
+        searchObj.setBgId(bgId);
     }//GEN-LAST:event_txtSearchBGActionPerformed
 
     private void txtToAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtToAgeActionPerformed
@@ -559,6 +561,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         } else {
             txtClient.setText(Constants.lovDescription.toUpperCase());
             clientId = Constants.lovID;
+            searchObj.setClientId(clientId);
         }
     }//GEN-LAST:event_txtClientActionPerformed
 
@@ -587,10 +590,12 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         if (cboGender.getSelectedIndex() == 2) {
             genderId = "2";
         }
+        searchObj.setGenderId(genderId);
     }//GEN-LAST:event_cboGenderActionPerformed
 
     private void txtToResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtToResultActionPerformed
         // TODO add your handling code here:
+        txtToResult.requestFocusInWindow();
         searchParameterResult();
     }//GEN-LAST:event_txtToResultActionPerformed
 
@@ -608,6 +613,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
         fromDate = dateFormat.format(txtFromDate.getDate());
+        searchObj.setFromDate(fromDate);
     }//GEN-LAST:event_txtFromDateActionPerformed
 
     private void txtToDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtToDateActionPerformed
@@ -619,6 +625,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
         toDate = dateFormat.format(txtToDate.getDate());
+        searchObj.setToDate(toDate);
         searchParameterResult();
     }//GEN-LAST:event_txtToDateActionPerformed
 
