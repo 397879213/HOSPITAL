@@ -705,7 +705,12 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void searchParameterResult() {
-        listParameter.clear();
+        if (txtSearchBG.getText().trim().length() == 0) {
+            bgId = "";
+        }
+        if (txtClient.getText().trim().length() == 0) {
+            clientId = "";
+        }
         fromResult = txtFromResult.getText().trim();
         searchObj.setFromResult(fromResult);
         toResult = txtToResult.getText().trim();
@@ -714,18 +719,14 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         searchObj.setFromAge(fromAge);
         toAge = txtToAge.getText().trim();
         searchObj.setToAge(toAge);
-        if(txtSearchBG.getText().trim().length() == 0){
-            bgId = "";
-        }
-        if(txtClient.getText().trim().length() == 0){
-            clientId = "";
-        }
 
         listParameter = ctlParameterResults.patientPerformedParametersPRD(
                 searchObj);
         if (listParameter.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Sorry, we coudlnt find any data. "
                     + "Kindly contact Administrator.");
+            listParameter.clear();
+            tblParameterList.setModel(new ParameterResultsTableModel(listParameter));
             return;
         }
         tblParameterList.setModel(new ParameterResultsTableModel(listParameter));
