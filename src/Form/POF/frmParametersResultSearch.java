@@ -559,6 +559,8 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         bgId = Constants.lovID;
         txtSearchBG.setText(Constants.lovDescription);
         searchObj.setBgId(bgId);
+
+
     }//GEN-LAST:event_txtSearchBGActionPerformed
 
     private void txtToAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtToAgeActionPerformed
@@ -655,6 +657,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
 
     private void txtFromAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFromAgeActionPerformed
         // TODO add your handling code here:
+        txtToAge.requestFocus();
     }//GEN-LAST:event_txtFromAgeActionPerformed
 
     private void txtFromResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFromResultActionPerformed
@@ -711,6 +714,12 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         searchObj.setFromAge(fromAge);
         toAge = txtToAge.getText().trim();
         searchObj.setToAge(toAge);
+        if(txtSearchBG.getText().trim().length() == 0){
+            bgId = "";
+        }
+        if(txtClient.getText().trim().length() == 0){
+            clientId = "";
+        }
 
         listParameter = ctlParameterResults.patientPerformedParametersPRD(
                 searchObj);
