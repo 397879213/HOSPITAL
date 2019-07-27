@@ -154,6 +154,12 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel81.setText("From Age  : ");
 
+        txtFromAge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFromAgeActionPerformed(evt);
+            }
+        });
+
         jLabel82.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel82.setForeground(new java.awt.Color(102, 0, 0));
         jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -205,6 +211,11 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         });
 
         jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -629,6 +640,15 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         searchParameterResult();
     }//GEN-LAST:event_txtToDateActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        searchParameterResult();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtFromAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFromAgeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFromAgeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
@@ -670,9 +690,13 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
 
     private void searchParameterResult() {
         fromResult = txtFromResult.getText().trim();
+        searchObj.setFromResult(fromResult);
         toResult = txtToResult.getText().trim();
+        searchObj.setToResult(toResult);
         fromAge = txtFromAge.getText().trim();
+        searchObj.setFromAge(fromAge);
         toAge = txtToAge.getText().trim();
+        searchObj.setToAge(toAge);
         
         listParameter = ctlParameterResults.patientPerformedParametersPRD(
         searchObj);
