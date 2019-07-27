@@ -26,6 +26,70 @@ public class ParameterResultsSearchBO {
     private String verifiedtDate = "";
     private String con = "";
     private String odi = "";
+    
+    private String fromDate = "";
+    private String toDate = "";
+    private String bgId = "";
+    private String fromAge = "";
+    private String toAge = "";
+    private String fromResult = "";
+    private String toResult = "";
+
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
+    }
+
+    public String getBgId() {
+        return bgId;
+    }
+
+    public void setBgId(String bgId) {
+        this.bgId = bgId;
+    }
+
+    public String getFromAge() {
+        return fromAge;
+    }
+
+    public void setFromAge(String fromAge) {
+        this.fromAge = fromAge;
+    }
+
+    public String getToAge() {
+        return toAge;
+    }
+
+    public void setToAge(String toAge) {
+        this.toAge = toAge;
+    }
+
+    public String getFromResult() {
+        return fromResult;
+    }
+
+    public void setFromResult(String fromResult) {
+        this.fromResult = fromResult;
+    }
+
+    public String getToResult() {
+        return toResult;
+    }
+
+    public void setToResult(String toResult) {
+        this.toResult = toResult;
+    }
 
     public String getPatientId() {
         return patientId;
