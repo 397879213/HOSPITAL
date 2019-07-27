@@ -666,7 +666,7 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         toResult = txtToResult.getText().trim();
         fromAge = txtFromAge.getText().trim();
         toAge = txtToAge.getText().trim();
-
+        
         listParameter = ctlParameterResults.patientPerformedParametersPRD(
                 fromDate, toDate, fromResult, toResult, parameterId);
         tblParameterList.setModel(new ParameterResultsTableModel(listParameter));
