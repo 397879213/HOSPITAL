@@ -676,6 +676,11 @@ public class frmParametersResultSearch extends javax.swing.JInternalFrame {
         
         listParameter = ctlParameterResults.patientPerformedParametersPRD(
         searchObj);
+        if(listParameter.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Sorry, we coudlnt find any data. "
+                    + "Kindly contact Administrator.");
+            return;
+        }
         tblParameterList.setModel(new ParameterResultsTableModel(listParameter));
         Constants.tablelook.setJTableEnvironment(tblParameterList);
         ListSelectionModel selectionModel = tblParameterList.getSelectionModel();
